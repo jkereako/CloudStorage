@@ -24,8 +24,6 @@
 		36644E641B71261B00B32E90 /* ADDropboxWebServiceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E621B71261B00B32E90 /* ADDropboxWebServiceClient.m */; };
 		36644E681B712AF000B32E90 /* ADUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E671B712AF000B32E90 /* ADUtilities.m */; };
 		36644E691B712AF000B32E90 /* ADUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E671B712AF000B32E90 /* ADUtilities.m */; };
-		36644E6D1B7151DF00B32E90 /* ADNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E6C1B7151DF00B32E90 /* ADNavigationController.m */; };
-		36644E6E1B7151DF00B32E90 /* ADNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E6C1B7151DF00B32E90 /* ADNavigationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,8 +61,6 @@
 		36644E621B71261B00B32E90 /* ADDropboxWebServiceClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADDropboxWebServiceClient.m; sourceTree = "<group>"; };
 		36644E661B712AF000B32E90 /* ADUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADUtilities.h; sourceTree = "<group>"; };
 		36644E671B712AF000B32E90 /* ADUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADUtilities.m; sourceTree = "<group>"; };
-		36644E6B1B7151DF00B32E90 /* ADNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADNavigationController.h; sourceTree = "<group>"; };
-		36644E6C1B7151DF00B32E90 /* ADNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADNavigationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +104,6 @@
 		36644E2B1B711BA400B32E90 /* CloudStorage */ = {
 			isa = PBXGroup;
 			children = (
-				36644E6A1B7151BA00B32E90 /* Navigation */,
 				36644E651B712ADC00B32E90 /* Utilities */,
 				36644E5C1B7123B800B32E90 /* Security */,
 				36644E551B711BFA00B32E90 /* Networking */,
@@ -180,15 +175,6 @@
 				36644E671B712AF000B32E90 /* ADUtilities.m */,
 			);
 			name = Utilities;
-			sourceTree = "<group>";
-		};
-		36644E6A1B7151BA00B32E90 /* Navigation */ = {
-			isa = PBXGroup;
-			children = (
-				36644E6B1B7151DF00B32E90 /* ADNavigationController.h */,
-				36644E6C1B7151DF00B32E90 /* ADNavigationController.m */,
-			);
-			name = Navigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,7 +280,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36644E6D1B7151DF00B32E90 /* ADNavigationController.m in Sources */,
 				36644E321B711BA400B32E90 /* AppDelegate.m in Sources */,
 				36644E681B712AF000B32E90 /* ADUtilities.m in Sources */,
 				36644E631B71261B00B32E90 /* ADDropboxWebServiceClient.m in Sources */,
@@ -314,7 +299,6 @@
 				36644E691B712AF000B32E90 /* ADUtilities.m in Sources */,
 				36644E4C1B711BA500B32E90 /* CloudStorageTests.m in Sources */,
 				36644E641B71261B00B32E90 /* ADDropboxWebServiceClient.m in Sources */,
-				36644E6E1B7151DF00B32E90 /* ADNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

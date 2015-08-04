@@ -12,5 +12,6 @@
 
 + (NSArray *)arrayFromPropertyList:(NSString *)propertyListName __attribute((nonnull));
 + (NSDictionary *)dictionaryFromPropertyList:(NSString *)propertyListName __attribute((nonnull));
++ (NSArray *)appURLSchemes;
 
 @end

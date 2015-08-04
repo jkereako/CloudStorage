@@ -52,4 +52,15 @@
   return items;
 }
 
++ (NSArray *)appURLSchemes {
+  NSArray *urlTypes = [NSBundle mainBundle].infoDictionary[@"CFBundleURLTypes"];
+  NSMutableArray *urlSchemes = [NSMutableArray arrayWithCapacity:urlTypes.count];
+
+  for (NSDictionary *urlType in urlTypes) {
+    [urlSchemes addObject:((NSArray *)urlType[@"CFBundleURLSchemes"]).firstObject];
+  }
+
+  return (NSArray *)urlSchemes;
+}
+
 @end

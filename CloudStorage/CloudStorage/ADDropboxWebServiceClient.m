@@ -8,6 +8,8 @@
 
 #import "ADDropboxWebServiceClient.h"
 #import "ADWebService.h"
+#import "ADUtilities.h"
+
 @import UIKit;
 
 @interface ADDropboxWebServiceClient ()
@@ -52,6 +54,8 @@ static NSString *kDropboxAPIContentHost = @"api-content.dropbox.com";
   self.components.path = @"/1/oauth2/authorize";
 
   NSURLQueryItem *client_id, *response_type, *redirect_uri;
+
+  NSArray *urlSchemes = [ADUtilities appURLSchemes];
 
   // API parameters
   client_id = [NSURLQueryItem queryItemWithName:@"client_id"

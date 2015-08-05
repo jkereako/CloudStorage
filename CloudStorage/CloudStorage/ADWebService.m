@@ -13,9 +13,13 @@
 
 @property (nonatomic, readonly) NSMutableURLRequest *mutableURLRequest;
 
-- (instancetype)initWithURL:(NSURL *)url __attribute((nonnull)) NS_DESIGNATED_INITIALIZER;
-- (BOOL)sendData:(NSData *)data contentType:(NSString *)contentType completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler __attribute((nonnull));
-- (void)handleDataTaskWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler;
+- (instancetype)initWithURL:(NSURL *)url __attribute((nonnull))
+NS_DESIGNATED_INITIALIZER;
+- (BOOL)sendData:(NSData *)data contentType:(NSString *)contentType
+completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler
+__attribute((nonnull));
+- (void)handleDataTaskWithRequest:(NSURLRequest *)request
+                completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler;
 
 @end
 
@@ -67,7 +71,9 @@ static NSURLSession *urlSession;
 
 #pragma mark - Getters
 - (NSURLCredential *)urlCredential {
-  NSAssert(self.urlProtectionSpace, @"\n\n  ERROR in %s: The property \"_urlProtectionSpace\" is nil.\n\n", __PRETTY_FUNCTION__);
+  NSAssert(self.urlProtectionSpace,
+           @"\n\n  ERROR in %s: The property \"_urlProtectionSpace\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
 
   NSURLCredential *urlCredential;
   NSDictionary *credentials;
@@ -77,7 +83,8 @@ static NSURLSession *urlSession;
   urlCredential = [credentials.objectEnumerator nextObject];
 
 #if DEBUG
-  NSLog(@"\n\n  INFO: Username: %@\n  Password: %@.\n\n", urlCredential.user,
+  NSLog(@"\n\n  INFO: Username: %@\n  Password: %@.\n\n",
+        urlCredential.user,
         urlCredential.password);
 #endif
 
@@ -94,6 +101,7 @@ static NSURLSession *urlSession;
                        cachePolicy:NSURLRequestUseProtocolCachePolicy
                        timeoutInterval:60.0];
 
+  // Set request default values.
   [mutableURLRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
   [mutableURLRequest setHTTPMethod:@"GET"];
 
@@ -114,11 +122,15 @@ static NSURLSession *urlSession;
 // Handle authentication challenges.
 // This delegate will be invoked for every TLS connection which has not been
 // verified by a certificate authority (CA).
-- (void)URLSession:(__unused NSURLSession *)session didReceiveChallenge:(__unused NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler {
+- (void)URLSession:(__unused NSURLSession *)session
+didReceiveChallenge:(__unused NSURLAuthenticationChallenge *)challenge
+ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler {
 
   // Allow connection if conditions are met.
   if ([challenge.protectionSpace.host isEqualToString:self.urlProtectionSpace.host]) {
-    NSURLCredential *credential = [NSURLCredential credentialForTrust: challenge.protectionSpace.serverTrust];
+    NSURLCredential *credential;
+    credential = [NSURLCredential
+                  credentialForTrust: challenge.protectionSpace.serverTrust];
     completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
   }
 
@@ -129,20 +141,24 @@ static NSURLSession *urlSession;
 }
 
 #pragma mark - ADWebServiceDelegate
-- (BOOL)sendJSONData:(NSData *)jsonData completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
+- (BOOL)sendJSONData:(NSData *)jsonData
+   completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
   return [self sendData:jsonData
             contentType:@"application/json"
       completionHandler:completionHandler];
 }
 
-- (BOOL)sendHTTPFormData:(NSData *)formData completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
+- (BOOL)sendHTTPFormData:(NSData *)formData
+       completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
   return [self sendData:formData
             contentType:@"application/x-www-form-urlencoded"
       completionHandler:completionHandler];
 }
 
 #pragma mark -
-- (BOOL)sendData:(NSData *)data contentType:(NSString *)contentType completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
+- (BOOL)sendData:(NSData *)data
+     contentType:(NSString *)contentType
+completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
   NSMutableURLRequest *mutableURLRequest = self.mutableURLRequest;
 
   [mutableURLRequest setHTTPMethod:@"POST"];
@@ -157,19 +173,22 @@ static NSURLSession *urlSession;
 
 }
 
-- (BOOL)fetchResourceWithHeaders:(NSDictionary *)headers completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
+- (BOOL)fetchResourceWithHeaders:(NSDictionary *)headers
+               completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
   NSMutableURLRequest *mutableURLRequest = self.mutableURLRequest;
 
   for (NSString *key in headers) {
     [mutableURLRequest setValue:headers[key] forHTTPHeaderField:key];
   }
 
-  [self handleDataTaskWithRequest:mutableURLRequest completionHandler:completionHandler];
+  [self handleDataTaskWithRequest:mutableURLRequest
+                completionHandler:completionHandler];
 
   return YES;
 }
 
-- (void)handleDataTaskWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
+- (void)handleDataTaskWithRequest:(NSURLRequest *)request
+                completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
   NSAssert(urlSession, @"\n\n  ERROR in %s: The property \"_urlSession\" is nil.\n\n", __PRETTY_FUNCTION__);
 
   [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -247,7 +266,7 @@ static NSURLSession *urlSession;
           if (newError) {
             completionHandler(request, response, newError);
           }
-
+          
           // Everything went smoothly.
           else {
             completionHandler(request, result, newError);

@@ -18,7 +18,7 @@ DerivedData
 *.xcuserstate
 
 # Secrets!
-Secrets.plist
+**/Secrets.plist
 
 # CocoaPods
 #

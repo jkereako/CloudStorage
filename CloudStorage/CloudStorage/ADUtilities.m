@@ -63,4 +63,20 @@
   return (NSArray *)urlSchemes;
 }
 
++ (NSURL *)appURI {
+  NSDictionary *appInfo;
+  NSURLComponents *urlComponents;
+  appInfo = ((NSArray *)[NSBundle mainBundle].infoDictionary[@"CFBundleURLTypes"]).firstObject;
+  urlComponents = [NSURLComponents new];
+
+
+
+
+  urlComponents.scheme = ((NSArray *)appInfo[@"CFBundleURLSchemes"]).firstObject;
+  urlComponents.host = appInfo[@"CFBundleURLName"];
+
+  return urlComponents.URL;
+
+}
+
 @end

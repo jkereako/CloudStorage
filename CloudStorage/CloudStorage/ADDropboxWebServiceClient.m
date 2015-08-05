@@ -28,6 +28,9 @@ static NSString *kDropboxAPIContentHost = @"api-content.dropbox.com";
 @implementation ADDropboxWebServiceClient
 
 - (instancetype)initWithAppKey:(NSString *)appKey appSecret:(NSString *)appSecret {
+  NSParameterAssert(appKey);
+  NSParameterAssert(appSecret);
+
   self = [super init];
 
   if (self) {
@@ -55,15 +58,14 @@ static NSString *kDropboxAPIContentHost = @"api-content.dropbox.com";
 
   NSURLQueryItem *client_id, *response_type, *redirect_uri;
 
-  NSArray *urlSchemes = [ADUtilities appURLSchemes];
-
   // API parameters
   client_id = [NSURLQueryItem queryItemWithName:@"client_id"
                                           value:self.appKey];
   response_type = [NSURLQueryItem queryItemWithName:@"response_type"
                                               value:@"token"];
-  redirect_uri = [NSURLQueryItem queryItemWithName:@"redirect_uri"
-                                             value:@"http://localhost"];
+  redirect_uri = [NSURLQueryItem
+                  queryItemWithName:@"redirect_uri"
+                  value:[ADUtilities appURI].absoluteString];
 
   self.components.queryItems = @[client_id, response_type, redirect_uri];
 

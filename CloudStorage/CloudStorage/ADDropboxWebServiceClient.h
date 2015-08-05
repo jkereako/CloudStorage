@@ -12,7 +12,7 @@
 
 @interface ADDropboxWebServiceClient : NSObject
 
-- (instancetype)initWithAppKey:(NSString *)appKey appSecret:(NSString *)appSecret __attribute((nonnull)) NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithAppKey:(NSString *)appKey appSecret:(NSString *)appSecret __attribute((nonnull));
 
 - (void)requestAppAuthorization;
 

@@ -30,10 +30,10 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.alexisdigital.CloudStorage</string>
+			<string>com.alexisdigital.cloudstorage</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>ad-cloud-storage</string>
+				<string>alexis-digital</string>
 			</array>
 		</dict>
 	</array>

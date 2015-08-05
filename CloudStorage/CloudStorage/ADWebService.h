@@ -14,7 +14,7 @@
 
 @property (nonatomic, readonly) NSURL *url;
 @property (nonatomic, readonly) NSURLProtectionSpace *urlProtectionSpace;
-@property (nonatomic, readonly) NSURLCredential *urlCredential;
+@property (nonatomic) NSURLCredential *urlCredential;
 
 - (id)collectionFromJSONData:(NSData *)data error:(__autoreleasing NSError **)error __attribute((nonnull));
 - (BOOL)fetchResourceWithHeaders:(NSDictionary *)headers completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler __attribute((nonnull));

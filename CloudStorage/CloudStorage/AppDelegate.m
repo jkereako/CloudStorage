@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ADDropboxWebServiceClient.h"
 #import "ADUtilities.h"
+#import "ADWebService.h"
 #import "MasterViewController.h"
 
 @interface AppDelegate ()
@@ -54,8 +55,8 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
   return YES;
 }
 
-// This delegate method is invoked when Dropbox invokes the redirect_uri
-// parameter
+// This delegate method is called after the user grants or denies access to his
+// Dropbox account.
 - (BOOL)application:(UIApplication * __unused)application
             openURL:(NSURL *)url
   sourceApplication:(NSString * __unused)sourceApplication
@@ -73,22 +74,74 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
 
   NSString *urlString;
   NSURLComponents *urlComponents;
+  NSArray *queryItems;
+  NSPredicate *accessDeniedPredicate;
   urlString = [url.absoluteString stringByReplacingOccurrencesOfString:@"#"
                                                             withString:@"?"];
   urlComponents = [NSURLComponents componentsWithString:urlString];
+  queryItems = urlComponents.queryItems;
 
-  // As far as I know, the following behavior only applies to Dropbox:
+  // The following are the possible return values from an OAuth2 server
   //
   // Access granted: access_token, token_type, uid
   // Access denied: error_description, error
 
-  for (NSURLQueryItem *queryItem in urlComponents.queryItems) {
-    NSLog(@"%@", queryItem);
+  accessDeniedPredicate = [NSPredicate
+                           predicateWithFormat:@"name=%@ AND value=%@",
+                           @"error", @"access_denied"];
+
+  // If the user denied access, then log it and return from this method.
+  if ([queryItems filteredArrayUsingPredicate:accessDeniedPredicate].count) {
+    NSLog(@"The user denied access");
+    return YES;
   }
 
+  NSPredicate *statePredicate = [NSPredicate predicateWithFormat:@"name=%@", @"state"];
+  NSURLQueryItem *state = [queryItems
+                           filteredArrayUsingPredicate:statePredicate].firstObject;
+
+  NSURL *aURL = [NSURL URLWithString:state.value];
+
+  NSAssert(aURL, @"\n\n  ERROR in %s: The variable \"aURL\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
+  ADWebService *webService = [ADWebService webServiceWithURL:aURL];
+  NSPredicate *accessTokenPredicate = [NSPredicate
+                                       predicateWithFormat:@"name=%@", @"access_token"];
+  NSURLQueryItem *accessToken = [queryItems
+                                 filteredArrayUsingPredicate:accessTokenPredicate].firstObject;
+
+  // This assertion ought to pass, always. But, in the off chance it fails, we
+  // will catch the error immediately.
+  NSAssert(accessToken,
+           @"\n\n  ERROR in %s: The variable \"accessToken\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
+  // Does a credential already exist and is does it match the new access token?
+  // NOTE: Since Objective-C allows us to pass messages to nil, we don't have to
+  // test the property `urlCredential` for nil.
+  if ([webService.urlCredential.password isEqualToString:accessToken.value]) {
+    return YES;
+  }
+
+  // Create a new URL credential and save it
+  NSURLCredential *urlCredential;
+
+  NSPredicate *userIDPredicate = [NSPredicate predicateWithFormat:@"name=%@",
+                                  @"uid"];
+  NSURLQueryItem *userID = [queryItems
+                            filteredArrayUsingPredicate:userIDPredicate].firstObject;
+
+
+  urlCredential = [NSURLCredential
+                   credentialWithUser:userID.value
+                   password:accessToken.value
+                   persistence:NSURLCredentialPersistencePermanent];
+
+  // Save the new URL credential
+  webService.urlCredential = urlCredential;
 
   return YES;
-  
 }
 
 @end

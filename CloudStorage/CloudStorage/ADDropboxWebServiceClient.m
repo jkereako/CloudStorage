@@ -56,19 +56,31 @@ static NSString *kDropboxAPIContentHost = @"api-content.dropbox.com";
   self.components.host = kDropboxWebHost;
   self.components.path = @"/1/oauth2/authorize";
 
-  NSURLQueryItem *client_id, *response_type, *redirect_uri;
+  // These parameters are defined by OAuth2 specifications
+  NSURLQueryItem *client_id, *response_type, *redirect_uri, *state;
 
-  // API parameters
+  // The unique identiier of the Dropbox app
   client_id = [NSURLQueryItem queryItemWithName:@"client_id"
                                           value:self.appKey];
+
+  // Sends an access token if permission to access the user's Dropbox is granted
   response_type = [NSURLQueryItem queryItemWithName:@"response_type"
                                               value:@"token"];
+
+  // Tells the OAuth2 server to redirect back to this app
   redirect_uri = [NSURLQueryItem
                   queryItemWithName:@"redirect_uri"
                   value:[ADUtilities appURI].absoluteString];
 
-  self.components.queryItems = @[client_id, response_type, redirect_uri];
+  // The argument of parameter `state` will be passed back to this app as-is.
+  // It's a simply method to uniquely identify that the response came from
+  // Dropbox.
+  state = [NSURLQueryItem queryItemWithName:@"state"
+                                      value:self.components.string];
 
+  self.components.queryItems = @[client_id, response_type, redirect_uri, state];
+
+  // All HTTP and HTTPs schemes will open Safari
   [[UIApplication sharedApplication] openURL:self.components.URL];
 }
 

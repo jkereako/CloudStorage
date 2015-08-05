@@ -27,6 +27,8 @@ static NSURLSession *urlSession;
 
 @implementation ADWebService
 
+@synthesize urlCredential = _urlCredential;
+
 #pragma mark -
 + (instancetype)webServiceWithURL:(NSURL *)url {
   ADWebService *instance = [[[self class] alloc] initWithURL:url];
@@ -58,6 +60,8 @@ static NSURLSession *urlSession;
 
   if (self) {
     _url = url;
+    // The URL protection space is scoped by host, so we can use NSURLCredential
+    // to store an OAuth2 access token. 
     _urlProtectionSpace = [[NSURLProtectionSpace alloc]
                            initWithHost:_url.host
                            port:[_url.port integerValue]
@@ -107,6 +111,28 @@ static NSURLSession *urlSession;
 
   return mutableURLRequest;
 }
+
+#pragma mark - Setters
+/**
+ Fetch an NSURLCredential from the keychain and set it to the property _credential.
+ @param urlCredential NSURLCredential *
+ @since 1.0
+ @author Jeff Kereakoglow
+ */
+- (void)setUrlCredential:(NSURLCredential *)urlCredential {
+  NSParameterAssert(urlCredential);
+  NSAssert(self.urlProtectionSpace,
+           @"\n\n  ERROR in %s: The property \"_urlProtectionSpace\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
+  // Assign the credential to the Keychain
+  [[NSURLCredentialStorage sharedCredentialStorage] setCredential:urlCredential
+                                               forProtectionSpace:self.urlProtectionSpace];
+
+  _urlCredential = urlCredential;
+  
+}
+
 
 #pragma mark -
 - (id)collectionFromJSONData:(NSData *)data error:(__autoreleasing NSError **)error {

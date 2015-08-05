@@ -17,6 +17,8 @@
  @author Jeff Kereakoglow
  */
 + (NSDictionary *)dictionaryFromPropertyList:(NSString *)propertyListName {
+  NSParameterAssert(propertyListName);
+  
   NSString* resourcePath = [[NSBundle mainBundle] pathForResource:propertyListName
                                                            ofType:@"plist"];
 
@@ -38,6 +40,7 @@
  @author Jeff Kereakoglow
  */
 + (NSArray *)arrayFromPropertyList:(NSString *)propertyListName {
+  NSParameterAssert(propertyListName);
   NSString* resourcePath = [[NSBundle mainBundle] pathForResource:propertyListName
                                                            ofType:@"plist"];
 
@@ -52,31 +55,15 @@
   return items;
 }
 
-+ (NSArray *)appURLSchemes {
-  NSArray *urlTypes = [NSBundle mainBundle].infoDictionary[@"CFBundleURLTypes"];
-  NSMutableArray *urlSchemes = [NSMutableArray arrayWithCapacity:urlTypes.count];
-
-  for (NSDictionary *urlType in urlTypes) {
-    [urlSchemes addObject:((NSArray *)urlType[@"CFBundleURLSchemes"]).firstObject];
-  }
-
-  return (NSArray *)urlSchemes;
-}
-
 + (NSURL *)appURI {
   NSDictionary *appInfo;
   NSURLComponents *urlComponents;
   appInfo = ((NSArray *)[NSBundle mainBundle].infoDictionary[@"CFBundleURLTypes"]).firstObject;
   urlComponents = [NSURLComponents new];
-
-
-
-
   urlComponents.scheme = ((NSArray *)appInfo[@"CFBundleURLSchemes"]).firstObject;
   urlComponents.host = appInfo[@"CFBundleURLName"];
 
   return urlComponents.URL;
-
 }
 
 @end

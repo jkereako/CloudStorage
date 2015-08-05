@@ -16,8 +16,6 @@
 		36644E401B711BA400B32E90 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36644E3E1B711BA400B32E90 /* LaunchScreen.xib */; };
 		36644E4C1B711BA500B32E90 /* CloudStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E4B1B711BA500B32E90 /* CloudStorageTests.m */; };
 		36644E581B711CB200B32E90 /* ADWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E571B711CB200B32E90 /* ADWebService.m */; };
-		36644E5F1B7123F700B32E90 /* ADKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E5E1B7123F700B32E90 /* ADKeychain.m */; };
-		36644E601B7123F700B32E90 /* ADKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E5E1B7123F700B32E90 /* ADKeychain.m */; };
 		36644E631B71261B00B32E90 /* ADDropboxWebServiceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E621B71261B00B32E90 /* ADDropboxWebServiceClient.m */; };
 		36644E641B71261B00B32E90 /* ADDropboxWebServiceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E621B71261B00B32E90 /* ADDropboxWebServiceClient.m */; };
 		36644E681B712AF000B32E90 /* ADUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E671B712AF000B32E90 /* ADUtilities.m */; };
@@ -54,8 +52,6 @@
 		36644E4B1B711BA500B32E90 /* CloudStorageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudStorageTests.m; sourceTree = "<group>"; };
 		36644E561B711CB200B32E90 /* ADWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADWebService.h; sourceTree = "<group>"; };
 		36644E571B711CB200B32E90 /* ADWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADWebService.m; sourceTree = "<group>"; };
-		36644E5D1B7123F700B32E90 /* ADKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADKeychain.h; sourceTree = "<group>"; };
-		36644E5E1B7123F700B32E90 /* ADKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADKeychain.m; sourceTree = "<group>"; };
 		36644E611B71261B00B32E90 /* ADDropboxWebServiceClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADDropboxWebServiceClient.h; sourceTree = "<group>"; };
 		36644E621B71261B00B32E90 /* ADDropboxWebServiceClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADDropboxWebServiceClient.m; sourceTree = "<group>"; };
 		36644E661B712AF000B32E90 /* ADUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADUtilities.h; sourceTree = "<group>"; };
@@ -105,7 +101,6 @@
 			isa = PBXGroup;
 			children = (
 				36644E651B712ADC00B32E90 /* Utilities */,
-				36644E5C1B7123B800B32E90 /* Security */,
 				36644E551B711BFA00B32E90 /* Networking */,
 				36644E301B711BA400B32E90 /* AppDelegate.h */,
 				36644E311B711BA400B32E90 /* AppDelegate.m */,
@@ -157,15 +152,6 @@
 				36644E621B71261B00B32E90 /* ADDropboxWebServiceClient.m */,
 			);
 			name = Networking;
-			sourceTree = "<group>";
-		};
-		36644E5C1B7123B800B32E90 /* Security */ = {
-			isa = PBXGroup;
-			children = (
-				36644E5D1B7123F700B32E90 /* ADKeychain.h */,
-				36644E5E1B7123F700B32E90 /* ADKeychain.m */,
-			);
-			name = Security;
 			sourceTree = "<group>";
 		};
 		36644E651B712ADC00B32E90 /* Utilities */ = {
@@ -286,7 +272,6 @@
 				36644E351B711BA400B32E90 /* MasterViewController.m in Sources */,
 				36644E581B711CB200B32E90 /* ADWebService.m in Sources */,
 				36644E2F1B711BA400B32E90 /* main.m in Sources */,
-				36644E5F1B7123F700B32E90 /* ADKeychain.m in Sources */,
 				36644E381B711BA400B32E90 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,7 +280,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36644E601B7123F700B32E90 /* ADKeychain.m in Sources */,
 				36644E691B712AF000B32E90 /* ADUtilities.m in Sources */,
 				36644E4C1B711BA500B32E90 /* CloudStorageTests.m in Sources */,
 				36644E641B71261B00B32E90 /* ADDropboxWebServiceClient.m in Sources */,

@@ -10,11 +10,10 @@
 #import "ADDropboxWebServiceClient.h"
 #import "ADUtilities.h"
 #import "ADWebService.h"
+#import "ADStore.h"
+#import "Service.h"
+#import "ADPersistentStack.h"
 #import "MasterViewController.h"
-
-@interface AppDelegate ()
-
-@end
 
 @implementation AppDelegate
 
@@ -36,8 +35,15 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
            @"\n\n  ERROR in %s: The top view controller of the navigation controller is not an instance of \"MasterViewController\".\n\n",
            __PRETTY_FUNCTION__);
 
+  //-- Persistence --
+  ADStore *store = [ADStore new];
+  ADPersistentStack *persistentStack = [[ADPersistentStack alloc] initWithStoreURL:store.storeURL
+                                                                          modelURL:store.modelURL];
+  NSManagedObjectContext *moc = persistentStack.managedObjectContext;
+
   MasterViewController *firstViewController;
   firstViewController = (MasterViewController *)rootViewController.viewControllers.firstObject;
+  firstViewController.managedObjectContext = persistentStack.managedObjectContext;
 
   // The code below initializes properties which will be shared by several
   // objects throughout the life of the app. The alternate approach to this
@@ -51,6 +57,15 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
 
   firstViewController.dropboxWebServiceClient = dropbox;
 
+  // Search for the Dropbox service object in the persistent store. If it
+  // doesn't already exist, then create it.
+  Service *dropboxService = [store findServiceWithName:@"Dropbox"
+                                inManagedObjectContext:moc];
+  if (!dropboxService) {
+    dropboxService = [store serviceForManagedObjectContext:moc];
+    dropboxService.name = @"Dropbox";
+    dropboxService.isLinked = [NSNumber numberWithBool:dropbox.isAuthorized];
+  }
   // Override point for customization after application launch.
   return YES;
 }
@@ -142,6 +157,31 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
   webService.urlCredential = urlCredential;
 
   return YES;
+}
+
+// Save the managed object context when the app enters the background. This
+// occurs when the user hits the Home button.
+- (void)applicationDidEnterBackground:(UIApplication * __unused)application {
+  // Sanity check.
+  NSAssert([self.window.rootViewController
+            isKindOfClass:[UINavigationController class]],
+           @"\n\n  ERROR in %s: The root view controller is not an instance of \"UINavigationController\". Make sure the property \"Is Initial View Controller\" is checked in Interface Builder\n\n",
+           __PRETTY_FUNCTION__);
+
+  UINavigationController *rootViewController;
+  rootViewController = (UINavigationController *)self.window.rootViewController;
+
+  // Sanity check.
+  NSAssert([rootViewController.viewControllers.firstObject
+            isKindOfClass:[MasterViewController class]],
+           @"\n\n  ERROR in %s: The top view controller of the navigation controller is not an instance of \"MasterViewController\".\n\n",
+           __PRETTY_FUNCTION__);
+
+  MasterViewController *firstViewController;
+  firstViewController = (MasterViewController *)rootViewController.viewControllers.firstObject;
+
+  // Save the changes, if any exist, to the persistent store.
+  [ADStore saveContext:firstViewController.managedObjectContext];
 }
 
 @end

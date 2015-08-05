@@ -12,6 +12,7 @@
 
 @interface MasterViewController : UITableViewController
 
+@property (nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic) ADDropboxWebServiceClient *dropboxWebServiceClient;
 
 @end

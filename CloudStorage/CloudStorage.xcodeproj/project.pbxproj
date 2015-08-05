@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36630D6E1B7294E000721414 /* ADTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D6D1B7294E000721414 /* ADTableViewCell.m */; };
+		36630D751B7297F600721414 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 36630D731B7297F600721414 /* Model.xcdatamodeld */; };
+		36630D761B7297F600721414 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 36630D731B7297F600721414 /* Model.xcdatamodeld */; };
+		36630D7A1B7298DB00721414 /* ADPersistentStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D791B7298DB00721414 /* ADPersistentStack.m */; };
+		36630D7B1B7298DB00721414 /* ADPersistentStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D791B7298DB00721414 /* ADPersistentStack.m */; };
+		36630D7E1B7299B700721414 /* ADStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D7D1B7299B700721414 /* ADStore.m */; };
+		36630D7F1B7299B700721414 /* ADStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D7D1B7299B700721414 /* ADStore.m */; };
+		36630D821B729B6800721414 /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D811B729B6800721414 /* Service.m */; };
+		36630D831B729B6800721414 /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D811B729B6800721414 /* Service.m */; };
 		36644E2F1B711BA400B32E90 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E2E1B711BA400B32E90 /* main.m */; };
 		36644E321B711BA400B32E90 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E311B711BA400B32E90 /* AppDelegate.m */; };
 		36644E351B711BA400B32E90 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E341B711BA400B32E90 /* MasterViewController.m */; };
@@ -35,6 +44,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		36630D6C1B7294E000721414 /* ADTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADTableViewCell.h; sourceTree = "<group>"; };
+		36630D6D1B7294E000721414 /* ADTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADTableViewCell.m; sourceTree = "<group>"; };
+		36630D741B7297F600721414 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		36630D781B7298DB00721414 /* ADPersistentStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPersistentStack.h; sourceTree = "<group>"; };
+		36630D791B7298DB00721414 /* ADPersistentStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPersistentStack.m; sourceTree = "<group>"; };
+		36630D7C1B7299B700721414 /* ADStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADStore.h; sourceTree = "<group>"; };
+		36630D7D1B7299B700721414 /* ADStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADStore.m; sourceTree = "<group>"; };
+		36630D801B729B6800721414 /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
+		36630D811B729B6800721414 /* Service.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Service.m; sourceTree = "<group>"; };
 		36644E291B711BA400B32E90 /* CloudStorage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudStorage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36644E2D1B711BA400B32E90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36644E2E1B711BA400B32E90 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -77,6 +95,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		36630D6B1B7294C700721414 /* View controllers */ = {
+			isa = PBXGroup;
+			children = (
+				36644E331B711BA400B32E90 /* MasterViewController.h */,
+				36644E341B711BA400B32E90 /* MasterViewController.m */,
+				36644E361B711BA400B32E90 /* DetailViewController.h */,
+				36644E371B711BA400B32E90 /* DetailViewController.m */,
+				36630D6C1B7294E000721414 /* ADTableViewCell.h */,
+				36630D6D1B7294E000721414 /* ADTableViewCell.m */,
+			);
+			name = "View controllers";
+			sourceTree = "<group>";
+		};
+		36630D771B7298A500721414 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				36630D731B7297F600721414 /* Model.xcdatamodeld */,
+				36630D781B7298DB00721414 /* ADPersistentStack.h */,
+				36630D791B7298DB00721414 /* ADPersistentStack.m */,
+				36630D7C1B7299B700721414 /* ADStore.h */,
+				36630D7D1B7299B700721414 /* ADStore.m */,
+				36630D801B729B6800721414 /* Service.h */,
+				36630D811B729B6800721414 /* Service.m */,
+			);
+			name = Persistence;
+			sourceTree = "<group>";
+		};
 		36644E201B711BA400B32E90 = {
 			isa = PBXGroup;
 			children = (
@@ -100,14 +145,12 @@
 		36644E2B1B711BA400B32E90 /* CloudStorage */ = {
 			isa = PBXGroup;
 			children = (
+				36630D771B7298A500721414 /* Persistence */,
+				36630D6B1B7294C700721414 /* View controllers */,
 				36644E651B712ADC00B32E90 /* Utilities */,
 				36644E551B711BFA00B32E90 /* Networking */,
 				36644E301B711BA400B32E90 /* AppDelegate.h */,
 				36644E311B711BA400B32E90 /* AppDelegate.m */,
-				36644E331B711BA400B32E90 /* MasterViewController.h */,
-				36644E341B711BA400B32E90 /* MasterViewController.m */,
-				36644E361B711BA400B32E90 /* DetailViewController.h */,
-				36644E371B711BA400B32E90 /* DetailViewController.m */,
 				36644E391B711BA400B32E90 /* Main.storyboard */,
 				36644E3C1B711BA400B32E90 /* Images.xcassets */,
 				36644E3E1B711BA400B32E90 /* LaunchScreen.xib */,
@@ -266,11 +309,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36630D7A1B7298DB00721414 /* ADPersistentStack.m in Sources */,
 				36644E321B711BA400B32E90 /* AppDelegate.m in Sources */,
 				36644E681B712AF000B32E90 /* ADUtilities.m in Sources */,
 				36644E631B71261B00B32E90 /* ADDropboxWebServiceClient.m in Sources */,
 				36644E351B711BA400B32E90 /* MasterViewController.m in Sources */,
+				36630D821B729B6800721414 /* Service.m in Sources */,
+				36630D6E1B7294E000721414 /* ADTableViewCell.m in Sources */,
+				36630D751B7297F600721414 /* Model.xcdatamodeld in Sources */,
 				36644E581B711CB200B32E90 /* ADWebService.m in Sources */,
+				36630D7E1B7299B700721414 /* ADStore.m in Sources */,
 				36644E2F1B711BA400B32E90 /* main.m in Sources */,
 				36644E381B711BA400B32E90 /* DetailViewController.m in Sources */,
 			);
@@ -280,9 +328,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36630D7B1B7298DB00721414 /* ADPersistentStack.m in Sources */,
 				36644E691B712AF000B32E90 /* ADUtilities.m in Sources */,
 				36644E4C1B711BA500B32E90 /* CloudStorageTests.m in Sources */,
 				36644E641B71261B00B32E90 /* ADDropboxWebServiceClient.m in Sources */,
+				36630D7F1B7299B700721414 /* ADStore.m in Sources */,
+				36630D831B729B6800721414 /* Service.m in Sources */,
+				36630D761B7297F600721414 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +433,7 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -446,6 +499,7 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -539,6 +593,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		36630D731B7297F600721414 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				36630D741B7297F600721414 /* Model.xcdatamodel */,
+			);
+			currentVersion = 36630D741B7297F600721414 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 36644E211B711BA400B32E90 /* Project object */;
 }

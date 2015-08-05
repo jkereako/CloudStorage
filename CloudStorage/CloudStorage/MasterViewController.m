@@ -44,7 +44,6 @@
   }
   else {
     NSLog(@"\n\n The user has authorized the app!\n\n");
-    [self.dropboxWebServiceClient dropboxAccountInfo];
   }
 }
 

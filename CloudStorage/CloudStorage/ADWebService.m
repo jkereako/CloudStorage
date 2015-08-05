@@ -30,6 +30,8 @@ static NSURLSession *urlSession;
 
 #pragma mark -
 + (instancetype)webServiceWithURL:(NSURL *)url {
+  NSParameterAssert(url);
+  
   ADWebService *instance = [[[self class] alloc] initWithURL:url];
 
   if(!urlSession) {
@@ -55,14 +57,30 @@ static NSURLSession *urlSession;
 }
 
 - (instancetype)initWithURL:(NSURL *)url {
+  NSParameterAssert(url);
+
   self = [super init];
 
   if (self) {
+    NSArray *urlComponents;
+    NSString *domain;
+    // The property `host` of `NSURL` returns the domain and the subdomain. The
+    // routine below retrieves just the domain. However, this routine will not
+    // work with co.uk domains. But who cares?
+    urlComponents = [url.host componentsSeparatedByString:@"."];
+    domain = [[urlComponents
+               subarrayWithRange:NSMakeRange(urlComponents.count - 2, 2)]
+              componentsJoinedByString:@"."];
+
+    NSAssert(domain,
+             @"\n\n  ERROR in %s: The variable \"domain\" is nil.\n\n",
+             __PRETTY_FUNCTION__);
+
     _url = url;
     // The URL protection space is scoped by host, so we can use NSURLCredential
     // to store an OAuth2 access token. 
     _urlProtectionSpace = [[NSURLProtectionSpace alloc]
-                           initWithHost:_url.host
+                           initWithHost:domain
                            port:[_url.port integerValue]
                            protocol:_url.scheme
                            realm:nil
@@ -166,8 +184,8 @@ static NSURLSession *urlSession;
 didReceiveChallenge:(__unused NSURLAuthenticationChallenge *)challenge
  completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler {
 
-  // Allow connection if conditions are met.
-  if ([challenge.protectionSpace.host isEqualToString:self.urlProtectionSpace.host]) {
+  // Allow connection if the domains match
+  if ([challenge.protectionSpace.host rangeOfString:self.urlProtectionSpace.host].location != NSNotFound) {
     NSURLCredential *credential;
     credential = [NSURLCredential
                   credentialForTrust: challenge.protectionSpace.serverTrust];

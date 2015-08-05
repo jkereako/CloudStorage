@@ -20,10 +20,10 @@
 
 @end
 
-// Constants
-static NSString *kDropboxWebHost = @"www.dropbox.com";
-static NSString *kDropboxAPIHost = @"api.dropbox.com";
-static NSString *kDropboxAPIContentHost = @"api-content.dropbox.com";
+#pragma mark - Constants
+static NSString *const kDropboxWebHost = @"www.dropbox.com";
+static NSString *const kDropboxAPIHost = @"api.dropbox.com";
+static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
 
 @implementation ADDropboxWebServiceClient
 
@@ -40,6 +40,23 @@ static NSString *kDropboxAPIContentHost = @"api-content.dropbox.com";
     _components.scheme = @"https";
   }
   return self;
+}
+
+#pragma mark - Getters
+- (BOOL)isAuthorized {
+  NSAssert(self.components,
+           @"\n\n  ERROR in %s: The property \"_components\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
+  ADWebService *webService;
+  self.components.host = kDropboxWebHost;
+
+  webService = [ADWebService webServiceWithURL:self.components.URL];
+
+  // If the password property is nil, then the we don't have the user's
+  // permission. Otherwise, we must assume we do have his permission even if the
+  // access token has expired.
+  return webService.urlCredential.password ? YES : NO;
 }
 
 /**
@@ -82,6 +99,27 @@ static NSString *kDropboxAPIContentHost = @"api-content.dropbox.com";
 
   // All HTTP and HTTPs schemes will open Safari
   [[UIApplication sharedApplication] openURL:self.components.URL];
+}
+
+- (void)dropboxAccountInfo {
+  NSAssert(self.components,
+           @"\n\n  ERROR in %s: The property \"_components\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
+  ADWebService *webService;
+  self.components.host = kDropboxAPIHost;
+  self.components.path = @"/1/account/info";
+
+  NSURLQueryItem *locale;
+  locale = [NSURLQueryItem queryItemWithName:@"locale" value:@"en-US"];
+  self.components.queryItems = @[locale];
+  webService = [ADWebService webServiceWithURL:self.components.URL];
+
+  [webService getResource:
+   ^(NSURLRequest *request, NSDictionary *response, NSError * __unused error) {
+     NSLog(@"%@", request);
+     NSLog(@"%@", response);
+   }];
 }
 
 @end

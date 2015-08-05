@@ -14,6 +14,9 @@
 
 - (instancetype)initWithAppKey:(NSString *)appKey appSecret:(NSString *)appSecret __attribute((nonnull));
 
+@property (nonatomic, readonly, getter=isAuthorized) BOOL authorized;
+
 - (void)requestAppAuthorization;
+- (void)dropboxAccountInfo;
 
 @end

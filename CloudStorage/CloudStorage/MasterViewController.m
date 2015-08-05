@@ -39,7 +39,13 @@
 
   [super viewDidAppear:animated];
 
-  [self.dropboxWebServiceClient requestAppAuthorization];
+  if (!self.dropboxWebServiceClient.isAuthorized) {
+    [self.dropboxWebServiceClient requestAppAuthorization];
+  }
+  else {
+    NSLog(@"\n\n The user has authorized the app!\n\n");
+    [self.dropboxWebServiceClient dropboxAccountInfo];
+  }
 }
 
 

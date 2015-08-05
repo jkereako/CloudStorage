@@ -13,7 +13,7 @@
 #import "ADStore.h"
 #import "Service.h"
 #import "ADPersistentStack.h"
-#import "MasterViewController.h"
+#import "ADServicesTableViewController.h"
 
 @implementation AppDelegate
 
@@ -31,7 +31,7 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
 
   // Sanity check.
   NSAssert([rootViewController.viewControllers.firstObject
-            isKindOfClass:[MasterViewController class]],
+            isKindOfClass:[ADServicesTableViewController class]],
            @"\n\n  ERROR in %s: The top view controller of the navigation controller is not an instance of \"MasterViewController\".\n\n",
            __PRETTY_FUNCTION__);
 
@@ -41,8 +41,8 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
                                                                           modelURL:store.modelURL];
   NSManagedObjectContext *moc = persistentStack.managedObjectContext;
 
-  MasterViewController *firstViewController;
-  firstViewController = (MasterViewController *)rootViewController.viewControllers.firstObject;
+  ADServicesTableViewController *firstViewController;
+  firstViewController = (ADServicesTableViewController *)rootViewController.viewControllers.firstObject;
   firstViewController.managedObjectContext = persistentStack.managedObjectContext;
 
   // The code below initializes properties which will be shared by several
@@ -173,12 +173,12 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
 
   // Sanity check.
   NSAssert([rootViewController.viewControllers.firstObject
-            isKindOfClass:[MasterViewController class]],
+            isKindOfClass:[ADServicesTableViewController class]],
            @"\n\n  ERROR in %s: The top view controller of the navigation controller is not an instance of \"MasterViewController\".\n\n",
            __PRETTY_FUNCTION__);
 
-  MasterViewController *firstViewController;
-  firstViewController = (MasterViewController *)rootViewController.viewControllers.firstObject;
+  ADServicesTableViewController *firstViewController;
+  firstViewController = (ADServicesTableViewController *)rootViewController.viewControllers.firstObject;
 
   // Save the changes, if any exist, to the persistent store.
   [ADStore saveContext:firstViewController.managedObjectContext];

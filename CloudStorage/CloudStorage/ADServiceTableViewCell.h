@@ -8,6 +8,10 @@
 
 @import UIKit;
 
-@interface ADTableViewCell : UITableViewCell
+@class Service;
+
+@interface ADServiceTableViewCell : UITableViewCell
+
+@property (nonatomic) Service *service;
 
 @end

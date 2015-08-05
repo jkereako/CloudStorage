@@ -10,7 +10,7 @@
 
 @class ADDropboxWebServiceClient;
 
-@interface MasterViewController : UITableViewController
+@interface ADServicesTableViewController : UITableViewController
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic) ADDropboxWebServiceClient *dropboxWebServiceClient;

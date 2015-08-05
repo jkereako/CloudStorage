@@ -24,6 +24,8 @@
 		36644E641B71261B00B32E90 /* ADDropboxWebServiceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E621B71261B00B32E90 /* ADDropboxWebServiceClient.m */; };
 		36644E681B712AF000B32E90 /* ADUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E671B712AF000B32E90 /* ADUtilities.m */; };
 		36644E691B712AF000B32E90 /* ADUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E671B712AF000B32E90 /* ADUtilities.m */; };
+		629B5CEC1B71B1A100D5946B /* Secrets.example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 629B5CEB1B71B1A100D5946B /* Secrets.example.plist */; };
+		629B5CED1B71B1A100D5946B /* Secrets.example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 629B5CEB1B71B1A100D5946B /* Secrets.example.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,7 @@
 		36644E621B71261B00B32E90 /* ADDropboxWebServiceClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADDropboxWebServiceClient.m; sourceTree = "<group>"; };
 		36644E661B712AF000B32E90 /* ADUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADUtilities.h; sourceTree = "<group>"; };
 		36644E671B712AF000B32E90 /* ADUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADUtilities.m; sourceTree = "<group>"; };
+		629B5CEB1B71B1A100D5946B /* Secrets.example.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.example.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +119,7 @@
 				36644E391B711BA400B32E90 /* Main.storyboard */,
 				36644E3C1B711BA400B32E90 /* Images.xcassets */,
 				36644E3E1B711BA400B32E90 /* LaunchScreen.xib */,
+				629B5CEB1B71B1A100D5946B /* Secrets.example.plist */,
 				36644E591B7120E300B32E90 /* Secrets.plist */,
 				36644E2C1B711BA400B32E90 /* Supporting Files */,
 			);
@@ -259,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				36644E5A1B7120E300B32E90 /* Secrets.plist in Resources */,
+				629B5CEC1B71B1A100D5946B /* Secrets.example.plist in Resources */,
 				36644E3B1B711BA400B32E90 /* Main.storyboard in Resources */,
 				36644E401B711BA400B32E90 /* LaunchScreen.xib in Resources */,
 				36644E3D1B711BA400B32E90 /* Images.xcassets in Resources */,
@@ -269,6 +274,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				629B5CED1B71B1A100D5946B /* Secrets.example.plist in Resources */,
 				36644E5B1B7120E300B32E90 /* Secrets.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,6 +423,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CloudStorage/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -427,6 +434,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CloudStorage/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -485,6 +493,7 @@
 				36644E511B711BA500B32E90 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		36644E521B711BA500B32E90 /* Build configuration list for PBXNativeTarget "CloudStorageTests" */ = {
 			isa = XCConfigurationList;
@@ -493,6 +502,7 @@
 				36644E541B711BA500B32E90 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -17,8 +17,8 @@
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application
-didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication * __unused)application
+didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
 
   // Sanity check.
   NSAssert([self.window.rootViewController
@@ -56,10 +56,10 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
 // This delegate method is invoked when Dropbox invokes the redirect_uri
 // parameter
-- (BOOL)application:(UIApplication *)application
+- (BOOL)application:(UIApplication * __unused)application
             openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation {
+  sourceApplication:(NSString * __unused)sourceApplication
+         annotation:(id __unused)annotation {
 
   // What's this garbage?
   // Dropbox appends data as a URL fragment onto the redirect URI parameter of

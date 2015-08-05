@@ -24,12 +24,13 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wgnu"
 - (void)testExample {
     // This is an example of a functional test case.
     XCTAssert(YES, @"Pass");
 }
-
+#pragma GCC diagnostic pop
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{

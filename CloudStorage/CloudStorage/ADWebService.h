@@ -17,8 +17,13 @@
 @property (nonatomic) NSURLCredential *urlCredential;
 
 - (id)collectionFromJSONData:(NSData *)data error:(__autoreleasing NSError **)error __attribute((nonnull));
-- (BOOL)fetchResourceWithHeaders:(NSDictionary *)headers completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler __attribute((nonnull));
-- (BOOL)sendHTTPFormData:(NSData *)formData completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler __attribute((nonnull));
-- (BOOL)sendJSONData:(NSData *)jsonData completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler __attribute((nonnull));
+
+- (void)getResource:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler;
+- (void)postData:(NSData *)data
+     contentType:(NSString *)contentType
+completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler;
+- (void)putData:(NSData *)data
+    contentType:(NSString *)contentType
+completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler;
 
 @end

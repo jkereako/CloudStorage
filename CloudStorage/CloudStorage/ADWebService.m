@@ -12,13 +12,11 @@
 @interface ADWebService ()
 
 @property (nonatomic, readonly) NSMutableURLRequest *mutableURLRequest;
+@property (nonatomic, readonly) NSString *authorizationHeaderValue;
 
 - (instancetype)initWithURL:(NSURL *)url __attribute((nonnull))
 NS_DESIGNATED_INITIALIZER;
-- (BOOL)sendData:(NSData *)data contentType:(NSString *)contentType
-completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler
-__attribute((nonnull));
-- (void)handleDataTaskWithRequest:(NSURLRequest *)request
+- (void)handleDataTaskWithRequest:(NSMutableURLRequest *)request
                 completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler;
 
 @end
@@ -28,6 +26,7 @@ static NSURLSession *urlSession;
 @implementation ADWebService
 
 @synthesize urlCredential = _urlCredential;
+@synthesize authorizationHeaderValue = _authorizationHeaderValue;
 
 #pragma mark -
 + (instancetype)webServiceWithURL:(NSURL *)url {
@@ -95,6 +94,22 @@ static NSURLSession *urlSession;
   return urlCredential;
 }
 
+/**
+ Appends the access token onto the string "Bearer"
+ */
+- (NSString *) authorizationHeaderValue {
+  NSAssert(self.urlCredential.password,
+           @"\n\n  ERROR in %s: The property \"_password\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
+  if (!_authorizationHeaderValue) {
+    _authorizationHeaderValue = [NSString stringWithFormat:@"Bearer %@",
+                                 self.urlCredential.password];
+  }
+
+  return _authorizationHeaderValue;
+}
+
 - (NSMutableURLRequest *)mutableURLRequest {
   NSAssert(self.url, @"\n\n  ERROR in %s: The property \"_url\" is nil.\n\n",
            __PRETTY_FUNCTION__);
@@ -133,7 +148,6 @@ static NSURLSession *urlSession;
   
 }
 
-
 #pragma mark -
 - (id)collectionFromJSONData:(NSData *)data error:(__autoreleasing NSError **)error {
   id result = [NSJSONSerialization JSONObjectWithData:data
@@ -166,60 +180,52 @@ didReceiveChallenge:(__unused NSURLAuthenticationChallenge *)challenge
   }
 }
 
-#pragma mark - ADWebServiceDelegate
-- (BOOL)sendJSONData:(NSData *)jsonData
-   completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
-  return [self sendData:jsonData
-            contentType:@"application/json"
-      completionHandler:completionHandler];
+#pragma mark - REST requests
+- (void)getResource:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
+  [self handleDataTaskWithRequest:self.mutableURLRequest
+                completionHandler:completionHandler];
 }
 
-- (BOOL)sendHTTPFormData:(NSData *)formData
-       completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
-  return [self sendData:formData
-            contentType:@"application/x-www-form-urlencoded"
-      completionHandler:completionHandler];
-}
-
-#pragma mark -
-- (BOOL)sendData:(NSData *)data
+- (void)postData:(NSData *)data
      contentType:(NSString *)contentType
 completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
   NSMutableURLRequest *mutableURLRequest = self.mutableURLRequest;
 
   [mutableURLRequest setHTTPMethod:@"POST"];
-  [mutableURLRequest setValue:contentType
-           forHTTPHeaderField:@"Content-Type"];
+  [mutableURLRequest setValue:contentType forHTTPHeaderField:@"Content-Type"];
   [mutableURLRequest setHTTPBody:data ];
 
   [self handleDataTaskWithRequest:mutableURLRequest
                 completionHandler:completionHandler];
-
-  return YES;
-
 }
 
-- (BOOL)fetchResourceWithHeaders:(NSDictionary *)headers
-               completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
+- (void)putData:(NSData *)data
+     contentType:(NSString *)contentType
+completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
   NSMutableURLRequest *mutableURLRequest = self.mutableURLRequest;
 
-  for (NSString *key in headers) {
-    [mutableURLRequest setValue:headers[key] forHTTPHeaderField:key];
-  }
+  [mutableURLRequest setHTTPMethod:@"PUT"];
+  [mutableURLRequest setValue:contentType forHTTPHeaderField:@"Content-Type"];
+  [mutableURLRequest setHTTPBody:data ];
 
   [self handleDataTaskWithRequest:mutableURLRequest
                 completionHandler:completionHandler];
-
-  return YES;
 }
 
-- (void)handleDataTaskWithRequest:(NSURLRequest *)request
+- (void)handleDataTaskWithRequest:(NSMutableURLRequest *)request
                 completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
-  NSAssert(urlSession, @"\n\n  ERROR in %s: The property \"_urlSession\" is nil.\n\n", __PRETTY_FUNCTION__);
+  NSParameterAssert(request);
+  NSAssert(urlSession,
+           @"\n\n  ERROR in %s: The property \"_urlSession\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
+  // This header must be present with every request, hence, it goes here.
+  [request setValue:self.authorizationHeaderValue
+ forHTTPHeaderField:@"Authorization"];
 
   [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 
-  [[urlSession dataTaskWithRequest:request
+  [[urlSession dataTaskWithRequest:(NSURLRequest *)request
                  completionHandler:
     ^(NSData *data, NSURLResponse *response, NSError *error) {
       [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;

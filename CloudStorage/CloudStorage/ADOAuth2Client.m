@@ -1,31 +1,24 @@
 //
-//  ADDropboxWebServiceClient.m
+//  ADWebServiceClient.m
 //  CloudStorage
 //
-//  Created by Jeffrey Kereakoglow on 8/4/15.
+//  Created by Jeffrey Kereakoglow on 8/6/15.
 //  Copyright (c) 2015 Alexis Digital. All rights reserved.
 //
 
-#import "ADDropboxWebServiceClient.h"
+#import "ADOAuth2Client.h"
 #import "ADWebService.h"
-#import "ADUtilities.h"
+@import UIKit.UIApplication;
 
-@import UIKit;
+@interface ADOAuth2Client ()
 
-@interface ADDropboxWebServiceClient ()
-
+@property (nonatomic, readonly) NSURL *appURL;
 @property (nonatomic, readwrite) NSString *appKey;
 @property (nonatomic, readwrite) NSString *appSecret;
-@property (nonatomic, readwrite) NSURLComponents *components;
 
 @end
 
-#pragma mark - Constants
-static NSString *const kDropboxWebHost = @"www.dropbox.com";
-static NSString *const kDropboxAPIHost = @"api.dropbox.com";
-static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
-
-@implementation ADDropboxWebServiceClient
+@implementation ADOAuth2Client
 
 - (instancetype)initWithAppKey:(NSString *)appKey appSecret:(NSString *)appSecret {
   NSParameterAssert(appKey);
@@ -43,14 +36,33 @@ static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
 }
 
 #pragma mark - Getters
+- (NSURL *)appURL {
+  static NSURL *_appURL;
+  static dispatch_once_t onceToken;
+
+  dispatch_once(&onceToken, ^{
+    NSDictionary *appInfo;
+    NSURLComponents *urlComponents;
+    appInfo = ((NSArray *)[NSBundle mainBundle].infoDictionary[@"CFBundleURLTypes"]).firstObject;
+    urlComponents = [NSURLComponents new];
+    urlComponents.scheme = ((NSArray *)appInfo[@"CFBundleURLSchemes"]).firstObject;
+    urlComponents.host = appInfo[@"CFBundleURLName"];
+
+    _appURL = urlComponents.URL;
+  });
+
+  return _appURL;
+}
+
+/**
+ Override this method to supply the URL host. 
+ */
 - (BOOL)isAuthorized {
   NSAssert(self.components,
            @"\n\n  ERROR in %s: The property \"_components\" is nil.\n\n",
            __PRETTY_FUNCTION__);
 
   ADWebService *webService;
-  self.components.host = kDropboxWebHost;
-
   webService = [ADWebService webServiceWithURL:self.components.URL];
 
   // If the password property is nil, then the we don't have the user's
@@ -66,12 +78,15 @@ static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
   NSAssert(self.components,
            @"\n\n  ERROR in %s: The property \"_components\" is nil.\n\n",
            __PRETTY_FUNCTION__);
+  NSAssert(self.components.host,
+           @"\n\n  ERROR in %s: The property \"_components.host\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+  NSAssert(self.components.path,
+           @"\n\n  ERROR in %s: The property \"_components.path\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
   NSAssert(self.appKey,
            @"\n\n  ERROR in %s: The property \"_appKey\" is nil.\n\n",
            __PRETTY_FUNCTION__);
-
-  self.components.host = kDropboxWebHost;
-  self.components.path = @"/1/oauth2/authorize";
 
   // These parameters are defined by OAuth2 specifications
   NSURLQueryItem *client_id, *response_type, *redirect_uri, *state;
@@ -87,7 +102,7 @@ static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
   // Tells the OAuth2 server to redirect back to this app
   redirect_uri = [NSURLQueryItem
                   queryItemWithName:@"redirect_uri"
-                  value:[ADUtilities appURI].absoluteString];
+                  value:self.appURL.absoluteString];
 
   // The argument of parameter `state` will be passed back to this app as-is.
   // It's a simply method to uniquely identify that the response came from
@@ -99,27 +114,6 @@ static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
 
   // All HTTP and HTTPs schemes will open Safari
   [[UIApplication sharedApplication] openURL:self.components.URL];
-}
-
-- (void)dropboxAccountInfo {
-  NSAssert(self.components,
-           @"\n\n  ERROR in %s: The property \"_components\" is nil.\n\n",
-           __PRETTY_FUNCTION__);
-
-  ADWebService *webService;
-  self.components.host = kDropboxAPIHost;
-  self.components.path = @"/1/account/info";
-
-  NSURLQueryItem *locale;
-  locale = [NSURLQueryItem queryItemWithName:@"locale" value:@"en-US"];
-  self.components.queryItems = @[locale];
-  webService = [ADWebService webServiceWithURL:self.components.URL];
-
-  [webService getResource:
-   ^(NSURLRequest *request, NSDictionary *response, NSError * __unused error) {
-     NSLog(@"%@", request);
-     NSLog(@"%@", response);
-   }];
 }
 
 @end

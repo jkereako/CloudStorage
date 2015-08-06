@@ -7,12 +7,11 @@
 //
 
 @import Foundation;
+#import "ADOAuth2Client.h"
 
 @class ADWebService;
 
-@interface ADDropboxWebServiceClient : NSObject
-
-- (instancetype)initWithAppKey:(NSString *)appKey appSecret:(NSString *)appSecret __attribute((nonnull));
+@interface ADDropboxOAuth2Client : ADOAuth2Client
 
 @property (nonatomic, readonly, getter=isAuthorized) BOOL authorized;
 

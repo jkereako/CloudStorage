@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		361CBEB31B73A9CA00ED782C /* ADOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 361CBEB21B73A9CA00ED782C /* ADOAuth2Client.m */; };
+		361CBEB41B73A9CA00ED782C /* ADOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 361CBEB21B73A9CA00ED782C /* ADOAuth2Client.m */; };
+		361CBEB71B73AD2100ED782C /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 361CBEB61B73AD2100ED782C /* Service.m */; };
+		361CBEB81B73AD2100ED782C /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 361CBEB61B73AD2100ED782C /* Service.m */; };
 		36630D6E1B7294E000721414 /* ADServiceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D6D1B7294E000721414 /* ADServiceTableViewCell.m */; };
 		36630D751B7297F600721414 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 36630D731B7297F600721414 /* Model.xcdatamodeld */; };
 		36630D761B7297F600721414 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 36630D731B7297F600721414 /* Model.xcdatamodeld */; };
@@ -14,8 +18,6 @@
 		36630D7B1B7298DB00721414 /* ADPersistentStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D791B7298DB00721414 /* ADPersistentStack.m */; };
 		36630D7E1B7299B700721414 /* ADStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D7D1B7299B700721414 /* ADStore.m */; };
 		36630D7F1B7299B700721414 /* ADStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D7D1B7299B700721414 /* ADStore.m */; };
-		36630D821B729B6800721414 /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D811B729B6800721414 /* Service.m */; };
-		36630D831B729B6800721414 /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D811B729B6800721414 /* Service.m */; };
 		36630D861B72A60600721414 /* ADFetchedResultsControllerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D851B72A60600721414 /* ADFetchedResultsControllerDataSource.m */; };
 		36630D871B72A60600721414 /* ADFetchedResultsControllerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D851B72A60600721414 /* ADFetchedResultsControllerDataSource.m */; };
 		36644E2F1B711BA400B32E90 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E2E1B711BA400B32E90 /* main.m */; };
@@ -27,8 +29,8 @@
 		36644E401B711BA400B32E90 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36644E3E1B711BA400B32E90 /* LaunchScreen.xib */; };
 		36644E4C1B711BA500B32E90 /* CloudStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E4B1B711BA500B32E90 /* CloudStorageTests.m */; };
 		36644E581B711CB200B32E90 /* ADWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E571B711CB200B32E90 /* ADWebService.m */; };
-		36644E631B71261B00B32E90 /* ADDropboxWebServiceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E621B71261B00B32E90 /* ADDropboxWebServiceClient.m */; };
-		36644E641B71261B00B32E90 /* ADDropboxWebServiceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E621B71261B00B32E90 /* ADDropboxWebServiceClient.m */; };
+		36644E631B71261B00B32E90 /* ADDropboxOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E621B71261B00B32E90 /* ADDropboxOAuth2Client.m */; };
+		36644E641B71261B00B32E90 /* ADDropboxOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E621B71261B00B32E90 /* ADDropboxOAuth2Client.m */; };
 		36644E681B712AF000B32E90 /* ADUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E671B712AF000B32E90 /* ADUtilities.m */; };
 		36644E691B712AF000B32E90 /* ADUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E671B712AF000B32E90 /* ADUtilities.m */; };
 		629B5CEF1B71B2C500D5946B /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 629B5CEE1B71B2C500D5946B /* Secrets.plist */; };
@@ -46,6 +48,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		361CBEB11B73A9CA00ED782C /* ADOAuth2Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADOAuth2Client.h; sourceTree = "<group>"; };
+		361CBEB21B73A9CA00ED782C /* ADOAuth2Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADOAuth2Client.m; sourceTree = "<group>"; };
+		361CBEB51B73AD2100ED782C /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
+		361CBEB61B73AD2100ED782C /* Service.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Service.m; sourceTree = "<group>"; };
 		36630D6C1B7294E000721414 /* ADServiceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADServiceTableViewCell.h; sourceTree = "<group>"; };
 		36630D6D1B7294E000721414 /* ADServiceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADServiceTableViewCell.m; sourceTree = "<group>"; };
 		36630D741B7297F600721414 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -53,8 +59,6 @@
 		36630D791B7298DB00721414 /* ADPersistentStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPersistentStack.m; sourceTree = "<group>"; };
 		36630D7C1B7299B700721414 /* ADStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADStore.h; sourceTree = "<group>"; };
 		36630D7D1B7299B700721414 /* ADStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADStore.m; sourceTree = "<group>"; };
-		36630D801B729B6800721414 /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
-		36630D811B729B6800721414 /* Service.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Service.m; sourceTree = "<group>"; };
 		36630D841B72A60600721414 /* ADFetchedResultsControllerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFetchedResultsControllerDataSource.h; sourceTree = "<group>"; };
 		36630D851B72A60600721414 /* ADFetchedResultsControllerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADFetchedResultsControllerDataSource.m; sourceTree = "<group>"; };
 		36644E291B711BA400B32E90 /* CloudStorage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudStorage.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,8 +78,8 @@
 		36644E4B1B711BA500B32E90 /* CloudStorageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudStorageTests.m; sourceTree = "<group>"; };
 		36644E561B711CB200B32E90 /* ADWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADWebService.h; sourceTree = "<group>"; };
 		36644E571B711CB200B32E90 /* ADWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADWebService.m; sourceTree = "<group>"; };
-		36644E611B71261B00B32E90 /* ADDropboxWebServiceClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADDropboxWebServiceClient.h; sourceTree = "<group>"; };
-		36644E621B71261B00B32E90 /* ADDropboxWebServiceClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADDropboxWebServiceClient.m; sourceTree = "<group>"; };
+		36644E611B71261B00B32E90 /* ADDropboxOAuth2Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADDropboxOAuth2Client.h; sourceTree = "<group>"; };
+		36644E621B71261B00B32E90 /* ADDropboxOAuth2Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADDropboxOAuth2Client.m; sourceTree = "<group>"; };
 		36644E661B712AF000B32E90 /* ADUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADUtilities.h; sourceTree = "<group>"; };
 		36644E671B712AF000B32E90 /* ADUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADUtilities.m; sourceTree = "<group>"; };
 		629B5CEE1B71B2C500D5946B /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
@@ -122,8 +126,8 @@
 				36630D791B7298DB00721414 /* ADPersistentStack.m */,
 				36630D7C1B7299B700721414 /* ADStore.h */,
 				36630D7D1B7299B700721414 /* ADStore.m */,
-				36630D801B729B6800721414 /* Service.h */,
-				36630D811B729B6800721414 /* Service.m */,
+				361CBEB51B73AD2100ED782C /* Service.h */,
+				361CBEB61B73AD2100ED782C /* Service.m */,
 			);
 			name = Persistence;
 			sourceTree = "<group>";
@@ -197,8 +201,10 @@
 			children = (
 				36644E561B711CB200B32E90 /* ADWebService.h */,
 				36644E571B711CB200B32E90 /* ADWebService.m */,
-				36644E611B71261B00B32E90 /* ADDropboxWebServiceClient.h */,
-				36644E621B71261B00B32E90 /* ADDropboxWebServiceClient.m */,
+				361CBEB11B73A9CA00ED782C /* ADOAuth2Client.h */,
+				361CBEB21B73A9CA00ED782C /* ADOAuth2Client.m */,
+				36644E611B71261B00B32E90 /* ADDropboxOAuth2Client.h */,
+				36644E621B71261B00B32E90 /* ADDropboxOAuth2Client.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -315,12 +321,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				361CBEB31B73A9CA00ED782C /* ADOAuth2Client.m in Sources */,
 				36630D7A1B7298DB00721414 /* ADPersistentStack.m in Sources */,
 				36644E321B711BA400B32E90 /* AppDelegate.m in Sources */,
 				36644E681B712AF000B32E90 /* ADUtilities.m in Sources */,
-				36644E631B71261B00B32E90 /* ADDropboxWebServiceClient.m in Sources */,
+				36644E631B71261B00B32E90 /* ADDropboxOAuth2Client.m in Sources */,
+				361CBEB71B73AD2100ED782C /* Service.m in Sources */,
 				36644E351B711BA400B32E90 /* ADServicesTableViewController.m in Sources */,
-				36630D821B729B6800721414 /* Service.m in Sources */,
 				36630D6E1B7294E000721414 /* ADServiceTableViewCell.m in Sources */,
 				36630D751B7297F600721414 /* Model.xcdatamodeld in Sources */,
 				36644E581B711CB200B32E90 /* ADWebService.m in Sources */,
@@ -336,13 +343,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				36630D7B1B7298DB00721414 /* ADPersistentStack.m in Sources */,
+				361CBEB41B73A9CA00ED782C /* ADOAuth2Client.m in Sources */,
 				36644E691B712AF000B32E90 /* ADUtilities.m in Sources */,
 				36630D871B72A60600721414 /* ADFetchedResultsControllerDataSource.m in Sources */,
 				36644E4C1B711BA500B32E90 /* CloudStorageTests.m in Sources */,
-				36644E641B71261B00B32E90 /* ADDropboxWebServiceClient.m in Sources */,
+				36644E641B71261B00B32E90 /* ADDropboxOAuth2Client.m in Sources */,
 				36630D7F1B7299B700721414 /* ADStore.m in Sources */,
-				36630D831B729B6800721414 /* Service.m in Sources */,
 				36630D761B7297F600721414 /* Model.xcdatamodeld in Sources */,
+				361CBEB81B73AD2100ED782C /* Service.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

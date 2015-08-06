@@ -8,8 +8,9 @@
 
 #import "ADServicesTableViewController.h"
 #import "DetailViewController.h"
-#import "ADDropboxWebServiceClient.h"
+#import "ADDropboxOAuth2Client.h"
 #import "ADFetchedResultsControllerDataSource.h"
+#import "ADServiceTableViewCell.h"
 #import "Service.h"
 
 @interface ADServicesTableViewController ()<ADFetchedResultsControllerDataSourceDelegate>
@@ -81,7 +82,8 @@
 }
 
 #pragma mark - FetchedResultsControllerDataSourceDelegate
-- (void)configureCell:(UITableViewCell * __unused)theCell withObject:(id __unused)object {
+- (void)configureCell:(ADServiceTableViewCell *)theCell withObject:(Service *)object {
+  theCell.service = object;
 }
 
 - (void)deleteObject:(id __unused)object {

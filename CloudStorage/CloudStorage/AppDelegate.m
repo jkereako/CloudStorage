@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ADDropboxWebServiceClient.h"
+#import "ADDropboxOAuth2Client.h"
 #import "ADUtilities.h"
 #import "ADWebService.h"
 #import "ADStore.h"
@@ -51,7 +51,7 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
   NSDictionary *secrets = [ADUtilities dictionaryFromPropertyList:@"Secrets"];
   NSString *dropboxAppKey = secrets[@"dropbox"][@"appKey"];
   NSString *dropboxAppSecret = secrets[@"dropbox"][@"appSecret"];
-  ADDropboxWebServiceClient *dropbox = [[ADDropboxWebServiceClient alloc]
+  ADDropboxOAuth2Client *dropbox = [[ADDropboxOAuth2Client alloc]
                                         initWithAppKey:dropboxAppKey
                                         appSecret:dropboxAppSecret];
 
@@ -64,6 +64,7 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
   if (!dropboxService) {
     dropboxService = [store serviceForManagedObjectContext:moc];
     dropboxService.name = @"Dropbox";
+    dropboxService.domain = @"dropbox.com";
     dropboxService.isLinked = [NSNumber numberWithBool:dropbox.isAuthorized];
   }
   // Override point for customization after application launch.

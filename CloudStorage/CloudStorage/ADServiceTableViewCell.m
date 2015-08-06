@@ -23,7 +23,7 @@
   NSParameterAssert(service);
 
   self.serviceName.text = service.name;
-  self.isLinked.text = service.isLinked ? @"linked" : @"unlinked";
+  self.isLinked.text = service.isLinked.boolValue ? @"linked" : @"unlinked";
   self.serviceStatus.text = @"A status ought to go here.";
 }
 

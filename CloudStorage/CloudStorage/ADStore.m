@@ -14,6 +14,20 @@ static NSString *const kModelName = @"Model";
 
 @implementation ADStore
 
+- (void)seedContext:(NSManagedObjectContext *)managedObjectContext {
+  NSParameterAssert(managedObjectContext);
+
+//  Service *dropbox;
+//  dropbox = [self findServiceWithName:@"Dropbox"
+//                                inManagedObjectContext:managedObjectContext];
+//  if (!dropbox) {
+//    dropbox = [self serviceForManagedObjectContext:managedObjectContext];
+//    dropbox.name = @"Dropbox";
+//    dropbox.isLinked = [NSNumber numberWithBool:dropbox.isAuthorized];
+//  }
+
+}
+
 /**
  Saves to disk managed object models which exist in a provided managed object context.
  @param managedObjectContext @c NSManagedObjectContext

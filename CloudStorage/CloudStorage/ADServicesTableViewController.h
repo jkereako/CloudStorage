@@ -8,12 +8,12 @@
 
 @import UIKit;
 
-@class ADDropboxWebServiceClient;
+@class ADDropboxOAuth2Client;
 
 @interface ADServicesTableViewController : UITableViewController
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic) ADDropboxWebServiceClient *dropboxWebServiceClient;
+@property (nonatomic) ADDropboxOAuth2Client *dropboxWebServiceClient;
 
 @end
 

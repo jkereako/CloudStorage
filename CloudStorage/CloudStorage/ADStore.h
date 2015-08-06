@@ -17,6 +17,7 @@
 
 + (void)saveContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
 
+- (void)seedContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
 - (Service *)serviceForManagedObjectContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
 - (Service *)findServiceWithName:(NSString *)name inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
 

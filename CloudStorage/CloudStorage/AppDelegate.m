@@ -48,7 +48,7 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
   // The code below initializes properties which will be shared by several
   // objects throughout the life of the app. The alternate approach to this
   // would be a singleton instance.
-  NSDictionary *secrets = [ADUtilities dictionaryFromPropertyList:@"Secrets"];
+  NSDictionary *secrets = [ADStore dictionaryFromPropertyList:@"Secrets"];
   NSString *dropboxAppKey = secrets[@"dropbox"][@"appKey"];
   NSString *dropboxAppSecret = secrets[@"dropbox"][@"appSecret"];
   ADDropboxOAuth2Client *dropbox = [[ADDropboxOAuth2Client alloc]

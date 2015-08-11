@@ -15,6 +15,8 @@
 @property (nonatomic, readonly) NSURL *storeURL;
 @property (nonatomic, readonly) NSURL *modelURL;
 
++ (NSArray *)arrayFromPropertyList:(NSString *)propertyListName __attribute((nonnull));
++ (NSDictionary *)dictionaryFromPropertyList:(NSString *)propertyListName __attribute((nonnull));
 + (void)saveContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
 
 - (void)seedContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));

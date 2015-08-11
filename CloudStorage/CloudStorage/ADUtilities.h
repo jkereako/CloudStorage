@@ -10,8 +10,6 @@
 
 @interface ADUtilities : NSObject
 
-+ (NSArray *)arrayFromPropertyList:(NSString *)propertyListName __attribute((nonnull));
-+ (NSDictionary *)dictionaryFromPropertyList:(NSString *)propertyListName __attribute((nonnull));
 + (NSURL *)appURI;
 
 @end

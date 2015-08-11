@@ -14,10 +14,11 @@
 @property (nonatomic, readonly) NSMutableURLRequest *mutableURLRequest;
 @property (nonatomic, readonly) NSString *authorizationHeaderValue;
 
-- (instancetype)initWithURL:(NSURL *)url __attribute((nonnull))
-NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithURL:(NSURL *)url __attribute((nonnull));
 - (void)handleDataTaskWithRequest:(NSMutableURLRequest *)request
-                completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler;
+                completionHandler:(void (^)(NSURLRequest *request,
+                                            id response,
+                                            NSError *error))completionHandler;
 
 @end
 
@@ -31,7 +32,7 @@ static NSURLSession *urlSession;
 #pragma mark -
 + (instancetype)webServiceWithURL:(NSURL *)url {
   NSParameterAssert(url);
-  
+
   ADWebService *instance = [[[self class] alloc] initWithURL:url];
 
   if(!urlSession) {
@@ -78,7 +79,7 @@ static NSURLSession *urlSession;
 
     _url = url;
     // The URL protection space is scoped by host, so we can use NSURLCredential
-    // to store an OAuth2 access token. 
+    // to store an OAuth2 access token.
     _urlProtectionSpace = [[NSURLProtectionSpace alloc]
                            initWithHost:domain
                            port:[_url.port integerValue]
@@ -163,7 +164,7 @@ static NSURLSession *urlSession;
                                                forProtectionSpace:self.urlProtectionSpace];
 
   _urlCredential = urlCredential;
-  
+
 }
 
 #pragma mark -
@@ -218,7 +219,7 @@ completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))
 }
 
 - (void)putData:(NSData *)data
-     contentType:(NSString *)contentType
+    contentType:(NSString *)contentType
 completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
   NSMutableURLRequest *mutableURLRequest = self.mutableURLRequest;
 

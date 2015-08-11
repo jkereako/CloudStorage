@@ -14,6 +14,6 @@
 @property (nonatomic, readonly) NSManagedObjectContext* managedObjectContext;
 
 - (instancetype)initWithStoreURL:(NSURL*)storeURL modelURL:(NSURL*)modelURL
-NS_DESIGNATED_INITIALIZER __attribute((nonnull));
+__attribute((nonnull));
 
 @end

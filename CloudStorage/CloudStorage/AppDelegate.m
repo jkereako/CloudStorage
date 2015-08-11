@@ -38,8 +38,6 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
   ADStore *store = [ADStore new];
   ADPersistentStack *persistentStack = [[ADPersistentStack alloc] initWithStoreURL:store.storeURL
                                                                           modelURL:store.modelURL];
-  NSManagedObjectContext *moc = persistentStack.managedObjectContext;
-
   ADServicesTableViewController *firstViewController;
   firstViewController = (ADServicesTableViewController *)rootViewController.viewControllers.firstObject;
   firstViewController.managedObjectContext = persistentStack.managedObjectContext;
@@ -56,17 +54,9 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
 
   firstViewController.dropboxWebServiceClient = dropbox;
 
-  // Search for the Dropbox service object in the persistent store. If it
-  // doesn't already exist, then create it.
-  Service *dropboxService = [store findServiceWithName:@"Dropbox"
-                                inManagedObjectContext:moc];
-  if (!dropboxService) {
-    dropboxService = [store serviceForManagedObjectContext:moc];
-    dropboxService.name = @"Dropbox";
-    dropboxService.domain = @"dropbox.com";
-    dropboxService.isLinked = [NSNumber numberWithBool:dropbox.isAuthorized];
-  }
-  // Override point for customization after application launch.
+  // Add services to the persistent store if they don't already exist.
+  [store seedContext:persistentStack.managedObjectContext];
+
   return YES;
 }
 

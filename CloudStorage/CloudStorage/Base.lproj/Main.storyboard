@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="HelveticaNeueLights.ttc">
+            <string>HelveticaNeue-Thin</string>
+            <string>HelveticaNeue-Thin</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Navigation controller-->
         <scene sceneID="cUi-kZ-frf">
@@ -30,69 +37,101 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="service" rowHeight="90" id="m0d-ak-lc9" customClass="ADServiceTableViewCell">
-                                <rect key="frame" x="0.0" y="86" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="600" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0d-ak-lc9" id="d3P-M7-ByW">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlinked" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKb-RD-ntn">
-                                            <rect key="frame" x="484" y="16" width="67" height="57"/>
-                                            <color key="backgroundColor" red="1" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <integer key="value" value="5"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                <rect key="frame" x="271" y="16" width="80" height="57"/>
-                                            </variation>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dropbox" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p2s-HK-SFF">
                                             <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="28"/>
                                             <color key="textColor" red="0.40000000596046448" green="0.40000000596046448" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
-                                            <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                                <rect key="frame" x="8" y="8" width="255" height="30.5"/>
-                                            </variation>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total requests made: 100, last request made 2 days ago" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M9n-my-tIn">
                                             <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="35" id="xVj-Um-QR5"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="13"/>
                                             <color key="textColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
-                                            <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                                <rect key="frame" x="8" y="46.5" width="255" height="34.5"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="xVj-Um-QR5"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="constraints">
+                                                    <include reference="xVj-Um-QR5"/>
+                                                </mask>
                                             </variation>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mSB-Mh-fNu">
+                                            <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                            <color key="backgroundColor" red="1" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" title="Unlinked">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                        </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="HKb-RD-ntn" secondAttribute="trailing" constant="8" id="Kwr-qe-qzW"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="HKb-RD-ntn" secondAttribute="bottom" constant="8.5" id="c1q-3C-whO"/>
-                                        <constraint firstItem="HKb-RD-ntn" firstAttribute="top" secondItem="d3P-M7-ByW" secondAttribute="topMargin" constant="8" id="zF0-RE-TeS"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="M9n-my-tIn" secondAttribute="bottom" constant="0.5" id="6L4-1s-4XZ"/>
+                                        <constraint firstAttribute="topMargin" secondItem="mSB-Mh-fNu" secondAttribute="top" id="8F1-hf-DZl"/>
+                                        <constraint firstItem="M9n-my-tIn" firstAttribute="top" secondItem="p2s-HK-SFF" secondAttribute="bottom" constant="8" id="CYQ-4k-z58"/>
+                                        <constraint firstAttribute="topMargin" secondItem="p2s-HK-SFF" secondAttribute="top" id="FRk-bH-1nh"/>
+                                        <constraint firstItem="mSB-Mh-fNu" firstAttribute="trailing" secondItem="d3P-M7-ByW" secondAttribute="trailingMargin" id="RbF-xW-4nt"/>
+                                        <constraint firstItem="M9n-my-tIn" firstAttribute="trailing" secondItem="p2s-HK-SFF" secondAttribute="trailing" id="UOm-9x-bHj"/>
+                                        <constraint firstItem="mSB-Mh-fNu" firstAttribute="leading" secondItem="M9n-my-tIn" secondAttribute="trailing" constant="23" id="WFn-ug-YMD"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="mSB-Mh-fNu" secondAttribute="bottom" constant="0.5" id="aIQ-xy-Sec"/>
+                                        <constraint firstItem="M9n-my-tIn" firstAttribute="leading" secondItem="p2s-HK-SFF" secondAttribute="leading" id="p8N-wF-UiA"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="p2s-HK-SFF" secondAttribute="leading" id="yhZ-qS-ySL"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="subviews">
                                             <exclude reference="p2s-HK-SFF"/>
                                             <exclude reference="M9n-my-tIn"/>
+                                            <exclude reference="mSB-Mh-fNu"/>
+                                        </mask>
+                                        <mask key="constraints">
+                                            <exclude reference="FRk-bH-1nh"/>
+                                            <exclude reference="yhZ-qS-ySL"/>
+                                            <exclude reference="6L4-1s-4XZ"/>
+                                            <exclude reference="CYQ-4k-z58"/>
+                                            <exclude reference="UOm-9x-bHj"/>
+                                            <exclude reference="p8N-wF-UiA"/>
+                                            <exclude reference="8F1-hf-DZl"/>
+                                            <exclude reference="RbF-xW-4nt"/>
+                                            <exclude reference="WFn-ug-YMD"/>
+                                            <exclude reference="aIQ-xy-Sec"/>
                                         </mask>
                                     </variation>
                                     <variation key="heightClass=regular-widthClass=compact">
                                         <mask key="subviews">
                                             <include reference="p2s-HK-SFF"/>
                                             <include reference="M9n-my-tIn"/>
+                                            <include reference="mSB-Mh-fNu"/>
+                                        </mask>
+                                        <mask key="constraints">
+                                            <include reference="FRk-bH-1nh"/>
+                                            <include reference="yhZ-qS-ySL"/>
+                                            <include reference="6L4-1s-4XZ"/>
+                                            <include reference="CYQ-4k-z58"/>
+                                            <include reference="UOm-9x-bHj"/>
+                                            <include reference="p8N-wF-UiA"/>
+                                            <include reference="8F1-hf-DZl"/>
+                                            <include reference="RbF-xW-4nt"/>
+                                            <include reference="WFn-ug-YMD"/>
+                                            <include reference="aIQ-xy-Sec"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="isLinked" destination="HKb-RD-ntn" id="7vU-Is-HeT"/>
-                                    <outlet property="serviceName" destination="p2s-HK-SFF" id="v9D-a4-N73"/>
-                                    <outlet property="serviceStatus" destination="M9n-my-tIn" id="DPy-xy-MCP"/>
+                                    <outlet property="isLinked" destination="mSB-Mh-fNu" id="hkc-O7-Qwg"/>
+                                    <outlet property="serviceName" destination="p2s-HK-SFF" id="pdG-vK-0LP"/>
+                                    <outlet property="serviceStatus" destination="M9n-my-tIn" id="xgw-eJ-j9R"/>
                                     <segue destination="Ah7-4n-0Wa" kind="show" identifier="showDetail" id="jUr-3t-vfg"/>
                                 </connections>
                             </tableViewCell>

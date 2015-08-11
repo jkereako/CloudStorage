@@ -29,30 +29,30 @@
 }
 
 #pragma mark - Table view data source
-- (NSInteger)numberOfSectionsInTableView:(__unused UITableView*)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView * __unused)tableView {
   return (NSInteger)self.fetchedResultsController.sections.count;
 }
 
-- (NSInteger)tableView:(__unused UITableView*)tableView numberOfRowsInSection:(NSInteger)sectionIndex {
+- (NSInteger)tableView:(UITableView * __unused)tableView numberOfRowsInSection:(NSInteger)sectionIndex {
   id<NSFetchedResultsSectionInfo> section = self.fetchedResultsController.sections[(NSUInteger)sectionIndex];
   return (NSInteger)section.numberOfObjects;
 }
 
-- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   id<ADFetchedResultsControllerDataSourceDelegate> strongDelegate = self.delegate;
   id object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  id cell = [tableView dequeueReusableCellWithIdentifier:self.reuseIdentifier
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.reuseIdentifier
                                             forIndexPath:indexPath];
   [strongDelegate configureCell:cell withObject:object];
   return cell;
 }
 
 #pragma mark - Table view delegate
-- (BOOL)tableView:(__unused UITableView*)tableView canEditRowAtIndexPath:(__unused NSIndexPath*)indexPath {
+- (BOOL)tableView:(UITableView * __unused)tableView canEditRowAtIndexPath:(NSIndexPath * __unused)indexPath {
   return YES;
 }
 
-- (void)tableView:(__unused UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView * __unused)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
   id<ADFetchedResultsControllerDataSourceDelegate> strongDelegate = self.delegate;
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     [strongDelegate deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
@@ -60,15 +60,15 @@
 }
 
 #pragma mark NSFetchedResultsControllerDelegate
-- (void)controllerWillChangeContent:(__unused NSFetchedResultsController*)controller {
+- (void)controllerWillChangeContent:(NSFetchedResultsController * __unused)controller {
   [self.tableView beginUpdates];
 }
 
-- (void)controllerDidChangeContent:(__unused NSFetchedResultsController*)controller {
+- (void)controllerDidChangeContent:(NSFetchedResultsController * __unused)controller {
   [self.tableView endUpdates];
 }
 
-- (void)controller:(__unused NSFetchedResultsController*)controller didChangeObject:(__unused id)anObject atIndexPath:(NSIndexPath*)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath*)newIndexPath {
+- (void)controller:(NSFetchedResultsController * __unused)controller didChangeObject:(id __unused)anObject atIndexPath:(NSIndexPath*)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath*)newIndexPath {
   id<ADFetchedResultsControllerDataSourceDelegate> strongDelegate = self.delegate;
 
   switch (type) {
@@ -115,6 +115,7 @@
 
 - (void)setPaused:(BOOL)paused {
   _paused = paused;
+  
   if (paused) {
     self.fetchedResultsController.delegate = nil;
   }

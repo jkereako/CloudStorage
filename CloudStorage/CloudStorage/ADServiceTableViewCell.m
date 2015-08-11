@@ -13,7 +13,7 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *serviceName;
 @property (nonatomic, weak) IBOutlet UILabel *serviceStatus;
-@property (nonatomic, weak) IBOutlet UILabel *isLinked;
+@property (nonatomic, weak) IBOutlet UIButton *isLinked;
 
 @end
 
@@ -23,8 +23,10 @@
   NSParameterAssert(service);
 
   self.serviceName.text = service.name;
-  self.isLinked.text = service.isLinked.boolValue ? @"linked" : @"unlinked";
+  self.isLinked.titleLabel.text = service.isLinked.boolValue ? @"linked" : @"unlinked";
   self.serviceStatus.text = @"A status ought to go here.";
+
+  _service = service;
 }
 
 @end

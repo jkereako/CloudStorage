@@ -14,21 +14,6 @@ static NSString *const kModelName = @"Model";
 
 @implementation ADStore
 
-- (void)seedContext:(NSManagedObjectContext *)managedObjectContext {
-  NSParameterAssert(managedObjectContext);
-
-//  Service *dropbox;
-//  dropbox = [self findServiceWithName:@"Dropbox"
-//                                inManagedObjectContext:managedObjectContext];
-//  if (!dropbox) {
-//    dropbox = [self serviceForManagedObjectContext:managedObjectContext];
-//    dropbox.name = @"Dropbox";
-//    dropbox.isLinked = [NSNumber numberWithBool:dropbox.isAuthorized];
-//  }
-
-}
-
-
 /**
  Searches the main bundle for a property list with the name provided by the argument @c propertyListName. The root item of the property list must be a dictionary because this method returns an array of dictionary keys.
  @param propertyListName The name of the property list to load.
@@ -94,6 +79,18 @@ static NSString *const kModelName = @"Model";
 #if DEBUG
     abort();
 #endif
+  }
+}
+
+- (void)seedContext:(NSManagedObjectContext *)managedObjectContext {
+  // Search for the Dropbox service object in the persistent store. If it
+  // doesn't already exist, then create it.
+  Service *dropboxService = [self findServiceWithName:@"Dropbox"
+                                inManagedObjectContext:managedObjectContext];
+  if (!dropboxService) {
+    dropboxService = [self serviceForManagedObjectContext:managedObjectContext];
+    dropboxService.name = @"Dropbox";
+    dropboxService.domain = @"dropbox.com";
   }
 }
 

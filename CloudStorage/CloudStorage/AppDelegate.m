@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "ADDropboxOAuth2Client.h"
-#import "ADUtilities.h"
 #import "ADWebService.h"
 #import "ADStore.h"
 #import "Service.h"

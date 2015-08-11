@@ -8,7 +8,6 @@
 
 #import "ADDropboxOAuth2Client.h"
 #import "ADWebService.h"
-#import "ADUtilities.h"
 
 #pragma mark - Constants
 static NSString *const kDropboxWebHost = @"www.dropbox.com";

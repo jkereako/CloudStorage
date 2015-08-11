@@ -115,7 +115,7 @@
 
 - (void)setPaused:(BOOL)paused {
   _paused = paused;
-  
+
   if (paused) {
     self.fetchedResultsController.delegate = nil;
   }

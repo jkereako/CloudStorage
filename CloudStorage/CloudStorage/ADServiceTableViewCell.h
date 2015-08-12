@@ -12,6 +12,7 @@
 
 @interface ADServiceTableViewCell : UITableViewCell
 
+@property (nonatomic) NSDateFormatter *dateFormatter;
 @property (nonatomic) Service *service;
 
 @end

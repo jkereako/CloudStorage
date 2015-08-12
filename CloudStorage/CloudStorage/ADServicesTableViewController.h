@@ -13,6 +13,7 @@
 @interface ADServicesTableViewController : UITableViewController
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic) NSDateFormatter *dateFormatter;
 @property (nonatomic) ADDropboxOAuth2Client *dropboxWebServiceClient;
 
 @end

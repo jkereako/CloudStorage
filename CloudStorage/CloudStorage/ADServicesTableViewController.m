@@ -120,6 +120,7 @@
 
 #pragma mark - FetchedResultsControllerDataSourceDelegate
 - (void)configureCell:(ADServiceTableViewCell *)theCell withObject:(Service *)object {
+  theCell.dateFormatter = self.dateFormatter;
   theCell.service = object;
 }
 

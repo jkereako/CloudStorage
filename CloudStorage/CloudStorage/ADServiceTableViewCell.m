@@ -22,10 +22,17 @@
 #pragma mark - Getters
 - (void)setService:(Service *)service {
   NSParameterAssert(service);
+  NSAssert(self.dateFormatter,
+           @"\n\n  ERROR in %s: The property \"_dateFormatter\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
 
   self.serviceName.text = service.name;
   self.isLinked.titleLabel.text = service.isLinked.boolValue ? @"linked" : @"unlinked";
-  self.serviceStatus.text = @"A status ought to go here.";
+  self.serviceStatus.text = @"Tap \"unlinked\" to link your account.";
+  if (service.lastQueryMadeOn) {
+    self.serviceStatus.text = [NSString stringWithFormat:@"Last query made on %@",
+                               [self.dateFormatter stringFromDate:service.lastQueryMadeOn]];
+  }
 
   _service = service;
 }

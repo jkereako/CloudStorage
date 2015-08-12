@@ -51,29 +51,32 @@
 
 - (BOOL)application:(UIApplication * __unused)application
 didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
+  ADServicesTableViewController *servicesTableViewController;
+  servicesTableViewController = self.servicesTableViewController;
 
-  // Sanity check.
-  NSAssert([self.window.rootViewController
-            isKindOfClass:[UINavigationController class]],
-           @"\n\n  ERROR in %s: The root view controller is not an instance of \"UINavigationController\". Make sure the property \"Is Initial View Controller\" is checked in Interface Builder\n\n",
-           __PRETTY_FUNCTION__);
+  //-- Localization --
 
-  UINavigationController *rootViewController;
-  rootViewController = (UINavigationController *)self.window.rootViewController;
+  //---- Determine locale
+  //      Fetches the current locale that the app is running in. Sometimes,
+  //      the system locale and the app locale can differ.
+  //      @see http://www.objc.io/issue-9/string-localization.html#choosing-the-right-locale
+  NSString *localization = [NSBundle mainBundle].preferredLocalizations.firstObject;
+  NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:localization];
 
-  // Sanity check.
-  NSAssert([rootViewController.viewControllers.firstObject
-            isKindOfClass:[ADServicesTableViewController class]],
-           @"\n\n  ERROR in %s: The top view controller of the navigation controller is not an instance of \"MasterViewController\".\n\n",
-           __PRETTY_FUNCTION__);
-
+  //---- Date formatter with date format.
+  //      Set the date format here so we can keep it consistent throughout the
+  //      app.
+  NSDateFormatter *dateFormatter = [NSDateFormatter new];
+  NSString *dateFormat = [NSDateFormatter dateFormatFromTemplate:@"MMMdY"
+                                                         options:0
+                                                          locale:locale];
+  dateFormatter.dateFormat = dateFormat;
+  servicesTableViewController.dateFormatter = dateFormatter;
   //-- Persistence --
   ADStore *store = [ADStore new];
   ADPersistentStack *persistentStack = [[ADPersistentStack alloc] initWithStoreURL:store.storeURL
                                                                           modelURL:store.modelURL];
-  ADServicesTableViewController *firstViewController;
-  firstViewController = (ADServicesTableViewController *)rootViewController.viewControllers.firstObject;
-  firstViewController.managedObjectContext = persistentStack.managedObjectContext;
+  servicesTableViewController.managedObjectContext = persistentStack.managedObjectContext;
 
   // The code below initializes properties which will be shared by several
   // objects throughout the life of the app. The alternate approach to this
@@ -85,7 +88,7 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
                                     initWithAppKey:dropboxAppKey
                                     appSecret:dropboxAppSecret];
 
-  firstViewController.dropboxWebServiceClient = dropbox;
+  servicesTableViewController.dropboxWebServiceClient = dropbox;
 
   // Add services to the persistent store if they don't already exist.
   [store seedContext:persistentStack.managedObjectContext];

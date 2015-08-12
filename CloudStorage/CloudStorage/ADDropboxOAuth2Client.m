@@ -10,6 +10,8 @@
 #import "ADWebService.h"
 
 #pragma mark - Constants
+NSString *const kDropboxDomain = @"dropbox.com";
+
 static NSString *const kDropboxWebHost = @"www.dropbox.com";
 static NSString *const kDropboxAPIHost = @"api.dropbox.com";
 static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";

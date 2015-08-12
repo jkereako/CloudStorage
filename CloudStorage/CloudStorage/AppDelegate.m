@@ -101,7 +101,8 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
     return YES;
   }
 
-  NSPredicate *statePredicate = [NSPredicate predicateWithFormat:@"name=%@", @"state"];
+  NSPredicate *statePredicate = [NSPredicate predicateWithFormat:@"name=%@",
+                                 @"state"];
   NSURLQueryItem *state = [queryItems
                            filteredArrayUsingPredicate:statePredicate].firstObject;
 

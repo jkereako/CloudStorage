@@ -19,6 +19,7 @@
 
 @implementation ADServiceTableViewCell
 
+#pragma mark - Getters
 - (void)setService:(Service *)service {
   NSParameterAssert(service);
 

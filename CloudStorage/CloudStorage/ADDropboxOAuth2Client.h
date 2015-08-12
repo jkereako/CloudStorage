@@ -9,6 +9,8 @@
 @import Foundation;
 #import "ADOAuth2Client.h"
 
+FOUNDATION_EXPORT NSString *const kDropboxDomain;
+
 @class ADWebService;
 
 @interface ADDropboxOAuth2Client : ADOAuth2Client

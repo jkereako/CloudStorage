@@ -67,10 +67,12 @@ static NSURLSession *urlSession;
     NSString *domain;
     // The property `host` of `NSURL` returns the domain and the subdomain. The
     // routine below retrieves just the domain. However, this routine will not
-    // work with co.uk domains. But who cares?
+    // work with URLs which contain multiple subdomains (no idea if that is even
+    // a thing). For example, http://first.second.actualdomain.com would return
+    // second.actualdomain.com
     urlComponents = [url.host componentsSeparatedByString:@"."];
     domain = [[urlComponents
-               subarrayWithRange:NSMakeRange(urlComponents.count - 2, 2)]
+               subarrayWithRange:NSMakeRange(1, urlComponents.count - 1)]
               componentsJoinedByString:@"."];
 
     NSAssert(domain,

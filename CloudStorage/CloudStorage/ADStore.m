@@ -85,8 +85,8 @@ static NSString *const kModelName = @"Model";
 - (void)seedContext:(NSManagedObjectContext *)managedObjectContext {
   // Search for the Dropbox service object in the persistent store. If it
   // doesn't already exist, then create it.
-  Service *dropboxService = [self findServiceWithName:@"Dropbox"
-                                inManagedObjectContext:managedObjectContext];
+  Service *dropboxService = [self findServiceWithDomain:@"dropbox.com"
+                                 inManagedObjectContext:managedObjectContext];
   if (!dropboxService) {
     dropboxService = [self serviceForManagedObjectContext:managedObjectContext];
     dropboxService.name = @"Dropbox";
@@ -99,17 +99,17 @@ static NSString *const kModelName = @"Model";
 
   return (Service *)[NSEntityDescription
                      insertNewObjectForEntityForName:[Service entityName]
-                                                  inManagedObjectContext:managedObjectContext];
+                     inManagedObjectContext:managedObjectContext];
 }
 
-- (Service *)findServiceWithName:(NSString *)name inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
-  NSParameterAssert(name);
+- (Service *)findServiceWithDomain:(NSString *)domain inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+  NSParameterAssert(domain);
   NSParameterAssert(managedObjectContext);
 
   NSFetchRequest *fetchRequest;
 
   fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[Service entityName]];
-  fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name=%@", name];
+  fetchRequest.predicate = [NSPredicate predicateWithFormat:@"domain=%@", domain];
 
   NSError *error;
   NSArray *results;
@@ -158,7 +158,7 @@ static NSString *const kModelName = @"Model";
     _modelURL = [[NSBundle mainBundle] URLForResource:kModelName
                                         withExtension:@"momd"];
   });
-  
+
   return _modelURL;
 }
 

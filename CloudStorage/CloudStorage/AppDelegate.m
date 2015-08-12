@@ -14,7 +14,40 @@
 #import "ADPersistentStack.h"
 #import "ADServicesTableViewController.h"
 
+@interface AppDelegate ()
+
+@property (nonatomic, readonly) ADServicesTableViewController *servicesTableViewController;
+
+@end
+
 @implementation AppDelegate
+
+#pragma mark - Getters
+/**
+ A helper method in the form of a property to return the first view controller
+ of a `UINavigationController`
+ */
+- (ADServicesTableViewController *)servicesTableViewController {
+  // Sanity check.
+  NSAssert([self.window.rootViewController
+            isKindOfClass:[UINavigationController class]],
+           @"\n\n  ERROR in %s: The root view controller is not an instance of \"UINavigationController\". Make sure the property \"Is Initial View Controller\" is checked in Interface Builder\n\n",
+           __PRETTY_FUNCTION__);
+
+  UINavigationController *rootViewController;
+  rootViewController = (UINavigationController *)self.window.rootViewController;
+
+  // Sanity check.
+  NSAssert([rootViewController.viewControllers.firstObject
+            isKindOfClass:[ADServicesTableViewController class]],
+           @"\n\n  ERROR in %s: The top view controller of the navigation controller is not an instance of \"MasterViewController\".\n\n",
+           __PRETTY_FUNCTION__);
+
+  ADServicesTableViewController *firstViewController;
+  firstViewController = (ADServicesTableViewController *)rootViewController.viewControllers.firstObject;
+
+  return firstViewController;
+}
 
 - (BOOL)application:(UIApplication * __unused)application
 didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
@@ -49,8 +82,8 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
   NSString *dropboxAppKey = secrets[@"dropbox"][@"appKey"];
   NSString *dropboxAppSecret = secrets[@"dropbox"][@"appSecret"];
   ADDropboxOAuth2Client *dropbox = [[ADDropboxOAuth2Client alloc]
-                                        initWithAppKey:dropboxAppKey
-                                        appSecret:dropboxAppSecret];
+                                    initWithAppKey:dropboxAppKey
+                                    appSecret:dropboxAppSecret];
 
   firstViewController.dropboxWebServiceClient = dropbox;
 
@@ -105,13 +138,39 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
                                  @"state"];
   NSURLQueryItem *state = [queryItems
                            filteredArrayUsingPredicate:statePredicate].firstObject;
-
   NSURL *aURL = [NSURL URLWithString:state.value];
 
+  // Immediately detect if the URL is malformed.
   NSAssert(aURL, @"\n\n  ERROR in %s: The variable \"aURL\" is nil.\n\n",
            __PRETTY_FUNCTION__);
 
   ADWebService *webService = [ADWebService webServiceWithURL:aURL];
+  ADStore *store = [ADStore new];
+  Service *service;
+  NSManagedObjectContext *managedObjectContext;
+  managedObjectContext = self.servicesTableViewController.managedObjectContext;
+
+  // Sanity check. This will always pass, but in the off chance it doesn't...
+  NSAssert(managedObjectContext,
+           @"\n\n  ERROR in %s: The variable \"managedObjectContext\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
+  service = [store findServiceWithDomain:webService.domain
+                  inManagedObjectContext:managedObjectContext];
+  service.lastQueryMadeOn = [NSDate date];
+  service.lastURLQueried = state.value;
+  service.isLinked = [NSNumber numberWithBool:YES];
+  service.totalQueriesMade = @(1+ service.totalQueriesMade.unsignedIntegerValue);
+
+  // Save the changes, if any exist, to the persistent store.
+  [ADStore saveContext:managedObjectContext];
+
+  // Because we have seeded the persistent stack in the app initialization,
+  // the variable service ought to always have a value.
+  NSAssert(service,
+           @"\n\n  ERROR in %s: The variable \"service\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
   NSPredicate *accessTokenPredicate = [NSPredicate
                                        predicateWithFormat:@"name=%@", @"access_token"];
   NSURLQueryItem *accessToken = [queryItems
@@ -153,26 +212,15 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
 // Save the managed object context when the app enters the background. This
 // occurs when the user hits the Home button.
 - (void)applicationDidEnterBackground:(UIApplication * __unused)application {
-  // Sanity check.
-  NSAssert([self.window.rootViewController
-            isKindOfClass:[UINavigationController class]],
-           @"\n\n  ERROR in %s: The root view controller is not an instance of \"UINavigationController\". Make sure the property \"Is Initial View Controller\" is checked in Interface Builder\n\n",
+  NSManagedObjectContext *managedObjectContext;
+  managedObjectContext = self.servicesTableViewController.managedObjectContext;
+
+  NSAssert(managedObjectContext,
+           @"\n\n  ERROR in %s: The variable \"managedObjectContext\" is nil.\n\n",
            __PRETTY_FUNCTION__);
-
-  UINavigationController *rootViewController;
-  rootViewController = (UINavigationController *)self.window.rootViewController;
-
-  // Sanity check.
-  NSAssert([rootViewController.viewControllers.firstObject
-            isKindOfClass:[ADServicesTableViewController class]],
-           @"\n\n  ERROR in %s: The top view controller of the navigation controller is not an instance of \"MasterViewController\".\n\n",
-           __PRETTY_FUNCTION__);
-
-  ADServicesTableViewController *firstViewController;
-  firstViewController = (ADServicesTableViewController *)rootViewController.viewControllers.firstObject;
 
   // Save the changes, if any exist, to the persistent store.
-  [ADStore saveContext:firstViewController.managedObjectContext];
+  [ADStore saveContext:managedObjectContext];
 }
 
 @end

@@ -11,6 +11,7 @@
 
 @interface ADWebService ()
 
+@property (nonatomic, readwrite) NSString *domain;
 @property (nonatomic, readonly) NSMutableURLRequest *mutableURLRequest;
 @property (nonatomic, readonly) NSString *authorizationHeaderValue;
 
@@ -64,18 +65,17 @@ static NSURLSession *urlSession;
 
   if (self) {
     NSArray *urlComponents;
-    NSString *domain;
     // The property `host` of `NSURL` returns the domain and the subdomain. The
     // routine below retrieves just the domain. However, this routine will not
     // work with URLs which contain multiple subdomains (no idea if that is even
     // a thing). For example, http://first.second.actualdomain.com would return
     // second.actualdomain.com
     urlComponents = [url.host componentsSeparatedByString:@"."];
-    domain = [[urlComponents
+    self.domain = [[urlComponents
                subarrayWithRange:NSMakeRange(1, urlComponents.count - 1)]
               componentsJoinedByString:@"."];
 
-    NSAssert(domain,
+    NSAssert(self.domain,
              @"\n\n  ERROR in %s: The variable \"domain\" is nil.\n\n",
              __PRETTY_FUNCTION__);
 
@@ -83,7 +83,7 @@ static NSURLSession *urlSession;
     // The URL protection space is scoped by host, so we can use NSURLCredential
     // to store an OAuth2 access token.
     _urlProtectionSpace = [[NSURLProtectionSpace alloc]
-                           initWithHost:domain
+                           initWithHost:self.domain
                            port:[_url.port integerValue]
                            protocol:_url.scheme
                            realm:nil

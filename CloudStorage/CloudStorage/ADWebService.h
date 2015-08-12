@@ -13,6 +13,7 @@
 + (instancetype)webServiceWithURL:(NSURL *)url __attribute((nonnull));
 
 @property (nonatomic, readonly) NSURL *url;
+@property (nonatomic, readonly) NSString *domain;
 @property (nonatomic, readonly) NSURLProtectionSpace *urlProtectionSpace;
 @property (nonatomic) NSURLCredential *urlCredential;
 

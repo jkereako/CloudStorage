@@ -116,4 +116,14 @@
   [[UIApplication sharedApplication] openURL:self.components.URL];
 }
 
+// Simply invokes the completion handler.
+- (void)listFiles:(void (^)(NSArray *fileList))completionHandler {
+  NSParameterAssert(completionHandler);
+  NSAssert([NSThread isMainThread],
+           @"\n\n  ERROR in %s: Attempted to invoke completion handler on background thread.\n\n",
+           __PRETTY_FUNCTION__);
+
+  completionHandler(nil);
+}
+
 @end

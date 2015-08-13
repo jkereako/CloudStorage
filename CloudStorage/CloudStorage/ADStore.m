@@ -8,6 +8,7 @@
 
 #import "ADStore.h"
 #import "Service.h"
+#import "File.h"
 @import CoreData;
 
 static NSString *const kModelName = @"Model";
@@ -99,6 +100,14 @@ static NSString *const kModelName = @"Model";
 
   return (Service *)[NSEntityDescription
                      insertNewObjectForEntityForName:[Service entityName]
+                     inManagedObjectContext:managedObjectContext];
+}
+
+- (File *)fileForManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+  NSParameterAssert(managedObjectContext);
+
+  return (File *)[NSEntityDescription
+                     insertNewObjectForEntityForName:[File entityName]
                      inManagedObjectContext:managedObjectContext];
 }
 

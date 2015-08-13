@@ -90,7 +90,7 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
 
   dropbox.locale = locale;
 
-  servicesTableViewController.dropboxWebServiceClient = dropbox;
+  servicesTableViewController.client = dropbox;
 
   // Add services to the persistent store if they don't already exist.
   [store seedContext:persistentStack.managedObjectContext];

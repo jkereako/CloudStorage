@@ -9,7 +9,7 @@
 #import "ADServicesTableViewController.h"
 #import "ADFileListTableViewController.h"
 #import "ADServiceTableViewCell.h"
-#import "ADDropboxOAuth2Client.h"
+#import "ADOAuth2Client.h"
 #import "ADFetchedResultsControllerDataSource.h"
 #import "ADServiceTableViewCell.h"
 #import "Service.h"
@@ -46,8 +46,8 @@
 
 #pragma mark - Actions
 - (IBAction)didSelectButtonAction:(UIButton * __unused)sender {
-  NSAssert(self.dropboxWebServiceClient,
-           @"\n\n  ERROR in %s: The property \"dropboxWebServiceClient\" is nil.\n\n",
+  NSAssert(self.client,
+           @"\n\n  ERROR in %s: The property \"_client\" is nil.\n\n",
            __PRETTY_FUNCTION__);
 
   ADServiceTableViewCell *cell = (ADServiceTableViewCell *)sender.superview.superview;
@@ -63,10 +63,6 @@
   Service *service = cell.service;
   ADOAuth2Client *client;
 
-  if ([service.domain isEqualToString:kDropboxDomain]) {
-    client = self.dropboxWebServiceClient;
-  }
-
   if (!service.isLinked.boolValue) {
     [client requestAppAuthorization];
   }
@@ -80,6 +76,13 @@
 
 #pragma mark - "Private" methods
 - (void)setupFetchedResultsController {
+  NSAssert(self.fetchedResultsControllerDataSource == nil,
+           @"\n\n  ERROR in %s: Cannot redefine the property \"_fetchedResultsControllerDataSource\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+  NSAssert(self.managedObjectContext,
+           @"\n\n  ERROR in %s: The property \"_managedObjectContext\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
   NSFetchedResultsController *fetchedResultsController;
   NSFetchRequest* fetchRequest;
 
@@ -127,7 +130,7 @@
   NSAssert(self.dateFormatter,
            @"\n\n  ERROR in %s: The property \"_dateFormatter\" is nil.\n\n",
            __PRETTY_FUNCTION__);
-  NSAssert(self.dropboxWebServiceClient,
+  NSAssert(self.client,
            @"\n\n  ERROR in %s: The property \"_dropboxWebServiceClient\" is nil.\n\n",
            __PRETTY_FUNCTION__);
 
@@ -137,7 +140,7 @@
 
   fileListViewController.managedObjectContext = self.managedObjectContext;
   fileListViewController.dateFormatter = self.dateFormatter;
-  fileListViewController.dropboxWebServiceClient = self.dropboxWebServiceClient;
+  fileListViewController.client = self.client;
 }
 
 @end

@@ -7,98 +7,98 @@
 //
 
 #import "ADFileListTableViewController.h"
-#import "ADDropboxOAuth2Client.h"
+#import "ADFetchedResultsControllerDataSource.h"
+#import "ADOAuth2Client.h"
+#import "File.h"
 
-@interface ADFileListTableViewController ()
+@interface ADFileListTableViewController ()<ADFetchedResultsControllerDataSourceDelegate>
+
+@property (nonatomic, readwrite) ADFetchedResultsControllerDataSource* fetchedResultsControllerDataSource;
+
+- (IBAction)refreshAction:(UIRefreshControl *)sender;
+- (void)setupFetchedResultsController;
 
 @end
 
 @implementation ADFileListTableViewController
 
+#pragma mark - View controller life cycle
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  NSAssert(self.dropboxWebServiceClient,
-           @"\n\n  ERROR in %s: The property \"dropboxWebServiceClient\" is nil.\n\n",
+  [self setupFetchedResultsController];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+
+  self.fetchedResultsControllerDataSource.paused = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+  [super viewWillDisappear:animated];
+
+  self.fetchedResultsControllerDataSource.paused = YES;
+}
+
+#pragma mark - Actions
+- (IBAction)refreshAction:(UIRefreshControl * __unused)sender {
+  NSAssert(self.client,
+           @"\n\n  ERROR in %s: The property \"_client\" is nil.\n\n",
            __PRETTY_FUNCTION__);
 
-  [self.dropboxWebServiceClient listFiles];
+  [self.client listFiles:^(NSArray * __unused fileList) {
+    // Do not perform any UI updates unless we are on the main thread.
+    NSAssert([NSThread isMainThread],
+             @"\n\n  ERROR in %s: Attempted to update UI on a background thread.\n\n",
+             __PRETTY_FUNCTION__);
 
-
-  // Uncomment the following line to preserve selection between presentations.
-  // self.clearsSelectionOnViewWillAppear = NO;
-
-  // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-  // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.refreshControl endRefreshing];
+  }];
 }
 
-- (void)didReceiveMemoryWarning {
-  [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
+#pragma mark - FetchedResultsControllerDataSourceDelegate
+- (void)configureCell:(UITableViewCell * __unused)theCell withObject:(File * __unused)object {
+  //  NSParameterAssert(theCell);
+  //  NSParameterAssert(object);
+  //  NSAssert(self.dateFormatter, @"\n\n  ERROR in %s: The property \"_dateFormatter\" is nil.\n\n",
+  //           __PRETTY_FUNCTION__);
+  //
+  //  theCell.dateFormatter = self.dateFormatter;
+  //  theCell.service = object;
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView * __unused)tableView {
-  return 0;
+- (void)deleteObject:(id __unused)object {
 }
 
-- (NSInteger)tableView:(UITableView * __unused)tableView numberOfRowsInSection:(NSInteger __unused)section {
-  return 0;
+#pragma mark - "Private" methods
+- (void)setupFetchedResultsController {
+  NSAssert(self.fetchedResultsControllerDataSource == nil,
+           @"\n\n  ERROR in %s: Cannot redefine the property \"_fetchedResultsControllerDataSource\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+  NSAssert(self.managedObjectContext,
+           @"\n\n  ERROR in %s: The property \"_managedObjectContext\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
+  NSFetchedResultsController *fetchedResultsController;
+  NSFetchRequest* fetchRequest;
+
+  fetchRequest = [NSFetchRequest
+                  fetchRequestWithEntityName:[File entityName]];
+  fetchRequest.sortDescriptors = @[[NSSortDescriptor
+                                    sortDescriptorWithKey:@"lastModified"
+                                    ascending:NO]];
+  fetchedResultsController = [[NSFetchedResultsController alloc]
+                              initWithFetchRequest:fetchRequest
+                              managedObjectContext:self.managedObjectContext
+                              sectionNameKeyPath:nil
+                              cacheName:nil];
+
+  self.fetchedResultsControllerDataSource = [[ADFetchedResultsControllerDataSource alloc]
+                                             initWithTableView:self.tableView];
+  self.fetchedResultsControllerDataSource.fetchedResultsController = fetchedResultsController;
+  self.fetchedResultsControllerDataSource.delegate = self;
+  self.fetchedResultsControllerDataSource.reuseIdentifier = @"file";
 }
-
-/*
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-
- // Configure the cell...
-
- return cell;
- }
- */
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-/*
- #pragma mark - Navigation
-
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

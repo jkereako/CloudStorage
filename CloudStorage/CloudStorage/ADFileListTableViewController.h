@@ -8,12 +8,12 @@
 
 @import UIKit;
 
-@class ADDropboxOAuth2Client;
+@class ADOAuth2Client;
 
 @interface ADFileListTableViewController : UITableViewController
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic) NSDateFormatter *dateFormatter;
-@property (nonatomic) ADDropboxOAuth2Client *dropboxWebServiceClient;
+@property (nonatomic) ADOAuth2Client *client;
 
 @end

@@ -9,10 +9,14 @@
 /* Begin PBXBuildFile section */
 		361CBEB31B73A9CA00ED782C /* ADOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 361CBEB21B73A9CA00ED782C /* ADOAuth2Client.m */; };
 		361CBEB41B73A9CA00ED782C /* ADOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 361CBEB21B73A9CA00ED782C /* ADOAuth2Client.m */; };
-		361CBEB71B73AD2100ED782C /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 361CBEB61B73AD2100ED782C /* Service.m */; };
-		361CBEB81B73AD2100ED782C /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 361CBEB61B73AD2100ED782C /* Service.m */; };
 		3637CEAB1B7CE065004C5B7C /* ADFileListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3637CEAA1B7CE065004C5B7C /* ADFileListTableViewController.m */; };
 		3637CEAC1B7CE065004C5B7C /* ADFileListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3637CEAA1B7CE065004C5B7C /* ADFileListTableViewController.m */; };
+		3637CEB91B7CF732004C5B7C /* File.m in Sources */ = {isa = PBXBuildFile; fileRef = 3637CEB51B7CF732004C5B7C /* File.m */; };
+		3637CEBA1B7CF732004C5B7C /* File.m in Sources */ = {isa = PBXBuildFile; fileRef = 3637CEB51B7CF732004C5B7C /* File.m */; };
+		3637CEBB1B7CF732004C5B7C /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 3637CEB81B7CF732004C5B7C /* Service.m */; };
+		3637CEBC1B7CF732004C5B7C /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 3637CEB81B7CF732004C5B7C /* Service.m */; };
+		3637CEBF1B7CF8E7004C5B7C /* ADFetchedResultsControllerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3637CEBE1B7CF8E7004C5B7C /* ADFetchedResultsControllerDataSource.m */; };
+		3637CEC01B7CF8E7004C5B7C /* ADFetchedResultsControllerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3637CEBE1B7CF8E7004C5B7C /* ADFetchedResultsControllerDataSource.m */; };
 		36630D6E1B7294E000721414 /* ADServiceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D6D1B7294E000721414 /* ADServiceTableViewCell.m */; };
 		36630D751B7297F600721414 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 36630D731B7297F600721414 /* Model.xcdatamodeld */; };
 		36630D761B7297F600721414 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 36630D731B7297F600721414 /* Model.xcdatamodeld */; };
@@ -20,8 +24,6 @@
 		36630D7B1B7298DB00721414 /* ADPersistentStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D791B7298DB00721414 /* ADPersistentStack.m */; };
 		36630D7E1B7299B700721414 /* ADStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D7D1B7299B700721414 /* ADStore.m */; };
 		36630D7F1B7299B700721414 /* ADStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D7D1B7299B700721414 /* ADStore.m */; };
-		36630D861B72A60600721414 /* ADFetchedResultsControllerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D851B72A60600721414 /* ADFetchedResultsControllerDataSource.m */; };
-		36630D871B72A60600721414 /* ADFetchedResultsControllerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 36630D851B72A60600721414 /* ADFetchedResultsControllerDataSource.m */; };
 		36644E2F1B711BA400B32E90 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E2E1B711BA400B32E90 /* main.m */; };
 		36644E321B711BA400B32E90 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E311B711BA400B32E90 /* AppDelegate.m */; };
 		36644E351B711BA400B32E90 /* ADServicesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36644E341B711BA400B32E90 /* ADServicesTableViewController.m */; };
@@ -49,10 +51,16 @@
 /* Begin PBXFileReference section */
 		361CBEB11B73A9CA00ED782C /* ADOAuth2Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADOAuth2Client.h; sourceTree = "<group>"; };
 		361CBEB21B73A9CA00ED782C /* ADOAuth2Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADOAuth2Client.m; sourceTree = "<group>"; };
-		361CBEB51B73AD2100ED782C /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
-		361CBEB61B73AD2100ED782C /* Service.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Service.m; sourceTree = "<group>"; };
 		3637CEA91B7CE065004C5B7C /* ADFileListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFileListTableViewController.h; sourceTree = "<group>"; };
 		3637CEAA1B7CE065004C5B7C /* ADFileListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADFileListTableViewController.m; sourceTree = "<group>"; };
+		3637CEB31B7CF732004C5B7C /* File+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "File+CoreDataProperties.h"; sourceTree = "<group>"; };
+		3637CEB41B7CF732004C5B7C /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = File.h; sourceTree = "<group>"; };
+		3637CEB51B7CF732004C5B7C /* File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = File.m; sourceTree = "<group>"; };
+		3637CEB61B7CF732004C5B7C /* Service+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Service+CoreDataProperties.h"; sourceTree = "<group>"; };
+		3637CEB71B7CF732004C5B7C /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
+		3637CEB81B7CF732004C5B7C /* Service.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Service.m; sourceTree = "<group>"; };
+		3637CEBD1B7CF8E7004C5B7C /* ADFetchedResultsControllerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFetchedResultsControllerDataSource.h; sourceTree = "<group>"; };
+		3637CEBE1B7CF8E7004C5B7C /* ADFetchedResultsControllerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADFetchedResultsControllerDataSource.m; sourceTree = "<group>"; };
 		36630D6C1B7294E000721414 /* ADServiceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADServiceTableViewCell.h; sourceTree = "<group>"; };
 		36630D6D1B7294E000721414 /* ADServiceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADServiceTableViewCell.m; sourceTree = "<group>"; };
 		36630D741B7297F600721414 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -60,8 +68,6 @@
 		36630D791B7298DB00721414 /* ADPersistentStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPersistentStack.m; sourceTree = "<group>"; };
 		36630D7C1B7299B700721414 /* ADStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADStore.h; sourceTree = "<group>"; };
 		36630D7D1B7299B700721414 /* ADStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADStore.m; sourceTree = "<group>"; };
-		36630D841B72A60600721414 /* ADFetchedResultsControllerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFetchedResultsControllerDataSource.h; sourceTree = "<group>"; };
-		36630D851B72A60600721414 /* ADFetchedResultsControllerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADFetchedResultsControllerDataSource.m; sourceTree = "<group>"; };
 		36644E291B711BA400B32E90 /* CloudStorage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudStorage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36644E2D1B711BA400B32E90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36644E2E1B711BA400B32E90 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -121,10 +127,14 @@
 				36630D791B7298DB00721414 /* ADPersistentStack.m */,
 				36630D7C1B7299B700721414 /* ADStore.h */,
 				36630D7D1B7299B700721414 /* ADStore.m */,
-				361CBEB51B73AD2100ED782C /* Service.h */,
-				361CBEB61B73AD2100ED782C /* Service.m */,
-				36630D841B72A60600721414 /* ADFetchedResultsControllerDataSource.h */,
-				36630D851B72A60600721414 /* ADFetchedResultsControllerDataSource.m */,
+				3637CEBD1B7CF8E7004C5B7C /* ADFetchedResultsControllerDataSource.h */,
+				3637CEBE1B7CF8E7004C5B7C /* ADFetchedResultsControllerDataSource.m */,
+				3637CEB31B7CF732004C5B7C /* File+CoreDataProperties.h */,
+				3637CEB41B7CF732004C5B7C /* File.h */,
+				3637CEB51B7CF732004C5B7C /* File.m */,
+				3637CEB61B7CF732004C5B7C /* Service+CoreDataProperties.h */,
+				3637CEB71B7CF732004C5B7C /* Service.h */,
+				3637CEB81B7CF732004C5B7C /* Service.m */,
 			);
 			name = Persistence;
 			sourceTree = "<group>";
@@ -308,19 +318,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3637CEBF1B7CF8E7004C5B7C /* ADFetchedResultsControllerDataSource.m in Sources */,
 				361CBEB31B73A9CA00ED782C /* ADOAuth2Client.m in Sources */,
 				36630D7A1B7298DB00721414 /* ADPersistentStack.m in Sources */,
 				36644E321B711BA400B32E90 /* AppDelegate.m in Sources */,
+				3637CEBB1B7CF732004C5B7C /* Service.m in Sources */,
 				36644E631B71261B00B32E90 /* ADDropboxOAuth2Client.m in Sources */,
 				3637CEAB1B7CE065004C5B7C /* ADFileListTableViewController.m in Sources */,
-				361CBEB71B73AD2100ED782C /* Service.m in Sources */,
+				3637CEB91B7CF732004C5B7C /* File.m in Sources */,
 				36644E351B711BA400B32E90 /* ADServicesTableViewController.m in Sources */,
 				36630D6E1B7294E000721414 /* ADServiceTableViewCell.m in Sources */,
 				36630D751B7297F600721414 /* Model.xcdatamodeld in Sources */,
 				36644E581B711CB200B32E90 /* ADWebService.m in Sources */,
 				36630D7E1B7299B700721414 /* ADStore.m in Sources */,
 				36644E2F1B711BA400B32E90 /* main.m in Sources */,
-				36630D861B72A60600721414 /* ADFetchedResultsControllerDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,14 +340,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				36630D7B1B7298DB00721414 /* ADPersistentStack.m in Sources */,
+				3637CEBA1B7CF732004C5B7C /* File.m in Sources */,
 				361CBEB41B73A9CA00ED782C /* ADOAuth2Client.m in Sources */,
-				36630D871B72A60600721414 /* ADFetchedResultsControllerDataSource.m in Sources */,
 				36644E4C1B711BA500B32E90 /* CloudStorageTests.m in Sources */,
+				3637CEC01B7CF8E7004C5B7C /* ADFetchedResultsControllerDataSource.m in Sources */,
 				36644E641B71261B00B32E90 /* ADDropboxOAuth2Client.m in Sources */,
 				36630D7F1B7299B700721414 /* ADStore.m in Sources */,
 				36630D761B7297F600721414 /* Model.xcdatamodeld in Sources */,
-				361CBEB81B73AD2100ED782C /* Service.m in Sources */,
 				3637CEAC1B7CE065004C5B7C /* ADFileListTableViewController.m in Sources */,
+				3637CEBC1B7CF732004C5B7C /* Service.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  Service.h
+//  File.h
 //  CloudStorage
 //
 //  Created by Jeffrey Kereakoglow on 8/13/15.
@@ -8,11 +8,11 @@
 
 @import CoreData;
 
-@class File;
+@class Service;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Service : NSManagedObject
+@interface File : NSManagedObject
 
 + (NSString *)entityName;
 
@@ -20,4 +20,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-#import "Service+CoreDataProperties.h"
+#import "File+CoreDataProperties.h"

@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E46" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8175.2" systemVersion="14E46" minimumToolsVersion="Xcode 4.3">
+    <entity name="File" representedClassName="File" syncable="YES">
+        <attribute name="lastModified" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="mimeType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="path" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="size" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="version" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="service" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Service" inverseName="files" inverseEntity="Service" syncable="YES"/>
+    </entity>
     <entity name="Service" representedClassName="Service" syncable="YES">
         <attribute name="domain" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isLinked" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -7,8 +15,10 @@
         <attribute name="lastURLQueried" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="totalQueriesMade" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <relationship name="files" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="File" inverseName="service" inverseEntity="File" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Service" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="Service" positionX="-63" positionY="-18" width="128" height="150"/>
+        <element name="File" positionX="-63" positionY="27" width="128" height="135"/>
     </elements>
 </model>

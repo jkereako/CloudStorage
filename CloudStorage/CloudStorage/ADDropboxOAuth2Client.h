@@ -17,7 +17,7 @@ FOUNDATION_EXPORT NSString *const kDropboxDomain;
 
 @property (nonatomic, readonly, getter=isAuthorized) BOOL authorized;
 
-- (void)requestAppAuthorization;
 - (void)dropboxAccountInfo;
+- (void)listFiles;
 
 @end

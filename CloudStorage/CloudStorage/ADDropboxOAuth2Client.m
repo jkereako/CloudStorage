@@ -36,7 +36,7 @@ static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
   NSAssert(self.components,
            @"\n\n  ERROR in %s: The property \"_components\" is nil.\n\n",
            __PRETTY_FUNCTION__);
-  
+
   self.components.host = kDropboxWebHost;
   self.components.path = @"/1/oauth2/authorize";
 
@@ -55,6 +55,33 @@ static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
   NSURLQueryItem *locale;
   locale = [NSURLQueryItem queryItemWithName:@"locale" value:@"en-US"];
   self.components.queryItems = @[locale];
+  webService = [ADWebService webServiceWithURL:self.components.URL];
+
+  [webService getResource:
+   ^(NSURLRequest *request, NSDictionary *response, NSError * __unused error) {
+     NSLog(@"%@", request);
+     NSLog(@"%@", response);
+   }];
+}
+
+/**
+ @see https://www.dropbox.com/developers/core/docs#metadata
+ */
+- (void)listFiles {
+  NSAssert(self.components,
+           @"\n\n  ERROR in %s: The property \"_components\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
+  ADWebService *webService;
+  self.components.host = kDropboxAPIHost;
+  self.components.path = @"/1/metadata/auto";
+
+  NSURLQueryItem *list, *locale;
+  list = [NSURLQueryItem queryItemWithName:@"list"
+                                     value:@"true"];
+  locale = [NSURLQueryItem queryItemWithName:@"locale"
+                                       value:self.locale.localeIdentifier];
+  self.components.queryItems = @[list, locale];
   webService = [ADWebService webServiceWithURL:self.components.URL];
 
   [webService getResource:

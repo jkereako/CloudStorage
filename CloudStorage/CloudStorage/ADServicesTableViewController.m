@@ -7,8 +7,8 @@
 //
 
 #import "ADServicesTableViewController.h"
+#import "ADFileListTableViewController.h"
 #import "ADServiceTableViewCell.h"
-#import "DetailViewController.h"
 #import "ADDropboxOAuth2Client.h"
 #import "ADFetchedResultsControllerDataSource.h"
 #import "ADServiceTableViewCell.h"
@@ -57,7 +57,7 @@
   NSAssert([cell isKindOfClass:[ADServiceTableViewCell class]],
            @"\n\n  ERROR in %s: The variable \"cell\" not an instance of \"ADServiceTableViewCell\".\n\n",
            __PRETTY_FUNCTION__);
-  NSAssert(cell.service, @"\n\n  ERROR in %s: The property \"service\" is nil.\n\n",
+  NSAssert(cell.service, @"\n\n  ERROR in %s: The property \"_service\" is nil.\n\n",
            __PRETTY_FUNCTION__);
 
   Service *service = cell.service;
@@ -77,23 +77,6 @@
     NSAssert(NO, @"n\n UNEXPECTED BEHAVIOR in %s\n\n", __PRETTY_FUNCTION__);
   }
 }
-
-
-
-//- (void)viewDidAppear:(BOOL)animated {
-//  NSAssert(self.dropboxWebServiceClient,
-//           @"\n\n  ERROR in %s: The property \"_dropboxWebServiceClient\" is nil.\n\n",
-//           __PRETTY_FUNCTION__);
-//
-//  [super viewDidAppear:animated];
-//
-//  if (!self.dropboxWebServiceClient.isAuthorized) {
-//    [self.dropboxWebServiceClient requestAppAuthorization];
-//  }
-//  else {
-//    NSLog(@"\n\n The user has authorized the app!\n\n");
-//  }
-//}
 
 #pragma mark - "Private" methods
 - (void)setupFetchedResultsController {
@@ -120,11 +103,41 @@
 
 #pragma mark - FetchedResultsControllerDataSourceDelegate
 - (void)configureCell:(ADServiceTableViewCell *)theCell withObject:(Service *)object {
+  NSParameterAssert(theCell);
+  NSParameterAssert(object);
+  NSAssert(self.dateFormatter, @"\n\n  ERROR in %s: The property \"_dateFormatter\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
   theCell.dateFormatter = self.dateFormatter;
   theCell.service = object;
 }
 
 - (void)deleteObject:(id __unused)object {
+}
+
+#pragma mark - Navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell * __unused)sender {
+  NSAssert([segue.destinationViewController
+            isKindOfClass:[ADFileListTableViewController class]],
+           @"\n\n  ERROR in %s: The destination view controller is not an instance of \"ADFileListTableViewController\".\n\n",
+           __PRETTY_FUNCTION__);
+  NSAssert(self.managedObjectContext,
+           @"\n\n  ERROR in %s: The property \"_managedObjectContext\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+  NSAssert(self.dateFormatter,
+           @"\n\n  ERROR in %s: The property \"_dateFormatter\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+  NSAssert(self.dropboxWebServiceClient,
+           @"\n\n  ERROR in %s: The property \"_dropboxWebServiceClient\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
+  ADFileListTableViewController *fileListViewController;
+
+  fileListViewController = segue.destinationViewController;
+
+  fileListViewController.managedObjectContext = self.managedObjectContext;
+  fileListViewController.dateFormatter = self.dateFormatter;
+  fileListViewController.dropboxWebServiceClient = self.dropboxWebServiceClient;
 }
 
 @end

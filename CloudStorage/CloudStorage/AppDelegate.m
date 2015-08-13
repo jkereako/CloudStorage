@@ -88,6 +88,8 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
                                     initWithAppKey:dropboxAppKey
                                     appSecret:dropboxAppSecret];
 
+  dropbox.locale = locale;
+
   servicesTableViewController.dropboxWebServiceClient = dropbox;
 
   // Add services to the persistent store if they don't already exist.

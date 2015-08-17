@@ -16,7 +16,8 @@
 @property (nonatomic, readwrite) ADFetchedResultsControllerDataSource* fetchedResultsControllerDataSource;
 
 - (IBAction)refreshAction:(UIRefreshControl *)sender;
-- (void)setupFetchedResultsController;
+- (IBAction)addFileAction:(UIBarButtonItem *)sender;
+- (void)setUpFetchedResultsController;
 
 @end
 
@@ -26,7 +27,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  [self setupFetchedResultsController];
+  [self setUpFetchedResultsController];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -57,6 +58,43 @@
   }];
 }
 
+- (IBAction)addFileAction:(UIBarButtonItem * __unused)sender {
+  NSAssert(self.client,
+           @"\n\n  ERROR in %s: The property \"_client\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
+  NSString *fileName;
+  NSURL *fileURL;
+  NSString *fileContents;
+  NSError *error;
+  NSData *fileData;
+  BOOL didWriteSuccessfully = NO;
+  fileName = [NSString stringWithFormat:@"%@.txt",
+              [[NSProcessInfo processInfo] globallyUniqueString]];
+  fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
+  fileContents = @"This is a test document created on the iPhone and uploaded to the Cloud.";
+
+  didWriteSuccessfully = [fileContents writeToURL:fileURL atomically:YES
+                                         encoding:NSUTF16StringEncoding
+                                            error:&error];
+
+  if (!didWriteSuccessfully) {
+    NSAssert(NO,
+             @"\n\n  ERROR in %s: Could not save data as a file.\n\n",
+             __PRETTY_FUNCTION__);
+  }
+
+  fileData = [[NSFileManager defaultManager]
+              contentsAtPath:fileURL.absoluteString];
+
+  if (!fileData) {
+    NSAssert(NO,
+             @"\n\n  ERROR in %s: Could not read file as data.\n\n",
+             __PRETTY_FUNCTION__);
+  }
+
+}
+
 #pragma mark - FetchedResultsControllerDataSourceDelegate
 - (void)configureCell:(UITableViewCell * __unused)theCell withObject:(File * __unused)object {
   //  NSParameterAssert(theCell);
@@ -72,7 +110,7 @@
 }
 
 #pragma mark - "Private" methods
-- (void)setupFetchedResultsController {
+- (void)setUpFetchedResultsController {
   NSAssert(self.fetchedResultsControllerDataSource == nil,
            @"\n\n  ERROR in %s: Cannot redefine the property \"_fetchedResultsControllerDataSource\" is nil.\n\n",
            __PRETTY_FUNCTION__);

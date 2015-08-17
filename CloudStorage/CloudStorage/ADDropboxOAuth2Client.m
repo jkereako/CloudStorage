@@ -111,4 +111,53 @@ static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
    }];
 }
 
+
+/**
+ @see https://www.dropbox.com/developers/core/docs#metadata
+ */
+- (void)putFile:(void (^)(void))completionHandler {
+  NSParameterAssert(completionHandler);
+  NSAssert(self.components,
+           @"\n\n  ERROR in %s: The property \"_components\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
+  ADWebService *webService;
+  self.components.host = kDropboxAPIContentHost;
+  self.components.path = @"/1/files_put/auto/";
+
+  NSURLQueryItem *locale;
+  locale = [NSURLQueryItem queryItemWithName:@"locale"
+                                       value:self.locale.localeIdentifier];
+  self.components.queryItems = @[locale];
+  webService = [ADWebService webServiceWithURL:self.components.URL];
+
+  /*
+  [webService putData:nil contentType:@"text/plain"
+    completionHandler:
+   ^(NSURLRequest *request, NSDictionary *response, NSError * __unused error) {
+     NSLog(@"%@", request);
+     NSLog(@"%@", response);
+     NSMutableArray *fileList;
+     if (((NSArray *)response[@"contents"]).count) {
+       NSArray *files = response[@"contents"];
+
+       fileList = [NSMutableArray arrayWithCapacity:files.count];
+       for (NSDictionary *file in files) {
+         [fileList addObject:@{@"size":file[@"bytes"],
+                               @"version":file[@"rev"],
+                               @"mimeType":file[@"mime_type"],
+                               @"path":file[@"path"],
+                               @"lastModified":file[@"modified"]}];
+       }
+     }
+
+     // Pass the file list, if there is one, back to the main thread for
+     // presentation
+     dispatch_async(dispatch_get_main_queue(),^(void) {
+       completionHandler(fileList);
+     });
+   }];
+  */
+}
+
 @end

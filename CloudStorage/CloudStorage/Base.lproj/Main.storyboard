@@ -151,14 +151,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="vVq-cD-hhU">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="acf-0P-xT9"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="acf-0P-xT9">
+                            <connections>
+                                <action selector="addFileAction:" destination="vg4-Ky-w74" id="WiF-Hw-Vm4"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="9gO-GG-7cR">
                         <autoresizingMask key="autoresizingMask"/>
                         <attributedString key="attributedTitle">
                             <fragment content="Fetching new files">
                                 <attributes>
-                                    <font key="NSFont" metaFont="toolTip"/>
+                                    <font key="NSFont" metaFont="smallSystem"/>
                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                 </attributes>
                             </fragment>

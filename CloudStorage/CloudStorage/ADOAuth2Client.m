@@ -126,4 +126,13 @@
   completionHandler(nil);
 }
 
+- (void)putFile:(void (^)(void))completionHandler {
+  NSParameterAssert(completionHandler);
+  NSAssert([NSThread isMainThread],
+           @"\n\n  ERROR in %s: Attempted to invoke completion handler on background thread.\n\n",
+           __PRETTY_FUNCTION__);
+
+    completionHandler();
+}
+
 @end

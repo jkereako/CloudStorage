@@ -10,7 +10,7 @@
 
 @class ADOAuth2Client, Service;
 
-@interface ADFileListTableViewController : UITableViewController
+@interface ADFileListTableViewController : UITableViewController<UITableViewDelegate>
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic) NSDateFormatter *dateFormatter;

@@ -28,7 +28,13 @@
 
 #pragma mark - View controller life cycle
 - (void)viewDidLoad {
+  NSAssert(self.service,
+           @"\n\n  ERROR in %s: The property \"_managedObjectContext\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+  
   [super viewDidLoad];
+
+  self.title = self.service.name;
 
   [self setUpFetchedResultsController];
 }
@@ -43,6 +49,22 @@
   [super viewWillDisappear:animated];
 
   self.fetchedResultsControllerDataSource.paused = YES;
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent {
+  NSAssert(self.managedObjectContext,
+           @"\n\n  ERROR in %s: The property \"_managedObjectContext\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
+  // Save the context everytime the user hits the back button.
+  [ADStore saveContext:self.managedObjectContext];
+
+  [super didMoveToParentViewController:parent];
+}
+
+#pragma mark - Table view delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Actions
@@ -103,7 +125,8 @@
        NSParameterAssert(fileMeta);
        File *newFile;
        ADStore *store = [ADStore new];
-
+       NSString *originalDateFormat;
+       originalDateFormat = weakSelf.dateFormatter.dateFormat;
        weakSelf.dateFormatter.dateFormat = @"ccc, d MMM yyyy H:m:s Z";
 
        newFile = [store fileForManagedObjectContext:weakSelf.managedObjectContext];
@@ -132,6 +155,8 @@
        // Associate the file with the service.
        [self.service addFilesObject:newFile];
 
+       weakSelf.dateFormatter.dateFormat = originalDateFormat;
+
        // Remove the file
        if ([[NSFileManager defaultManager] isDeletableFileAtPath:fileURL.path]) {
          success = [[NSFileManager defaultManager] removeItemAtPath:fileURL.path
@@ -153,14 +178,15 @@
 }
 
 #pragma mark - FetchedResultsControllerDataSourceDelegate
-- (void)configureCell:(UITableViewCell * __unused)theCell withObject:(File * __unused)object {
-  //  NSParameterAssert(theCell);
-  //  NSParameterAssert(object);
-  //  NSAssert(self.dateFormatter, @"\n\n  ERROR in %s: The property \"_dateFormatter\" is nil.\n\n",
-  //           __PRETTY_FUNCTION__);
-  //
-  //  theCell.dateFormatter = self.dateFormatter;
-  //  theCell.service = object;
+- (void)configureCell:(UITableViewCell *)theCell withObject:(File *)object {
+    NSParameterAssert(theCell);
+    NSParameterAssert(object);
+    NSAssert(self.dateFormatter,
+             @"\n\n  ERROR in %s: The property \"_dateFormatter\" is nil.\n\n",
+             __PRETTY_FUNCTION__);
+  
+  theCell.detailTextLabel.text = object.path;
+  theCell.textLabel.text = [self.dateFormatter stringFromDate:object.lastModified];
 }
 
 - (void)deleteObject:(id __unused)object {

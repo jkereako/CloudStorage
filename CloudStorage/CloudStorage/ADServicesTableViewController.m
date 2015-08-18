@@ -105,6 +105,11 @@
   self.fetchedResultsControllerDataSource.reuseIdentifier = @"service";
 }
 
+#pragma mark - Table view delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 #pragma mark - FetchedResultsControllerDataSourceDelegate
 - (void)configureCell:(ADServiceTableViewCell *)theCell withObject:(Service *)object {
   NSParameterAssert(theCell);
@@ -120,6 +125,13 @@
 }
 
 #pragma mark - Navigation
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(UITableViewCell * __unused)sender {
+  if ([identifier isEqualToString:@"showFiles"]) {
+    return self.client.isAuthorized;
+  }
+
+  return NO;
+}
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell * __unused)sender {
   NSAssert([segue.destinationViewController
             isKindOfClass:[ADFileListTableViewController class]],

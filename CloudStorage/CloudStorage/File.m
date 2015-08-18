@@ -12,7 +12,7 @@
 @implementation File
 
 + (NSString *)entityName {
-  return @"Service";
+  return @"File";
 }
 
 @end

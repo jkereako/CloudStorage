@@ -126,7 +126,7 @@
   completionHandler(nil);
 }
 
-- (void)putFile:(NSURL *)fileURL mimeType:(NSString *)mimeType completionHandler:(void (^)(void))completionHandler {
+- (void)putFile:(NSURL *)fileURL mimeType:(NSString *)mimeType completionHandler:(void (^)(NSDictionary *fileMeta))completionHandler {
   NSParameterAssert(fileURL);
   NSParameterAssert(mimeType);
   NSParameterAssert(completionHandler);
@@ -134,7 +134,7 @@
            @"\n\n  ERROR in %s: Attempted to invoke completion handler on background thread.\n\n",
            __PRETTY_FUNCTION__);
 
-  completionHandler();
+  completionHandler(nil);
 }
 
 @end

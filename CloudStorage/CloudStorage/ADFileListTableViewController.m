@@ -10,7 +10,9 @@
 #import "ADFileListTableViewController.h"
 #import "ADFetchedResultsControllerDataSource.h"
 #import "ADOAuth2Client.h"
+#import "Service.h"
 #import "File.h"
+#import "ADStore.h"
 
 @interface ADFileListTableViewController ()<ADFetchedResultsControllerDataSourceDelegate>
 
@@ -63,6 +65,12 @@
   NSAssert(self.client,
            @"\n\n  ERROR in %s: The property \"_client\" is nil.\n\n",
            __PRETTY_FUNCTION__);
+  NSAssert(self.service,
+           @"\n\n  ERROR in %s: The property \"_service\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+  NSAssert(self.dateFormatter,
+           @"\n\n  ERROR in %s: The property \"_dateFormatter\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
 
   NSString *fileName;
   NSURL *fileURL;
@@ -87,9 +95,43 @@
              __PRETTY_FUNCTION__);
   }
 
+  ADFileListTableViewController * __weak weakSelf = self;
+
   [self.client putFile:fileURL
               mimeType:(NSString *)kUTTypePlainText
-     completionHandler:^(void){
+     completionHandler:^(NSDictionary * fileMeta){
+       NSParameterAssert(fileMeta);
+       File *newFile;
+       ADStore *store = [ADStore new];
+
+       weakSelf.dateFormatter.dateFormat = @"ccc, d MMM yyyy H:m:s Z";
+
+       newFile = [store fileForManagedObjectContext:weakSelf.managedObjectContext];
+       /*
+        {
+        bytes = 146;
+        "client_mtime" = "Tue, 18 Aug 2015 19:08:00 +0000";
+        icon = "page_white_text";
+        "is_dir" = 0;
+        "mime_type" = "text/plain";
+        modified = "Tue, 18 Aug 2015 19:08:00 +0000";
+        path = "/some-file.txt";
+        rev = 123ef8920;
+        revision = 1;
+        root = "app_folder";
+        size = "146 bytes";
+        "thumb_exists" = 0;
+        }
+        */
+       newFile.size = fileMeta[@"bytes"];
+       newFile.lastModified = [weakSelf.dateFormatter dateFromString:fileMeta[@"modified"]];
+       newFile.revisionIdentifier = fileMeta[@"rev"];
+       newFile.path = fileMeta[@"path"];
+       newFile.mimeType = fileMeta[@"mime_type"];
+
+       // Associate the file with the service.
+       [self.service addFilesObject:newFile];
+
        // Remove the file
        if ([[NSFileManager defaultManager] isDeletableFileAtPath:fileURL.path]) {
          success = [[NSFileManager defaultManager] removeItemAtPath:fileURL.path

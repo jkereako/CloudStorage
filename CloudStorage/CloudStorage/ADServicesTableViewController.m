@@ -61,14 +61,15 @@
            __PRETTY_FUNCTION__);
 
   Service *service = cell.service;
-  ADOAuth2Client *client;
 
   if (!service.isLinked.boolValue) {
-    [client requestAppAuthorization];
+    [self.client requestAppAuthorization];
   }
+
   else if (service.isLinked.boolValue) {
     NSLog( @"TODO: create routine to disconnect service from app.");
   }
+
   else {
     NSAssert(NO, @"n\n UNEXPECTED BEHAVIOR in %s\n\n", __PRETTY_FUNCTION__);
   }
@@ -133,14 +134,20 @@
   NSAssert(self.client,
            @"\n\n  ERROR in %s: The property \"_dropboxWebServiceClient\" is nil.\n\n",
            __PRETTY_FUNCTION__);
+  // Assume self.view is the table view
+  NSIndexPath *indexPath;
+  ADServiceTableViewCell *cell;
+    ADFileListTableViewController *fileListViewController;
 
-  ADFileListTableViewController *fileListViewController;
-
+  // Retrieve the selected cell.
+  indexPath = [self.tableView indexPathForSelectedRow];
+  cell = [self.tableView cellForRowAtIndexPath:indexPath];
   fileListViewController = segue.destinationViewController;
 
   fileListViewController.managedObjectContext = self.managedObjectContext;
   fileListViewController.dateFormatter = self.dateFormatter;
   fileListViewController.client = self.client;
+  fileListViewController.service = cell.service;
 }
 
 @end

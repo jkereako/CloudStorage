@@ -115,7 +115,8 @@ static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
 /**
  @see https://www.dropbox.com/developers/core/docs#metadata
  */
-- (void)putFile:(NSURL *)fileURL mimeType:(NSString *)mimeType completionHandler:(void (^)(void))completionHandler {
+- (void)putFile:(NSURL *)fileURL mimeType:(NSString *)mimeType
+completionHandler:(void (^)(NSDictionary *fileMeta))completionHandler {
   NSParameterAssert(fileURL);
   NSParameterAssert(mimeType);
   NSParameterAssert(completionHandler);
@@ -151,14 +152,12 @@ static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
 
   [webService postData:fileData
            contentType:mimeType
-    completionHandler:
-   ^(NSURLRequest *request, NSDictionary *response, NSError * __unused error) {
-     NSLog(@"%@", request);
-     NSLog(@"%@", response);
-
+     completionHandler:
+   ^(NSURLRequest * __unused request, NSDictionary *response, NSError * __unused error) {
+     
      // Call the completion handler on the main thread.
      dispatch_async(dispatch_get_main_queue(),^(void) {
-       completionHandler();
+       completionHandler(response);
      });
    }];
   

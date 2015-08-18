@@ -55,7 +55,7 @@
 }
 
 /**
- Override this method to supply the URL host. 
+ Override this method to supply the URL host.
  */
 - (BOOL)isAuthorized {
   NSAssert(self.components,
@@ -126,13 +126,15 @@
   completionHandler(nil);
 }
 
-- (void)putFile:(void (^)(void))completionHandler {
+- (void)putFile:(NSURL *)fileURL mimeType:(NSString *)mimeType completionHandler:(void (^)(void))completionHandler {
+  NSParameterAssert(fileURL);
+  NSParameterAssert(mimeType);
   NSParameterAssert(completionHandler);
   NSAssert([NSThread isMainThread],
            @"\n\n  ERROR in %s: Attempted to invoke completion handler on background thread.\n\n",
            __PRETTY_FUNCTION__);
 
-    completionHandler();
+  completionHandler();
 }
 
 @end

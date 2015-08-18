@@ -17,6 +17,6 @@
 - (instancetype)initWithAppKey:(NSString *)appKey appSecret:(NSString *)appSecret __attribute((nonnull));
 - (void)requestAppAuthorization;
 - (void)listFiles:(void (^)(NSArray *fileList))completionHandler __attribute((nonnull));
-- (void)putFile:(void (^)(void))completionHandler __attribute((nonnull));
+- (void)putFile:(NSURL *)fileURL mimeType:(NSString *)mimeType completionHandler:(void (^)(void))completionHandler __attribute((nonnull));
 
 @end

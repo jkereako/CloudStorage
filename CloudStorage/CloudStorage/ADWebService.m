@@ -72,8 +72,8 @@ static NSURLSession *urlSession;
     // second.actualdomain.com
     urlComponents = [url.host componentsSeparatedByString:@"."];
     self.domain = [[urlComponents
-               subarrayWithRange:NSMakeRange(1, urlComponents.count - 1)]
-              componentsJoinedByString:@"."];
+                    subarrayWithRange:NSMakeRange(1, urlComponents.count - 1)]
+                   componentsJoinedByString:@"."];
 
     NSAssert(self.domain,
              @"\n\n  ERROR in %s: The variable \"domain\" is nil.\n\n",
@@ -171,6 +171,7 @@ static NSURLSession *urlSession;
 
 #pragma mark -
 - (id)collectionFromJSONData:(NSData *)data error:(__autoreleasing NSError **)error {
+  NSParameterAssert(data);
   id result = [NSJSONSerialization JSONObjectWithData:data
                                               options:NSJSONReadingMutableContainers
                                                 error:error];
@@ -210,11 +211,14 @@ didReceiveChallenge:(__unused NSURLAuthenticationChallenge *)challenge
 - (void)postData:(NSData *)data
      contentType:(NSString *)contentType
 completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
+  NSParameterAssert(data);
+  NSParameterAssert(contentType);
+
   NSMutableURLRequest *mutableURLRequest = self.mutableURLRequest;
 
   [mutableURLRequest setHTTPMethod:@"POST"];
   [mutableURLRequest setValue:contentType forHTTPHeaderField:@"Content-Type"];
-  [mutableURLRequest setHTTPBody:data ];
+  [mutableURLRequest setHTTPBody:data];
 
   [self handleDataTaskWithRequest:mutableURLRequest
                 completionHandler:completionHandler];
@@ -223,6 +227,9 @@ completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))
 - (void)putData:(NSData *)data
     contentType:(NSString *)contentType
 completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))completionHandler {
+  NSParameterAssert(data);
+  NSParameterAssert(contentType);
+
   NSMutableURLRequest *mutableURLRequest = self.mutableURLRequest;
 
   [mutableURLRequest setHTTPMethod:@"PUT"];
@@ -259,7 +266,6 @@ completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))
       // Else, process the response.
       else {
         NSError *newError;
-        NSDictionary *vessels;
         NSString *errorDescription;
         NSInteger statusCode = 0;
 
@@ -270,38 +276,19 @@ completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))
 
           switch (statusCode) {
             case 200:
-              break;
-
-            case 400:
-              errorDescription = NSLocalizedString(@"webService.httpResponseCode.400.badRequest", @"HTTP: 400");
-              break;
-
-            case 401:
-              errorDescription = NSLocalizedString(@"webService.httpResponseCode.401.unauthorizedAccess", @"HTTP: 401");
-              break;
-
-            case 403:
-              errorDescription = NSLocalizedString(@"webService.httpResponseCode.403.forbidden", @"HTTP: 403");
-              break;
-
-            case 404:
-              errorDescription = NSLocalizedString(@"webService.httpResponseCode.404.notFound", @"HTTP: 404");
-              break;
-
-            case 500:
-              errorDescription = NSLocalizedString(@"webService.httpResponseCode.500.internalServerError", @"HTTP: 500");
+            case 201:
+            case 202:
               break;
 
             default:
-              NSAssert(NO, @"\n\n UNEXEPECTED BEHAVIOR in %s\n\n", __PRETTY_FUNCTION__);
+              errorDescription = [NSHTTPURLResponse localizedStringForStatusCode:statusCode];
               break;
           }
 
           if (errorDescription) {
-            vessels = @{ NSLocalizedDescriptionKey : errorDescription};
             newError = [NSError errorWithDomain:[NSBundle mainBundle].bundleIdentifier
                                            code:statusCode
-                                       userInfo:vessels];
+                                       userInfo:@{NSLocalizedDescriptionKey : errorDescription}];
           }
         }
         // If an error was generated from an HTTP status code, then call
@@ -319,7 +306,7 @@ completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))
           if (newError) {
             completionHandler(request, response, newError);
           }
-          
+
           // Everything went smoothly.
           else {
             completionHandler(request, result, newError);

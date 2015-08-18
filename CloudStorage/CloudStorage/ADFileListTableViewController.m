@@ -6,6 +6,7 @@
 //  Copyright © 2015 Alexis Digital. All rights reserved.
 //
 
+@import MobileCoreServices;
 #import "ADFileListTableViewController.h"
 #import "ADFetchedResultsControllerDataSource.h"
 #import "ADOAuth2Client.h"
@@ -66,33 +67,47 @@
   NSString *fileName;
   NSURL *fileURL;
   NSString *fileContents;
-  NSError *error;
-  NSData *fileData;
-  BOOL didWriteSuccessfully = NO;
+  NSError * __block error;
+  BOOL __block success = NO;
   fileName = [NSString stringWithFormat:@"%@.txt",
               [[NSProcessInfo processInfo] globallyUniqueString]];
   fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
   fileContents = @"This is a test document created on the iPhone and uploaded to the Cloud.";
 
-  didWriteSuccessfully = [fileContents writeToURL:fileURL atomically:YES
-                                         encoding:NSUTF16StringEncoding
-                                            error:&error];
+  // Write the file to disk.
+  success = [fileContents writeToURL:fileURL
+                          atomically:YES
+                            encoding:NSUTF16StringEncoding
+                               error:&error];
 
-  if (!didWriteSuccessfully) {
+  if (!success) {
+    NSLog(@"%@", error.localizedDescription);
     NSAssert(NO,
-             @"\n\n  ERROR in %s: Could not save data as a file.\n\n",
+             @"\n\n  ERROR in %s: Could not save data as a temporary  file.\n\n",
              __PRETTY_FUNCTION__);
   }
 
-  fileData = [[NSFileManager defaultManager]
-              contentsAtPath:fileURL.absoluteString];
+  [self.client putFile:fileURL
+              mimeType:(NSString *)kUTTypePlainText
+     completionHandler:^(void){
+       // Remove the file
+       if ([[NSFileManager defaultManager] isDeletableFileAtPath:fileURL.path]) {
+         success = [[NSFileManager defaultManager] removeItemAtPath:fileURL.path
+                                                              error:&error];
+         if (!success) {
+           NSLog(@"%@", error.localizedDescription);
+           NSAssert(NO,
+                    @"\n\n  ERROR in %s: Could not delete temporary file.\n\n",
+                    __PRETTY_FUNCTION__);
+         }
 
-  if (!fileData) {
-    NSAssert(NO,
-             @"\n\n  ERROR in %s: Could not read file as data.\n\n",
-             __PRETTY_FUNCTION__);
-  }
-
+       }
+       else {
+         NSAssert(NO,
+                  @"\n\n  ERROR in %s: The temporary file is not deletable.\n\n",
+                  __PRETTY_FUNCTION__);
+       }
+     }];
 }
 
 #pragma mark - FetchedResultsControllerDataSourceDelegate

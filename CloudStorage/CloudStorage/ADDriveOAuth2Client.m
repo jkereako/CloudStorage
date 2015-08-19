@@ -42,7 +42,7 @@ static NSString *const kDriveAPIHost = @"www.googleapis.com";
            __PRETTY_FUNCTION__);
 
   self.components.host = kDriveAPIHost;
-  self.components.path = @"/auth/drive.file";
+  self.components.path = @"/auth/drive.appfolder";
 
   // Google requires additional parameters
   NSURLQueryItem *scope, *immediate;

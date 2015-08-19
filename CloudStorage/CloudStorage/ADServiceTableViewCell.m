@@ -27,7 +27,11 @@
            __PRETTY_FUNCTION__);
 
   self.serviceName.text = service.name;
+
   self.isLinked.titleLabel.text = service.isLinked.boolValue ? NSLocalizedString(@"serviceTableView.cell.buttonLabel.linked", @"Linked") : NSLocalizedString(@"serviceTableView.cell.buttonLabel.unlinked", @"Unlinked") ;
+
+  [self.isLinked setTitle:self.isLinked.titleLabel.text
+                 forState:UIControlStateNormal];
   self.serviceStatus.text = NSLocalizedString(@"serviceTableView.cell.detailLabel.unlinked", @"Tap \"unlinked\" to link your account");
   if (service.lastQueryMadeOn) {
     NSString *localizedString = NSLocalizedString(@"serviceTableView.cell.detailLabel.linked %@",

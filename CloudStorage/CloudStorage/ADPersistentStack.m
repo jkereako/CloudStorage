@@ -10,7 +10,6 @@
 
 @interface ADPersistentStack ()
 
-@property (nonatomic, readwrite) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, readwrite) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, readonly) NSURL *modelURL;
 @property (nonatomic, readonly) NSURL *storeURL;
@@ -75,6 +74,11 @@
  @see https://github.com/objcio/issue-4-full-core-data-application/blob/master/NestedTodoList/PersistentStack.m#L33-L43
  */
 - (NSManagedObjectContext *)setupManagedObjectContextWithConcurrencyType:(NSManagedObjectContextConcurrencyType)concurrencyType {
+  NSParameterAssert(concurrencyType);
+  NSAssert(self.managedObjectContext,
+           @"\n\n  ERROR in %s: The property \"_managedObjectContext\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
   NSManagedObjectContext *moc;
   moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:concurrencyType];
   moc.persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
@@ -111,17 +115,6 @@
   return moc;
 }
 
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-  NSAssert(self.managedObjectContext,
-           @"\n\n  ERROR in %s: The property \"_managedObjectContext\" is nil.\n\n",
-           __PRETTY_FUNCTION__);
-  NSAssert(self.managedObjectContext.persistentStoreCoordinator,
-           @"\n\n  ERROR in %s: The property \"_managedObjectContext.persistentStoreCoordinator\" is nil.\n\n",
-           __PRETTY_FUNCTION__);
-
-  return self.managedObjectContext.persistentStoreCoordinator;
-}
-
 /**
  Pseudo-private method which returns a new managed object model.
  @since 1.0
@@ -137,7 +130,8 @@
   static dispatch_once_t onceToken;
 
   dispatch_once(&onceToken, ^{
-    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:self.modelURL];
+    _managedObjectModel = [[NSManagedObjectModel alloc]
+                           initWithContentsOfURL:self.modelURL];
   });
 
   return _managedObjectModel;

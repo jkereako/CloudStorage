@@ -10,7 +10,6 @@
 
 @interface ADPersistentStack : NSObject
 
-@property (nonatomic, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, readonly) NSManagedObjectContext* managedObjectContext;
 
 - (instancetype)initWithStoreURL:(NSURL*)storeURL modelURL:(NSURL*)modelURL

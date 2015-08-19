@@ -39,7 +39,7 @@ static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
 /**
  @see: https://www.dropbox.com/developers/core/docs#oa2-authorize
  */
-- (void)requestAppAuthorization {
+- (void)requestAppAuthorization:(NSArray *)urlQueryItems {
   NSAssert(self.components,
            @"\n\n  ERROR in %s: The property \"_components\" is nil.\n\n",
            __PRETTY_FUNCTION__);
@@ -47,7 +47,7 @@ static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
   self.components.host = kDropboxWebHost;
   self.components.path = @"/1/oauth2/authorize";
 
-  [super requestAppAuthorization];
+  [super requestAppAuthorization:urlQueryItems];
 }
 
 - (void)dropboxAccountInfo {

@@ -14,7 +14,6 @@
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic) NSDateFormatter *dateFormatter;
-@property (nonatomic) ADOAuth2Client *client;
 @property (nonatomic) Service *service;
 
 @end

@@ -8,7 +8,7 @@
 
 @import CoreData;
 
-@class Service, File;
+@class Service, File, ADOAuth2Client;
 
 @interface ADStore : NSObject
 
@@ -19,12 +19,12 @@
 + (NSDictionary *)dictionaryFromPropertyList:(NSString *)propertyListName __attribute((nonnull));
 + (void)saveContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
 
-- (void)seedContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
+- (Service *)seedContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
 - (Service *)serviceForManagedObjectContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
 - (Service *)findServiceWithDomain:(NSString *)domain inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
 - (File *)fileForManagedObjectContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
 - (File *)findFileWithPath:(NSString *)path inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
-- (File *)parseDropboxFileMeta:(NSDictionary *)fileMeta
+- (File *)parseFileMeta:(NSDictionary *)fileMeta
            withDateFormatter:(NSDateFormatter *) dateFormatter
       inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
 @end

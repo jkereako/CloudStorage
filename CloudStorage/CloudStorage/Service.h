@@ -8,11 +8,13 @@
 
 @import CoreData;
 
-@class File;
+@class File, ADOAuth2Client;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Service : NSManagedObject
+
+@property (nonatomic) ADOAuth2Client *client;
 
 + (NSString *)entityName;
 

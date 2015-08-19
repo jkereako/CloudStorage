@@ -10,6 +10,12 @@
 		361CBEB31B73A9CA00ED782C /* ADOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 361CBEB21B73A9CA00ED782C /* ADOAuth2Client.m */; };
 		361CBEB41B73A9CA00ED782C /* ADOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 361CBEB21B73A9CA00ED782C /* ADOAuth2Client.m */; };
 		362407A41B84EF9C00AB0739 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 362407A21B84EF9C00AB0739 /* Localizable.strings */; };
+		362407A71B84F7F200AB0739 /* ADDropboxStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 362407A61B84F7F200AB0739 /* ADDropboxStore.m */; };
+		362407A81B84F7F200AB0739 /* ADDropboxStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 362407A61B84F7F200AB0739 /* ADDropboxStore.m */; };
+		362407AB1B84FA4C00AB0739 /* ADDriveStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 362407AA1B84FA4C00AB0739 /* ADDriveStore.m */; };
+		362407AC1B84FA4C00AB0739 /* ADDriveStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 362407AA1B84FA4C00AB0739 /* ADDriveStore.m */; };
+		362407AF1B84FC0400AB0739 /* ADDriveOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 362407AE1B84FC0400AB0739 /* ADDriveOAuth2Client.m */; };
+		362407B01B84FC0400AB0739 /* ADDriveOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 362407AE1B84FC0400AB0739 /* ADDriveOAuth2Client.m */; };
 		3637CEAB1B7CE065004C5B7C /* ADFileListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3637CEAA1B7CE065004C5B7C /* ADFileListTableViewController.m */; };
 		3637CEAC1B7CE065004C5B7C /* ADFileListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3637CEAA1B7CE065004C5B7C /* ADFileListTableViewController.m */; };
 		3637CEB91B7CF732004C5B7C /* File.m in Sources */ = {isa = PBXBuildFile; fileRef = 3637CEB51B7CF732004C5B7C /* File.m */; };
@@ -55,6 +61,12 @@
 		3624079D1B84EE4200AB0739 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		3624079F1B84EE6A00AB0739 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		362407A31B84EF9C00AB0739 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		362407A51B84F7F200AB0739 /* ADDropboxStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADDropboxStore.h; sourceTree = "<group>"; };
+		362407A61B84F7F200AB0739 /* ADDropboxStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADDropboxStore.m; sourceTree = "<group>"; };
+		362407A91B84FA4C00AB0739 /* ADDriveStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADDriveStore.h; sourceTree = "<group>"; };
+		362407AA1B84FA4C00AB0739 /* ADDriveStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADDriveStore.m; sourceTree = "<group>"; };
+		362407AD1B84FC0400AB0739 /* ADDriveOAuth2Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADDriveOAuth2Client.h; sourceTree = "<group>"; };
+		362407AE1B84FC0400AB0739 /* ADDriveOAuth2Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADDriveOAuth2Client.m; sourceTree = "<group>"; };
 		3637CEA91B7CE065004C5B7C /* ADFileListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFileListTableViewController.h; sourceTree = "<group>"; };
 		3637CEAA1B7CE065004C5B7C /* ADFileListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADFileListTableViewController.m; sourceTree = "<group>"; };
 		3637CEB31B7CF732004C5B7C /* File+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "File+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -131,6 +143,10 @@
 				36630D791B7298DB00721414 /* ADPersistentStack.m */,
 				36630D7C1B7299B700721414 /* ADStore.h */,
 				36630D7D1B7299B700721414 /* ADStore.m */,
+				362407A51B84F7F200AB0739 /* ADDropboxStore.h */,
+				362407A61B84F7F200AB0739 /* ADDropboxStore.m */,
+				362407A91B84FA4C00AB0739 /* ADDriveStore.h */,
+				362407AA1B84FA4C00AB0739 /* ADDriveStore.m */,
 				3637CEBD1B7CF8E7004C5B7C /* ADFetchedResultsControllerDataSource.h */,
 				3637CEBE1B7CF8E7004C5B7C /* ADFetchedResultsControllerDataSource.m */,
 				3637CEB31B7CF732004C5B7C /* File+CoreDataProperties.h */,
@@ -216,6 +232,8 @@
 				361CBEB21B73A9CA00ED782C /* ADOAuth2Client.m */,
 				36644E611B71261B00B32E90 /* ADDropboxOAuth2Client.h */,
 				36644E621B71261B00B32E90 /* ADDropboxOAuth2Client.m */,
+				362407AD1B84FC0400AB0739 /* ADDriveOAuth2Client.h */,
+				362407AE1B84FC0400AB0739 /* ADDriveOAuth2Client.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -329,7 +347,10 @@
 				36630D7A1B7298DB00721414 /* ADPersistentStack.m in Sources */,
 				36644E321B711BA400B32E90 /* AppDelegate.m in Sources */,
 				3637CEBB1B7CF732004C5B7C /* Service.m in Sources */,
+				362407AB1B84FA4C00AB0739 /* ADDriveStore.m in Sources */,
 				36644E631B71261B00B32E90 /* ADDropboxOAuth2Client.m in Sources */,
+				362407A71B84F7F200AB0739 /* ADDropboxStore.m in Sources */,
+				362407AF1B84FC0400AB0739 /* ADDriveOAuth2Client.m in Sources */,
 				3637CEAB1B7CE065004C5B7C /* ADFileListTableViewController.m in Sources */,
 				3637CEB91B7CF732004C5B7C /* File.m in Sources */,
 				36644E351B711BA400B32E90 /* ADServicesTableViewController.m in Sources */,
@@ -353,6 +374,9 @@
 				36644E641B71261B00B32E90 /* ADDropboxOAuth2Client.m in Sources */,
 				36630D7F1B7299B700721414 /* ADStore.m in Sources */,
 				36630D761B7297F600721414 /* Model.xcdatamodeld in Sources */,
+				362407B01B84FC0400AB0739 /* ADDriveOAuth2Client.m in Sources */,
+				362407A81B84F7F200AB0739 /* ADDropboxStore.m in Sources */,
+				362407AC1B84FA4C00AB0739 /* ADDriveStore.m in Sources */,
 				3637CEAC1B7CE065004C5B7C /* ADFileListTableViewController.m in Sources */,
 				3637CEBC1B7CF732004C5B7C /* Service.m in Sources */,
 			);

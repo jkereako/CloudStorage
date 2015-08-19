@@ -11,6 +11,8 @@
 
 @implementation Service
 
+@synthesize client = _client;
+
 + (NSString *)entityName {
   return @"Service";
 }

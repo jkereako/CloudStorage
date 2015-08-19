@@ -8,8 +8,11 @@
 
 #import "AppDelegate.h"
 #import "ADDropboxOAuth2Client.h"
+#import "ADDriveOAuth2Client.h"
 #import "ADWebService.h"
 #import "ADStore.h"
+#import "ADDropboxStore.h"
+#import "ADDriveStore.h"
 #import "Service.h"
 #import "ADPersistentStack.h"
 #import "ADServicesTableViewController.h"
@@ -73,27 +76,38 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
   dateFormatter.dateFormat = dateFormat;
   servicesTableViewController.dateFormatter = dateFormatter;
   //-- Persistence --
-  ADStore *store = [ADStore new];
-  ADPersistentStack *persistentStack = [[ADPersistentStack alloc] initWithStoreURL:store.storeURL
-                                                                          modelURL:store.modelURL];
+  ADStore *store, *dropboxStore, *driveStore;
+  ADPersistentStack *persistentStack;
+
+  store = [ADStore new];
+  dropboxStore = [ADDropboxStore new];
+  driveStore = [ADDriveStore new];
+  persistentStack = [[ADPersistentStack alloc] initWithStoreURL:store.storeURL
+                                                       modelURL:store.modelURL];
   servicesTableViewController.managedObjectContext = persistentStack.managedObjectContext;
 
   // The code below initializes properties which will be shared by several
   // objects throughout the life of the app. The alternate approach to this
   // would be a singleton instance.
   NSDictionary *secrets = [ADStore dictionaryFromPropertyList:@"Secrets"];
-  NSString *dropboxAppKey = secrets[@"dropbox"][@"appKey"];
-  NSString *dropboxAppSecret = secrets[@"dropbox"][@"appSecret"];
-  ADDropboxOAuth2Client *dropbox = [[ADDropboxOAuth2Client alloc]
-                                    initWithAppKey:dropboxAppKey
-                                    appSecret:dropboxAppSecret];
 
-  dropbox.locale = locale;
+  ADDropboxOAuth2Client *dropboxClient = [[ADDropboxOAuth2Client alloc]
+                                          initWithAppKey: secrets[@"dropbox"][@"appKey"]
+                                          appSecret: secrets[@"dropbox"][@"appSecret"]];
 
-  servicesTableViewController.client = dropbox;
+  ADDriveOAuth2Client *driveClient = [[ADDriveOAuth2Client alloc]
+                                      initWithAppKey: secrets[@"drive"][@"appKey"]
+                                      appSecret: secrets[@"drive"][@"appSecret"]];
+
+  dropboxClient.locale = locale;
+  driveClient.locale = locale;
 
   // Add services to the persistent store if they don't already exist.
-  [store seedContext:persistentStack.managedObjectContext];
+  Service *dropbox = [dropboxStore seedContext:persistentStack.managedObjectContext];
+  Service *drive = [driveStore seedContext:persistentStack.managedObjectContext];
+
+  dropbox.client = dropboxClient;
+  drive.client = driveClient;
 
   return YES;
 }

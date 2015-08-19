@@ -46,10 +46,6 @@
 
 #pragma mark - Actions
 - (IBAction)didSelectButtonAction:(UIButton * __unused)sender {
-  NSAssert(self.client,
-           @"\n\n  ERROR in %s: The property \"_client\" is nil.\n\n",
-           __PRETTY_FUNCTION__);
-
   ADServiceTableViewCell *cell = (ADServiceTableViewCell *)sender.superview.superview;
 
   NSAssert(cell, @"\n\n  ERROR in %s: The variable \"cell\" is nil.\n\n",
@@ -59,11 +55,13 @@
            __PRETTY_FUNCTION__);
   NSAssert(cell.service, @"\n\n  ERROR in %s: The property \"_service\" is nil.\n\n",
            __PRETTY_FUNCTION__);
+  NSAssert(cell.service.client, @"\n\n  ERROR in %s: The property \"_service.client\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
 
   Service *service = cell.service;
 
   if (!service.isLinked.boolValue) {
-    [self.client requestAppAuthorization];
+    [cell.service.client requestAppAuthorization:nil];
   }
 
   else if (service.isLinked.boolValue) {
@@ -114,7 +112,8 @@
 - (void)configureCell:(ADServiceTableViewCell *)theCell withObject:(Service *)object {
   NSParameterAssert(theCell);
   NSParameterAssert(object);
-  NSAssert(self.dateFormatter, @"\n\n  ERROR in %s: The property \"_dateFormatter\" is nil.\n\n",
+  NSAssert(self.dateFormatter,
+           @"\n\n  ERROR in %s: The property \"_dateFormatter\" is nil.\n\n",
            __PRETTY_FUNCTION__);
 
   theCell.dateFormatter = self.dateFormatter;
@@ -125,9 +124,16 @@
 }
 
 #pragma mark - Navigation
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(UITableViewCell * __unused)sender {
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(ADServiceTableViewCell *)sender {
+  NSAssert(sender.service,
+           @"\n\n  ERROR in %s: The property \"_service\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+  NSAssert(sender.service.client,
+           @"\n\n  ERROR in %s: The property \"_service.client\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
   if ([identifier isEqualToString:@"showFiles"]) {
-    return self.client.isAuthorized;
+    return sender.service.client.isAuthorized;
   }
 
   return NO;
@@ -143,22 +149,25 @@
   NSAssert(self.dateFormatter,
            @"\n\n  ERROR in %s: The property \"_dateFormatter\" is nil.\n\n",
            __PRETTY_FUNCTION__);
-  NSAssert(self.client,
-           @"\n\n  ERROR in %s: The property \"_dropboxWebServiceClient\" is nil.\n\n",
-           __PRETTY_FUNCTION__);
-  // Assume self.view is the table view
+
   NSIndexPath *indexPath;
   ADServiceTableViewCell *cell;
-    ADFileListTableViewController *fileListViewController;
+  ADFileListTableViewController *fileListViewController;
 
   // Retrieve the selected cell.
   indexPath = [self.tableView indexPathForSelectedRow];
   cell = [self.tableView cellForRowAtIndexPath:indexPath];
   fileListViewController = segue.destinationViewController;
 
+  NSAssert(cell.service,
+           @"\n\n  ERROR in %s: The property \"_service\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+  NSAssert(cell.service.client,
+           @"\n\n  ERROR in %s: The property \"_service.client\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
   fileListViewController.managedObjectContext = self.managedObjectContext;
   fileListViewController.dateFormatter = self.dateFormatter;
-  fileListViewController.client = self.client;
   fileListViewController.service = cell.service;
 }
 

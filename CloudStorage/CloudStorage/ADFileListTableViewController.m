@@ -12,7 +12,7 @@
 #import "ADOAuth2Client.h"
 #import "Service.h"
 #import "File.h"
-#import "ADStore.h"
+#import "ADDropboxStore.h"
 
 @interface ADFileListTableViewController ()<ADFetchedResultsControllerDataSourceDelegate>
 
@@ -69,17 +69,17 @@
 
 #pragma mark - Actions
 - (IBAction)refreshAction:(UIRefreshControl * __unused)sender {
-  NSAssert(self.client,
-           @"\n\n  ERROR in %s: The property \"_client\" is nil.\n\n",
+  NSAssert(self.service,
+           @"\n\n  ERROR in %s: The property \"_service\" is nil.\n\n",
            __PRETTY_FUNCTION__);
-  NSAssert(self.client.dateFormat,
-           @"\n\n  ERROR in %s: The property \"_client.dateFormat\" is nil.\n\n",
+  NSAssert(self.service.client,
+           @"\n\n  ERROR in %s: The property \"_service.client\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+  NSAssert(self.service.client.dateFormat,
+           @"\n\n  ERROR in %s: The property \"_service.client.dateFormat\" is nil.\n\n",
            __PRETTY_FUNCTION__);
   NSAssert(self.managedObjectContext,
            @"\n\n  ERROR in %s: The property \"_managedObjectContext\" is nil.\n\n",
-           __PRETTY_FUNCTION__);
-  NSAssert(self.service,
-           @"\n\n  ERROR in %s: The property \"_service\" is nil.\n\n",
            __PRETTY_FUNCTION__);
   NSAssert(self.dateFormatter,
            @"\n\n  ERROR in %s: The property \"_dateFormatter\" is nil.\n\n",
@@ -87,16 +87,16 @@
 
   ADFileListTableViewController * __weak weakSelf = self;
 
-  [self.client listFiles:^(NSArray * fileList) {
+  [self.service.client listFiles:^(NSArray * fileList) {
     // Do not perform any UI updates unless we are on the main thread.
     NSAssert([NSThread isMainThread],
              @"\n\n  ERROR in %s: Attempted to update UI on a background thread.\n\n",
              __PRETTY_FUNCTION__);
 
-    ADStore *store = [ADStore new];
+    ADDropboxStore *store = [ADDropboxStore new];
     NSString *originalDateFormat;
     originalDateFormat = weakSelf.dateFormatter.dateFormat;
-    weakSelf.dateFormatter.dateFormat = weakSelf.client.dateFormat;
+    weakSelf.dateFormatter.dateFormat = weakSelf.service.client.dateFormat;
 
     for (NSDictionary *fileMeta in fileList) {
       // Skip if the file already exists in the managed object context.
@@ -105,9 +105,9 @@
         continue;
       }
 
-      File *newFile =  [store parseDropboxFileMeta:fileMeta
-                                 withDateFormatter:weakSelf.dateFormatter
-                        inManagedObjectContext:weakSelf.managedObjectContext];
+      File *newFile =  [store parseFileMeta:fileMeta
+                          withDateFormatter:weakSelf.dateFormatter
+                     inManagedObjectContext:weakSelf.managedObjectContext];
 
 
       // Associate the file with the service.
@@ -123,17 +123,17 @@
 }
 
 - (IBAction)addFileAction:(UIBarButtonItem * __unused)sender {
-  NSAssert(self.client,
-           @"\n\n  ERROR in %s: The property \"_client\" is nil.\n\n",
+  NSAssert(self.service,
+           @"\n\n  ERROR in %s: The property \"_service\" is nil.\n\n",
            __PRETTY_FUNCTION__);
-  NSAssert(self.client.dateFormat,
-           @"\n\n  ERROR in %s: The property \"_client.dateFormat\" is nil.\n\n",
+  NSAssert(self.service.client,
+           @"\n\n  ERROR in %s: The property \"_service.client\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+  NSAssert(self.service.client.dateFormat,
+           @"\n\n  ERROR in %s: The property \"_service.client.dateFormat\" is nil.\n\n",
            __PRETTY_FUNCTION__);
   NSAssert(self.managedObjectContext,
            @"\n\n  ERROR in %s: The property \"_managedObjectContext\" is nil.\n\n",
-           __PRETTY_FUNCTION__);
-  NSAssert(self.service,
-           @"\n\n  ERROR in %s: The property \"_service\" is nil.\n\n",
            __PRETTY_FUNCTION__);
   NSAssert(self.dateFormatter,
            @"\n\n  ERROR in %s: The property \"_dateFormatter\" is nil.\n\n",
@@ -164,19 +164,19 @@
 
   ADFileListTableViewController * __weak weakSelf = self;
 
-  [self.client putFile:fileURL
+  [self.service.client putFile:fileURL
               mimeType:(NSString *)kUTTypePlainText
      completionHandler:^(NSDictionary * fileMeta){
        NSParameterAssert(fileMeta);
        File *newFile;
-       ADStore *store = [ADStore new];
+       ADDropboxStore *store = [ADDropboxStore new];
        NSString *originalDateFormat;
        originalDateFormat = weakSelf.dateFormatter.dateFormat;
-       weakSelf.dateFormatter.dateFormat = weakSelf.client.dateFormat;
+       weakSelf.dateFormatter.dateFormat = weakSelf.service.client.dateFormat;
 
-       newFile = [store parseDropboxFileMeta:fileMeta
-                           withDateFormatter:weakSelf.dateFormatter
-                  inManagedObjectContext:weakSelf.managedObjectContext];
+       newFile = [store parseFileMeta:fileMeta
+                    withDateFormatter:weakSelf.dateFormatter
+               inManagedObjectContext:weakSelf.managedObjectContext];
 
        NSAssert(newFile,
                 @"\n\n  ERROR in %s: The variable \"newFile\" is nil.\n\n",

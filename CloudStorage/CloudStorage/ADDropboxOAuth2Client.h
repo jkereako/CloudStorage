@@ -15,8 +15,6 @@ FOUNDATION_EXPORT NSString *const kDropboxDomain;
 
 @interface ADDropboxOAuth2Client : ADOAuth2Client
 
-@property (nonatomic, readonly, getter=isAuthorized) BOOL authorized;
-
 - (void)dropboxAccountInfo;
 
 @end

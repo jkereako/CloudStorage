@@ -74,7 +74,7 @@
 /**
  @see: https://www.dropbox.com/developers/core/docs#oa2-authorize
  */
-- (void)requestAppAuthorization {
+- (void)requestAppAuthorization:(NSArray *)urlQueryItems {
   NSAssert(self.components,
            @"\n\n  ERROR in %s: The property \"_components\" is nil.\n\n",
            __PRETTY_FUNCTION__);
@@ -90,7 +90,7 @@
 
   // These parameters are defined by OAuth2 specifications
   NSURLQueryItem *client_id, *response_type, *redirect_uri, *state;
-
+  NSMutableArray *queryItems;
   // The unique identiier of the Dropbox app
   client_id = [NSURLQueryItem queryItemWithName:@"client_id"
                                           value:self.appKey];
@@ -110,7 +110,14 @@
   state = [NSURLQueryItem queryItemWithName:@"state"
                                       value:self.components.string];
 
-  self.components.queryItems = @[client_id, response_type, redirect_uri, state];
+  queryItems = [NSMutableArray arrayWithObjects:client_id, response_type,
+                redirect_uri, state, nil];
+
+  // Combine urlQueryItems with queryItems
+  if (urlQueryItems) {
+    [queryItems addObjectsFromArray:urlQueryItems];
+  }
+  self.components.queryItems = (NSArray *)queryItems;
 
   // All HTTP and HTTPs schemes will open Safari
   [[UIApplication sharedApplication] openURL:self.components.URL];

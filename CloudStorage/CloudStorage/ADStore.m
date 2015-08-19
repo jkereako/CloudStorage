@@ -83,18 +83,6 @@ static NSString *const kModelName = @"Model";
   }
 }
 
-- (void)seedContext:(NSManagedObjectContext *)managedObjectContext {
-  // Search for the Dropbox service object in the persistent store. If it
-  // doesn't already exist, then create it.
-  Service *dropboxService = [self findServiceWithDomain:@"dropbox.com"
-                                 inManagedObjectContext:managedObjectContext];
-  if (!dropboxService) {
-    dropboxService = [self serviceForManagedObjectContext:managedObjectContext];
-    dropboxService.name = @"Dropbox";
-    dropboxService.domain = @"dropbox.com";
-  }
-}
-
 - (Service *)serviceForManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
   NSParameterAssert(managedObjectContext);
 
@@ -154,39 +142,40 @@ static NSString *const kModelName = @"Model";
   return (File *)results.firstObject;
 }
 
-- (File *)parseDropboxFileMeta:(NSDictionary *)fileMeta
+#pragma mark - Stubs
+
+// Override
+- (Service *)seedContext:(NSManagedObjectContext *)managedObjectContext {
+  NSParameterAssert(managedObjectContext);
+
+  NSString *reason;
+
+  reason = [NSString stringWithFormat:@"You must override %@ in a subclass",
+            NSStringFromSelector(_cmd)];
+  @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                 reason:reason
+                               userInfo:nil];
+
+  return nil;
+}
+
+// Override
+- (File *)parseFileMeta:(NSDictionary *)fileMeta
            withDateFormatter:(NSDateFormatter *) dateFormatter
       inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
   NSParameterAssert(fileMeta);
   NSParameterAssert(dateFormatter);
   NSParameterAssert(managedObjectContext);
 
-  File *newFile;
+  NSString *reason;
 
-  newFile = [self fileForManagedObjectContext:managedObjectContext];
-  /*
-   {
-   bytes = 146;
-   "client_mtime" = "Tue, 18 Aug 2015 19:08:00 +0000";
-   icon = "page_white_text";
-   "is_dir" = 0;
-   "mime_type" = "text/plain";
-   modified = "Tue, 18 Aug 2015 19:08:00 +0000";
-   path = "/some-file.txt";
-   rev = 123ef8920;
-   revision = 1;
-   root = "app_folder";
-   size = "146 bytes";
-   "thumb_exists" = 0;
-   }
-   */
-  newFile.size = fileMeta[@"bytes"];
-  newFile.lastModified = [dateFormatter dateFromString:fileMeta[@"modified"]];
-  newFile.revisionIdentifier = fileMeta[@"rev"];
-  newFile.path = fileMeta[@"path"];
-  newFile.mimeType = fileMeta[@"mime_type"];
+  reason = [NSString stringWithFormat:@"You must override %@ in a subclass",
+            NSStringFromSelector(_cmd)];
+  @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                 reason:reason
+                               userInfo:nil];
 
-  return newFile;
+  return nil;
 }
 
 #pragma mark - Getters

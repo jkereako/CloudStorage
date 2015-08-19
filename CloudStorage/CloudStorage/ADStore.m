@@ -124,12 +124,69 @@ static NSString *const kModelName = @"Model";
   NSArray *results;
   results = [managedObjectContext executeFetchRequest:fetchRequest
                                                 error:&error];
-
+  // "...If an error occurs, returns nil. If no objects match the criteria
+  // specified by request, returns an empty array."
   if (!results) {
     NSLog(@"%@", error.localizedDescription);
   }
 
   return (Service *)results.firstObject;
+}
+
+- (File *)findFileWithPath:(NSString *)path inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+  NSParameterAssert(path);
+  NSParameterAssert(managedObjectContext);
+
+  NSFetchRequest *fetchRequest;
+
+  fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[File entityName]];
+  fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path=%@", path];
+
+  NSError *error;
+  NSArray *results;
+  results = [managedObjectContext executeFetchRequest:fetchRequest
+                                                error:&error];
+
+  if (!results) {
+    NSLog(@"%@", error.localizedDescription);
+  }
+
+  return (File *)results.firstObject;
+}
+
+- (File *)parseDropboxFileMeta:(NSDictionary *)fileMeta
+           withDateFormatter:(NSDateFormatter *) dateFormatter
+      inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+  NSParameterAssert(fileMeta);
+  NSParameterAssert(dateFormatter);
+  NSParameterAssert(managedObjectContext);
+
+  File *newFile;
+
+  newFile = [self fileForManagedObjectContext:managedObjectContext];
+  /*
+   {
+   bytes = 146;
+   "client_mtime" = "Tue, 18 Aug 2015 19:08:00 +0000";
+   icon = "page_white_text";
+   "is_dir" = 0;
+   "mime_type" = "text/plain";
+   modified = "Tue, 18 Aug 2015 19:08:00 +0000";
+   path = "/some-file.txt";
+   rev = 123ef8920;
+   revision = 1;
+   root = "app_folder";
+   size = "146 bytes";
+   "thumb_exists" = 0;
+   }
+   */
+  newFile.size = fileMeta[@"bytes"];
+  newFile.lastModified = [dateFormatter dateFromString:fileMeta[@"modified"]];
+  newFile.revisionIdentifier = fileMeta[@"rev"];
+  newFile.path = fileMeta[@"path"];
+  newFile.mimeType = fileMeta[@"mime_type"];
+
+  return newFile;
 }
 
 #pragma mark - Getters

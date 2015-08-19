@@ -21,7 +21,10 @@
 
 - (void)seedContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
 - (Service *)serviceForManagedObjectContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
-- (File *)fileForManagedObjectContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
 - (Service *)findServiceWithDomain:(NSString *)domain inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
-
+- (File *)fileForManagedObjectContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
+- (File *)findFileWithPath:(NSString *)path inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
+- (File *)parseDropboxFileMeta:(NSDictionary *)fileMeta
+           withDateFormatter:(NSDateFormatter *) dateFormatter
+      inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext __attribute((nonnull));
 @end

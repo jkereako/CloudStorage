@@ -75,9 +75,6 @@
  */
 - (NSManagedObjectContext *)setupManagedObjectContextWithConcurrencyType:(NSManagedObjectContextConcurrencyType)concurrencyType {
   NSParameterAssert(concurrencyType);
-  NSAssert(self.managedObjectContext,
-           @"\n\n  ERROR in %s: The property \"_managedObjectContext\" is nil.\n\n",
-           __PRETTY_FUNCTION__);
 
   NSManagedObjectContext *moc;
   moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:concurrencyType];

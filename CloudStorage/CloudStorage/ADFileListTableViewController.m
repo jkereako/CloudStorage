@@ -31,7 +31,7 @@
   NSAssert(self.service,
            @"\n\n  ERROR in %s: The property \"_managedObjectContext\" is nil.\n\n",
            __PRETTY_FUNCTION__);
-  
+
   [super viewDidLoad];
 
   self.title = self.service.name;
@@ -72,12 +72,49 @@
   NSAssert(self.client,
            @"\n\n  ERROR in %s: The property \"_client\" is nil.\n\n",
            __PRETTY_FUNCTION__);
+  NSAssert(self.client.dateFormat,
+           @"\n\n  ERROR in %s: The property \"_client.dateFormat\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+  NSAssert(self.managedObjectContext,
+           @"\n\n  ERROR in %s: The property \"_managedObjectContext\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+  NSAssert(self.service,
+           @"\n\n  ERROR in %s: The property \"_service\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+  NSAssert(self.dateFormatter,
+           @"\n\n  ERROR in %s: The property \"_dateFormatter\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
 
-  [self.client listFiles:^(NSArray * __unused fileList) {
+  ADFileListTableViewController * __weak weakSelf = self;
+
+  [self.client listFiles:^(NSArray * fileList) {
     // Do not perform any UI updates unless we are on the main thread.
     NSAssert([NSThread isMainThread],
              @"\n\n  ERROR in %s: Attempted to update UI on a background thread.\n\n",
              __PRETTY_FUNCTION__);
+
+    ADStore *store = [ADStore new];
+    NSString *originalDateFormat;
+    originalDateFormat = weakSelf.dateFormatter.dateFormat;
+    weakSelf.dateFormatter.dateFormat = self.client.dateFormat;
+
+    for (NSDictionary *fileMeta in fileList) {
+      // Skip if the file already exists in the managed object context.
+      if ([store findFileWithPath:fileMeta[@"path"]
+           inManagedObjectContext:self.managedObjectContext]) {
+        continue;
+      }
+
+      File *newFile =  [store parseDropboxFileMeta:fileMeta
+                                 withDateFormatter:weakSelf.dateFormatter
+                        inManagedObjectContext:self.managedObjectContext];
+
+
+      // Associate the file with the service.
+      [self.service addFilesObject:newFile];
+    }
+
+    weakSelf.dateFormatter.dateFormat = originalDateFormat;
 
     [self.refreshControl endRefreshing];
   }];
@@ -89,6 +126,9 @@
            __PRETTY_FUNCTION__);
   NSAssert(self.client.dateFormat,
            @"\n\n  ERROR in %s: The property \"_client.dateFormat\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+  NSAssert(self.managedObjectContext,
+           @"\n\n  ERROR in %s: The property \"_managedObjectContext\" is nil.\n\n",
            __PRETTY_FUNCTION__);
   NSAssert(self.service,
            @"\n\n  ERROR in %s: The property \"_service\" is nil.\n\n",
@@ -132,28 +172,13 @@
        originalDateFormat = weakSelf.dateFormatter.dateFormat;
        weakSelf.dateFormatter.dateFormat = self.client.dateFormat;
 
-       newFile = [store fileForManagedObjectContext:weakSelf.managedObjectContext];
-       /*
-        {
-        bytes = 146;
-        "client_mtime" = "Tue, 18 Aug 2015 19:08:00 +0000";
-        icon = "page_white_text";
-        "is_dir" = 0;
-        "mime_type" = "text/plain";
-        modified = "Tue, 18 Aug 2015 19:08:00 +0000";
-        path = "/some-file.txt";
-        rev = 123ef8920;
-        revision = 1;
-        root = "app_folder";
-        size = "146 bytes";
-        "thumb_exists" = 0;
-        }
-        */
-       newFile.size = fileMeta[@"bytes"];
-       newFile.lastModified = [weakSelf.dateFormatter dateFromString:fileMeta[@"modified"]];
-       newFile.revisionIdentifier = fileMeta[@"rev"];
-       newFile.path = fileMeta[@"path"];
-       newFile.mimeType = fileMeta[@"mime_type"];
+       newFile = [store parseDropboxFileMeta:fileMeta
+                           withDateFormatter:weakSelf.dateFormatter
+                  inManagedObjectContext:self.managedObjectContext];
+
+       NSAssert(newFile,
+                @"\n\n  ERROR in %s: The variable \"newFile\" is nil.\n\n",
+                __PRETTY_FUNCTION__);
 
        // Associate the file with the service.
        [self.service addFilesObject:newFile];
@@ -182,12 +207,12 @@
 
 #pragma mark - FetchedResultsControllerDataSourceDelegate
 - (void)configureCell:(UITableViewCell *)theCell withObject:(File *)object {
-    NSParameterAssert(theCell);
-    NSParameterAssert(object);
-    NSAssert(self.dateFormatter,
-             @"\n\n  ERROR in %s: The property \"_dateFormatter\" is nil.\n\n",
-             __PRETTY_FUNCTION__);
-  
+  NSParameterAssert(theCell);
+  NSParameterAssert(object);
+  NSAssert(self.dateFormatter,
+           @"\n\n  ERROR in %s: The property \"_dateFormatter\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
+
   theCell.detailTextLabel.text = object.path;
   theCell.textLabel.text = [self.dateFormatter stringFromDate:object.lastModified];
 }

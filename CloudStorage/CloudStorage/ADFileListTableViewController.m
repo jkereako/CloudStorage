@@ -96,24 +96,26 @@
     ADStore *store = [ADStore new];
     NSString *originalDateFormat;
     originalDateFormat = weakSelf.dateFormatter.dateFormat;
-    weakSelf.dateFormatter.dateFormat = self.client.dateFormat;
+    weakSelf.dateFormatter.dateFormat = weakSelf.client.dateFormat;
 
     for (NSDictionary *fileMeta in fileList) {
       // Skip if the file already exists in the managed object context.
       if ([store findFileWithPath:fileMeta[@"path"]
-           inManagedObjectContext:self.managedObjectContext]) {
+           inManagedObjectContext:weakSelf.managedObjectContext]) {
         continue;
       }
 
       File *newFile =  [store parseDropboxFileMeta:fileMeta
                                  withDateFormatter:weakSelf.dateFormatter
-                        inManagedObjectContext:self.managedObjectContext];
+                        inManagedObjectContext:weakSelf.managedObjectContext];
 
 
       // Associate the file with the service.
-      [self.service addFilesObject:newFile];
+      [weakSelf.service addFilesObject:newFile];
     }
 
+    weakSelf.service.lastQueryMadeOn = [NSDate date];
+    weakSelf.service.totalQueriesMade = @(1 + weakSelf.service.totalQueriesMade.unsignedIntegerValue);
     weakSelf.dateFormatter.dateFormat = originalDateFormat;
 
     [self.refreshControl endRefreshing];
@@ -170,18 +172,20 @@
        ADStore *store = [ADStore new];
        NSString *originalDateFormat;
        originalDateFormat = weakSelf.dateFormatter.dateFormat;
-       weakSelf.dateFormatter.dateFormat = self.client.dateFormat;
+       weakSelf.dateFormatter.dateFormat = weakSelf.client.dateFormat;
 
        newFile = [store parseDropboxFileMeta:fileMeta
                            withDateFormatter:weakSelf.dateFormatter
-                  inManagedObjectContext:self.managedObjectContext];
+                  inManagedObjectContext:weakSelf.managedObjectContext];
 
        NSAssert(newFile,
                 @"\n\n  ERROR in %s: The variable \"newFile\" is nil.\n\n",
                 __PRETTY_FUNCTION__);
 
        // Associate the file with the service.
-       [self.service addFilesObject:newFile];
+       [weakSelf.service addFilesObject:newFile];
+       weakSelf.service.lastQueryMadeOn = [NSDate date];
+       weakSelf.service.totalQueriesMade = @(1 + weakSelf.service.totalQueriesMade.unsignedIntegerValue);
 
        weakSelf.dateFormatter.dateFormat = originalDateFormat;
 

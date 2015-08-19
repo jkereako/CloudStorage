@@ -75,11 +75,11 @@ static NSString *const kModelName = @"Model";
 
   NSError *error;
 
+#if DEBUG
+  NSLog(@"\n\n  INFO: Saving the managed object context.\n\n");
+#endif
   if (![managedObjectContext save:&error]) {
     NSLog(@"\n\n  ERROR SAVING MOC: %@\n\n", error.localizedDescription);
-#if DEBUG
-    abort();
-#endif
   }
 }
 

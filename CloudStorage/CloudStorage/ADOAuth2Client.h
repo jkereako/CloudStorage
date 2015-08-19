@@ -11,6 +11,7 @@
 @interface ADOAuth2Client : NSObject
 
 @property (nonatomic) NSLocale *locale;
+@property (nonatomic, readonly) NSString *dateFormat;
 @property (nonatomic) NSURLComponents *components;
 @property (nonatomic, readonly, getter=isAuthorized) BOOL authorized;
 

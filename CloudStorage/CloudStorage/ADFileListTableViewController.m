@@ -87,6 +87,9 @@
   NSAssert(self.client,
            @"\n\n  ERROR in %s: The property \"_client\" is nil.\n\n",
            __PRETTY_FUNCTION__);
+  NSAssert(self.client.dateFormat,
+           @"\n\n  ERROR in %s: The property \"_client.dateFormat\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
   NSAssert(self.service,
            @"\n\n  ERROR in %s: The property \"_service\" is nil.\n\n",
            __PRETTY_FUNCTION__);
@@ -127,7 +130,7 @@
        ADStore *store = [ADStore new];
        NSString *originalDateFormat;
        originalDateFormat = weakSelf.dateFormatter.dateFormat;
-       weakSelf.dateFormatter.dateFormat = @"ccc, d MMM yyyy H:m:s Z";
+       weakSelf.dateFormatter.dateFormat = self.client.dateFormat;
 
        newFile = [store fileForManagedObjectContext:weakSelf.managedObjectContext];
        /*

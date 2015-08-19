@@ -29,6 +29,13 @@ static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
   return [super isAuthorized];
 }
 
+- (NSString *)dateFormat {
+  // We don't need to perform any optimizations here because of string
+  // internment
+  return @"ccc, d MMM yyyy H:m:s Z";
+}
+
+#pragma mark -
 /**
  @see: https://www.dropbox.com/developers/core/docs#oa2-authorize
  */
@@ -72,6 +79,9 @@ static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
   NSAssert(self.components,
            @"\n\n  ERROR in %s: The property \"_components\" is nil.\n\n",
            __PRETTY_FUNCTION__);
+  NSAssert(self.locale,
+           @"\n\n  ERROR in %s: The property \"_locale\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
 
   ADWebService *webService;
   self.components.host = kDropboxAPIHost;
@@ -86,27 +96,11 @@ static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
   webService = [ADWebService webServiceWithURL:self.components.URL];
 
   [webService getResource:
-   ^(NSURLRequest *request, NSDictionary *response, NSError * __unused error) {
-     NSLog(@"%@", request);
-     NSLog(@"%@", response);
-     NSMutableArray *fileList;
-     if (((NSArray *)response[@"contents"]).count) {
-       NSArray *files = response[@"contents"];
-
-       fileList = [NSMutableArray arrayWithCapacity:files.count];
-       for (NSDictionary *file in files) {
-         [fileList addObject:@{@"size":file[@"bytes"],
-                               @"version":file[@"rev"],
-                               @"mimeType":file[@"mime_type"],
-                               @"path":file[@"path"],
-                               @"lastModified":file[@"modified"]}];
-       }
-     }
-
+   ^(NSURLRequest * __unused request, NSDictionary *response, NSError * __unused error) {
      // Pass the file list, if there is one, back to the main thread for
      // presentation
-     dispatch_async(dispatch_get_main_queue(),^(void) {
-       completionHandler(fileList);
+     dispatch_async(dispatch_get_main_queue(), ^(void) {
+       completionHandler(response[@"contents"]);
      });
    }];
 }

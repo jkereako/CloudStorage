@@ -1,0 +1,30 @@
+
+/* Class = "UILabel"; text = "Total requests made: 100, last request made 2 days ago"; ObjectID = "M9n-my-tIn"; */
+"M9n-my-tIn.text" = "Total requests made: 100, last request made 2 days ago";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "b7q-G3-jbj"; */
+"b7q-G3-jbj.text" = "Title";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "jhq-IQ-iEy"; */
+"jhq-IQ-iEy.text" = "Detail";
+
+/* Class = "UIButton"; normalTitle = "Unlinked"; ObjectID = "mSB-Mh-fNu"; */
+"mSB-Mh-fNu.normalTitle" = "Unlinked";
+
+/* Class = "UILabel"; text = "Dropbox"; ObjectID = "p2s-HK-SFF"; */
+"p2s-HK-SFF.text" = "Dropbox";
+
+/* Class = "UITableViewController"; title = "Services"; ObjectID = "pGg-6v-bdr"; */
+"pGg-6v-bdr.title" = "Services";
+
+/* Class = "UINavigationController"; title = "Navigation controller"; ObjectID = "rS3-R9-Ivy"; */
+"rS3-R9-Ivy.title" = "Navigation controller";
+
+/* Class = "UINavigationItem"; title = "Cloud services"; ObjectID = "tQt-TN-PWz"; */
+"tQt-TN-PWz.title" = "Cloud services";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "vVq-cD-hhU"; */
+"vVq-cD-hhU.title" = "Title";
+
+/* Class = "UITableViewController"; title = "File list"; ObjectID = "vg4-Ky-w74"; */
+"vg4-Ky-w74.title" = "File list";

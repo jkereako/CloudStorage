@@ -147,7 +147,7 @@
   fileName = [NSString stringWithFormat:@"%@.txt",
               [[NSProcessInfo processInfo] globallyUniqueString]];
   fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
-  fileContents = @"This is a test document created on the iPhone and uploaded to the Cloud.";
+  fileContents = NSLocalizedString(@"fileTableView.file.contents", @"Lorem ipsum");
 
   // Write the file to disk.
   success = [fileContents writeToURL:fileURL

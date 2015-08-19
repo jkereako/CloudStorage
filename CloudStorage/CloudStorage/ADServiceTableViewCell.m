@@ -27,10 +27,12 @@
            __PRETTY_FUNCTION__);
 
   self.serviceName.text = service.name;
-  self.isLinked.titleLabel.text = service.isLinked.boolValue ? @"linked" : @"unlinked";
-  self.serviceStatus.text = @"Tap \"unlinked\" to link your account.";
+  self.isLinked.titleLabel.text = service.isLinked.boolValue ? NSLocalizedString(@"serviceTableView.cell.buttonLabel.linked", @"Linked") : NSLocalizedString(@"serviceTableView.cell.buttonLabel.unlinked", @"Unlinked") ;
+  self.serviceStatus.text = NSLocalizedString(@"serviceTableView.cell.detailLabel.unlinked", @"Tap \"unlinked\" to link your account");
   if (service.lastQueryMadeOn) {
-    self.serviceStatus.text = [NSString stringWithFormat:@"Last query made on %@",
+    NSString *localizedString = NSLocalizedString(@"serviceTableView.cell.detailLabel.linked %@",
+                                                  @"Last query made on [date]");
+    self.serviceStatus.text = [NSString localizedStringWithFormat:localizedString,
                                [self.dateFormatter stringFromDate:service.lastQueryMadeOn]];
   }
 

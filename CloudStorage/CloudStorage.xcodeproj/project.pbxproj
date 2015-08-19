@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		361CBEB31B73A9CA00ED782C /* ADOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 361CBEB21B73A9CA00ED782C /* ADOAuth2Client.m */; };
 		361CBEB41B73A9CA00ED782C /* ADOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 361CBEB21B73A9CA00ED782C /* ADOAuth2Client.m */; };
+		362407A41B84EF9C00AB0739 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 362407A21B84EF9C00AB0739 /* Localizable.strings */; };
 		3637CEAB1B7CE065004C5B7C /* ADFileListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3637CEAA1B7CE065004C5B7C /* ADFileListTableViewController.m */; };
 		3637CEAC1B7CE065004C5B7C /* ADFileListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3637CEAA1B7CE065004C5B7C /* ADFileListTableViewController.m */; };
 		3637CEB91B7CF732004C5B7C /* File.m in Sources */ = {isa = PBXBuildFile; fileRef = 3637CEB51B7CF732004C5B7C /* File.m */; };
@@ -51,6 +52,9 @@
 /* Begin PBXFileReference section */
 		361CBEB11B73A9CA00ED782C /* ADOAuth2Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADOAuth2Client.h; sourceTree = "<group>"; };
 		361CBEB21B73A9CA00ED782C /* ADOAuth2Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADOAuth2Client.m; sourceTree = "<group>"; };
+		3624079D1B84EE4200AB0739 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		3624079F1B84EE6A00AB0739 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		362407A31B84EF9C00AB0739 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3637CEA91B7CE065004C5B7C /* ADFileListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFileListTableViewController.h; sourceTree = "<group>"; };
 		3637CEAA1B7CE065004C5B7C /* ADFileListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADFileListTableViewController.m; sourceTree = "<group>"; };
 		3637CEB31B7CF732004C5B7C /* File+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "File+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 		36644E2C1B711BA400B32E90 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				362407A21B84EF9C00AB0739 /* Localizable.strings */,
 				36644E2D1B711BA400B32E90 /* Info.plist */,
 				36644E2E1B711BA400B32E90 /* main.m */,
 			);
@@ -296,6 +301,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				362407A41B84EF9C00AB0739 /* Localizable.strings in Resources */,
 				36644E3B1B711BA400B32E90 /* Main.storyboard in Resources */,
 				36644E401B711BA400B32E90 /* LaunchScreen.xib in Resources */,
 				629B5CEF1B71B2C500D5946B /* Secrets.plist in Resources */,
@@ -363,10 +369,19 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		362407A21B84EF9C00AB0739 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				362407A31B84EF9C00AB0739 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		36644E391B711BA400B32E90 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				36644E3A1B711BA400B32E90 /* Base */,
+				3624079D1B84EE4200AB0739 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -375,6 +390,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				36644E3F1B711BA400B32E90 /* Base */,
+				3624079F1B84EE6A00AB0739 /* en */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";

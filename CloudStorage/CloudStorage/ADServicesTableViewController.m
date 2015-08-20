@@ -156,7 +156,7 @@
 
   // Retrieve the selected cell.
   indexPath = [self.tableView indexPathForSelectedRow];
-  cell = [self.tableView cellForRowAtIndexPath:indexPath];
+  cell = (ADServiceTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
   fileListViewController = segue.destinationViewController;
 
   NSAssert(cell.service,

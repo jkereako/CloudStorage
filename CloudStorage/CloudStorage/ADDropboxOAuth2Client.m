@@ -54,13 +54,17 @@ static NSString *const kDropboxAPIContentHost = @"api-content.dropbox.com";
   NSAssert(self.components,
            @"\n\n  ERROR in %s: The property \"_components\" is nil.\n\n",
            __PRETTY_FUNCTION__);
+  NSAssert(self.locale,
+           @"\n\n  ERROR in %s: The property \"_locale\" is nil.\n\n",
+           __PRETTY_FUNCTION__);
 
   ADWebService *webService;
   self.components.host = kDropboxAPIHost;
   self.components.path = @"/1/account/info";
 
   NSURLQueryItem *locale;
-  locale = [NSURLQueryItem queryItemWithName:@"locale" value:@"en-US"];
+  locale = [NSURLQueryItem queryItemWithName:@"locale"
+                                       value:self.locale.localeIdentifier];
   self.components.queryItems = @[locale];
   webService = [ADWebService webServiceWithURL:self.components.URL];
 

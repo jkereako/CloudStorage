@@ -26,12 +26,12 @@ The iOS SDK for Dropbox was last updated in September of 2014. The code in the
 SDK is not ARC compliant and contains unmaintained packages like
 [MPOAuth][mpoauth]. More over, the SDK is extremely bloated. Downloading and
 uploading files is a simple process, but the Dropbox SDK would make you believe
-you have to be a rocket surgeon to handle such tasks.
+it's rocket surgery.
 
 # Installation
 To begin with, you'll need a Dropbox account and you'll have to set up a Dropbox
-App. Next, rename `Secrets.example.plist` to `Secrets.plist` and enter in the
-correct information.
+App. Next, rename `Resources/Secrets.example.plist` to `Resources/Secrets.plist` 
+and enter in the correct information.
  
 More on this later.
 

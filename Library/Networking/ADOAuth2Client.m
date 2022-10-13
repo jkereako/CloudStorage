@@ -120,7 +120,9 @@
   self.components.queryItems = (NSArray *)queryItems;
 
   // All HTTP and HTTPs schemes will open Safari
-  [[UIApplication sharedApplication] openURL:self.components.URL];
+  [UIApplication.sharedApplication openURL:self.components.URL
+                                   options:@{}
+                         completionHandler:nil];
 }
 
 // Simply invokes the completion handler.

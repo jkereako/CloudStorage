@@ -114,10 +114,9 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
 
 // This delegate method is called after the user grants or denies access to his
 // Dropbox account.
-- (BOOL)application:(UIApplication * __unused)application
+- (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
-  sourceApplication:(NSString * __unused)sourceApplication
-         annotation:(id __unused)annotation {
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
 
   // What's this garbage?
   // Dropbox appends data as a URL fragment onto the redirect URI parameter of
@@ -133,6 +132,7 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
   NSURLComponents *urlComponents;
   NSArray *queryItems;
   NSPredicate *accessDeniedPredicate;
+  
   urlString = [url.absoluteString stringByReplacingOccurrencesOfString:@"#"
                                                             withString:@"?"];
   urlComponents = [NSURLComponents componentsWithString:urlString];
@@ -145,7 +145,8 @@ didFinishLaunchingWithOptions:(NSDictionary * __unused)launchOptions {
 
   accessDeniedPredicate = [NSPredicate
                            predicateWithFormat:@"name=%@ AND value=%@",
-                           @"error", @"access_denied"];
+                           @"error",
+                           @"access_denied"];
 
   // If the user denied access, then log it and return from this method.
   if ([queryItems filteredArrayUsingPredicate:accessDeniedPredicate].count) {

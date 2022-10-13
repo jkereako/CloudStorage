@@ -251,12 +251,9 @@ completionHandler:(void (^)(NSURLRequest *request, id response, NSError *error))
   [request setValue:self.authorizationHeaderValue
  forHTTPHeaderField:@"Authorization"];
 
-  [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-
   [[urlSession dataTaskWithRequest:(NSURLRequest *)request
                  completionHandler:
     ^(NSData *data, NSURLResponse *response, NSError *error) {
-      [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
       // If there was an error, then report it and execute the completion
       // handler
       if (error) {
